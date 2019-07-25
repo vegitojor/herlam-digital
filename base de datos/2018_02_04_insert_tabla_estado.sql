@@ -1,0 +1,1 @@
+INSERT INTO `estado_venta` (`id_estado`, `descripcion`) VALUES ('1', 'En carrito'), ('2', 'Esperando MP'), (3, 'Confirmado por MP');

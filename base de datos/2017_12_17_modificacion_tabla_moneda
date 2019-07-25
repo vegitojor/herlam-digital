@@ -1,0 +1,1 @@
+ALTER TABLE `moneda` ADD `activo` TINYINT NOT NULL DEFAULT '0' AFTER `valor_en_peso`;

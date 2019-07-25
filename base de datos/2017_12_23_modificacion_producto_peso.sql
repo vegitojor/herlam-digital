@@ -1,0 +1,1 @@
+ALTER TABLE `producto` CHANGE `peso_caja` `peso_caja` DECIMAL(6,2) NULL DEFAULT NULL;

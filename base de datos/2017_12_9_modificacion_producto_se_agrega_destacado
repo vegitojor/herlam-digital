@@ -1,0 +1,3 @@
+ALTER TABLE `producto` ADD `destacado` TINYINT(10) NULL DEFAULT '0' AFTER `id_producto_ficha_tecnica`;
+
+ALTER TABLE `pregunta` CHANGE `fecha_` `fecha` DATE NOT NULL;
