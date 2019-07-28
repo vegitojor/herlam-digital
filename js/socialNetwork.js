@@ -14,7 +14,7 @@ function shareSocial(id, imagen, idCategoria) {
 		    media: _urlServer + "/resourses/imagen_producto/" + imagen
 		}],
         url: _urlServer + "/resourses/imagen_producto/" + imagen,
-        text: "Mod Pc",
+        text: "herlam DIGITAL",
         showLabel: false,
     	showCount: false,
     	shareIn: "popup"

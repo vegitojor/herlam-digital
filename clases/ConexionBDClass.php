@@ -2,17 +2,17 @@
 
 Class ConexionBD {
 	// Config local
-	private $servidor = "localhost";
-	private $usuario = "postgres";
-	private $pass = "postgres";
-	private $bd = "herlam";
+	// private $servidor = "localhost";
+	// private $usuario = "postgres";
+	// private $pass = "postgres";
+	// private $bd = "herlam";
 	private $port = '5432';
 
 	//Confif Prod
-	// private $servidor = "localhost";
-	// private $usuario = "root";
-	// private $pass = "abrh++++";
-	// private $bd = "modpc";
+	private $servidor = "ec2-23-21-109-177.compute-1.amazonaws.com";
+	private $usuario = "avsnfsjxddvtro";
+	private $pass = "a082ef406ccbbff55f36578ef0b3424b12a3e16d28cf37fe84c29b9ec03f478b";
+	private $bd = "df7ro2kitpoeun";
 
 
 	private $conexion;
