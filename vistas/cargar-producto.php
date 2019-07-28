@@ -168,7 +168,7 @@ include_once ("../incluciones/verificacionAdmin.php");
 
                                     <select class="w3-select" name="categoria" id="categoria" ng-model="categoria" ng-change="cargarFichaTecnica()" required>
                                         <option value="" disabled>Seleccione una Categoria</option>
-                                        <option ng-repeat="categoriaPro in categorias" value="{{categoriaPro.id}}">{{categoriaPro.descripcion}}</option>
+                                        <option ng-repeat="categoriaPro in categorias" value="{{categoriaPro.id}}">{{categoriaPro.nombre}}</option>
                                     </select>
                                     <div ng-show="formularioProducto.$submitted || formularioProducto.categoria.$touched">
                                         <span class="w3-red" ng-show="formularioProducto.categoria.$error.required">El campo es obligatorio.</span>
@@ -312,7 +312,7 @@ include_once ("../incluciones/verificacionAdmin.php");
                         <td>{{producto.marca}}</td>
                         <td>{{producto.descripcion}}</td>
                         <td>{{producto.precio}}</td>
-                        <td>{{producto.codProveedor}}</td>
+                        <td>{{producto.codproveedor}}</td>
                         <td>{{producto.proveedor}}</td>
                         <td>{{producto.categoria}}</td>
                         <td>
@@ -320,12 +320,12 @@ include_once ("../incluciones/verificacionAdmin.php");
                             <span ng-hide="{{producto.nuevo}}">No</span>
                         </td>
                         <td>
-                            <a href="" class="w3-btn w3-round w3-green" ng-show="{{producto.disponible}}" data-toggle="tooltip" data-placement="bottom" title="Pulsa para Quitar de disponible" ng-click="cambiarDisponible(producto.id, 0)"><span class="fa fa-check-circle"></span></a> 
-                            <a href="" class="w3-btn w3-round w3-red" ng-hide="{{producto.disponible}}" data-toggle="tooltip" data-placement="bottom" title="Pulsa para poner como disponible" ng-click="cambiarDisponible(producto.id, 1)"><span class="fa fa-warning " ></span></a>
+                            <a href="" class="w3-btn w3-round w3-green" ng-show="{{producto.disponible == 't'}}" data-toggle="tooltip" data-placement="bottom" title="Pulsa para Quitar de disponible" ng-click="cambiarDisponible(producto.id, 0)"><span class="fa fa-check-circle"></span></a> 
+                            <a href="" class="w3-btn w3-round w3-red" ng-hide="{{producto.disponible == 't'}}" data-toggle="tooltip" data-placement="bottom" title="Pulsa para poner como disponible" ng-click="cambiarDisponible(producto.id, 1)"><span class="fa fa-warning " ></span></a>
                         </td >
                         <td>
-                            <a href="" class="w3-btn w3-round w3-green" ng-show="{{producto.destacado}}" data-toggle="tooltip" data-placement="bottom" title="Pulsa para Quitar de destacado" ng-click="cambiarDestacado(producto.id, 0)"><span class="fa fa-check-circle w3-large" ></span></a>
-                            <a href="" class="w3-btn w3-round w3-red" ng-hide="{{producto.destacado}}" data-toggle="tooltip" data-placement="bottom" title="Pulsa para destacar" ng-click="cambiarDestacado(producto.id, 1)"><span class="fa fa-warning w3-large" ></span></a>
+                            <a href="" class="w3-btn w3-round w3-green" ng-show="{{producto.destacado == 't'}}" data-toggle="tooltip" data-placement="bottom" title="Pulsa para Quitar de destacado" ng-click="cambiarDestacado(producto.id, 0)"><span class="fa fa-check-circle w3-large" ></span></a>
+                            <a href="" class="w3-btn w3-round w3-red" ng-hide="{{producto.destacado == 't'}}" data-toggle="tooltip" data-placement="bottom" title="Pulsa para destacar" ng-click="cambiarDestacado(producto.id, 1)"><span class="fa fa-warning w3-large" ></span></a>
                             
                         </td >
                         <td>

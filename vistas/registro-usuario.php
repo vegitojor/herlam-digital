@@ -6,7 +6,7 @@
  * Time: 11:32
  */
 
-include_once ('../incluciones/verificacionUsuario.php');
+// include_once ('../incluciones/verificacionUsuario.php');
 
 ?>
 <!DOCTYPE html>
@@ -31,7 +31,58 @@ include_once ('../incluciones/verificacionUsuario.php');
 
 <body ng-app="registroUsuario" ng-controller="formularioRegistro">
 <!-- Navigation -->
-<?php include_once('../incluciones/navbarVistas.php'); ?>
+<?php // include_once('../incluciones/navbarVistas.php'); ?>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../home.php"><span style="font-family:'arial';font-style: italic;font-weight: bold">herlam DIGITAL</span></a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <!-- <ul class="nav navbar-nav">
+                <li >
+                    <a href="nosotros.php">Así somos</a>
+                </li>
+                <li >
+                    <a href="institucional.php">Institucional</a>
+                </li>
+                <li >
+                    <a href="#" data-toggle="modal" data-target="#contactModal">Contacto</a>
+                </li>
+            </ul> -->
+            <!-- <ul class="nav navbar-nav pull-right " ng-hide="<?= $id ?>">
+
+                <li >
+                    <a href="registro-usuario.php">registrarse</a>
+                </li>
+                <li>
+                    <a href="login.php">Ingresar</a>
+                </li>
+            </ul> -->
+            <!-- <ul class="nav navbar-nav pull-right " ng-show="<?= $id ?>">
+                <li>
+                    <a href="carrito.php" data-toggle="tooltip" data-placement="bottom" title="Mis compras"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+                </li>
+                <li class="dropdown">
+                    <a href="" id="usuario" data-toggle="dropdown"><?= $nombre ?><span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="usuario">
+                        <li role="presentation"><a href="../controladores/cerrarSesionController.php">Salir</a></li>
+                    </ul>
+                </li>
+            </ul> -->
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+
 <!-- FIN DEL NAV   -->
 
 <!-- Page Content -->
@@ -39,7 +90,7 @@ include_once ('../incluciones/verificacionUsuario.php');
 
     <div class="row">
         <!-- ASIDE - COLUMNA LATERAL -->
-        <div class="col-md-3"  >
+        <!-- <div class="col-md-3"  >
             <div class="col-md-12" >
                 <p class="lead">Categorias:</p>
                 <div class="list-group" ng-init="listarCategorias()" >
@@ -48,7 +99,7 @@ include_once ('../incluciones/verificacionUsuario.php');
                 </div>
             </div>
             
-        </div>
+        </div> -->
         <!-- fin ASIDE -->
         
         <!--SECTION -->
@@ -158,14 +209,14 @@ include_once ('../incluciones/verificacionUsuario.php');
                             <label for="provincia">Seleccione su provincia</label>
                             <select class="form-control" name="provincia" ng-model="provincia" ng-change="cargarLocalidades()" >
                                 <option value="">Seleccione una provincia</option>
-                                <option ng-repeat="provincia in provincias" value={{provincia.id}}>{{provincia.nombre}}</option>
+                                <option ng-repeat="provincia in provincias" value={{provincia.id}}>{{provincia.provincia}}</option>
                             </select>
                         </div>
                         <div class="form-group" >
                             <label for="localidad">Seleccione su localidad</label>
                             <select class="form-control" name="localidad" ng-model="localidad" >
                                 <option value="">Seleccione una localidad</option>
-                                <option ng-repeat="localidad in localidades" value="{{localidad.id}}">{{localidad.nombre}}</option>
+                                <option ng-repeat="localidad in localidades" value="{{localidad.id}}">{{localidad.localidad}}</option>
                             </select>
                             <!-- <div  ng-show="registroUsuario.$submitted || registroUsuario.localidad.$touched">
                                 <span class="text-danger" ng-show="registroUsuario.localidad.$error.required">El campo es obligatorio.</span>

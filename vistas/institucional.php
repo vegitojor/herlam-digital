@@ -34,17 +34,18 @@ include_once ('../incluciones/verificacionUsuario.php');
 
     <div class="row">
         <!-- ASIDE - COLUMNA LATERAL -->
-        <div class="col-md-3" ng-init="cargarMoneda()" >
+        <!-- <div class="col-md-3" ng-init="cargarMoneda()" >
             <div class="col-md-12" ng-init="generarCheckoutBasicoMP(<?= $id ?>)">
                 <p class="lead">Categorias:</p>
                 <div class="list-group" ng-init="listarCategorias()" >
-                    <a ng-repeat="categoria in categorias" href="categoria.php?id={{categoria.id}}" class="list-group-item" >{{categoria.descripcion}}</a>
+                    <a ng-repeat="categoria in categorias" href="categoria.php?id={{categoria.id}}" class="list-group-item" >{{categoria.nombre}}</a>
 
                 </div>
             </div>
             
-        </div>
+        </div> -->
         <!-- fin ASIDE -->
+        <?php include_once('../incluciones/asideCategoria.php') ?>
         
         <!--SECTION -->
         <div class="col-md-9">

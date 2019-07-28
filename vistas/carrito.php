@@ -41,8 +41,8 @@ include_once ('../incluciones/verificacionUsuario.php');
         <div class="col-md-3" ng-init="cargarMoneda()" >
             <div class="col-md-12" ng-init="generarCheckoutBasicoMP(<?= $id ?>)">
                 <p class="lead">Categorias:</p>
-                <div class="list-group" ng-init="listarCategorias()" >
-                    <a ng-repeat="categoria in categorias" href="categoria.php?id={{categoria.id}}" class="list-group-item" >{{categoria.descripcion}}</a>
+                <div class="list-group" ng-init="listarCategorias()" ng-show="categorias.length > 0">
+                    <a ng-repeat="categoria in categorias" href="categoria.php?id={{categoria.id}}" class="list-group-item" >{{categoria.nombre}}</a>
 
                 </div>
             </div>
@@ -81,7 +81,7 @@ include_once ('../incluciones/verificacionUsuario.php');
                             <div class="tab-pane fade in active" id="paso1">
                                 <br>
                                 <!-- CADA UNO DE LOS PRODUCTOS EN EL CARRITO -->
-                                <div class="col-sm-12 col-lg-12 col-md-12 panel-group" >
+                                <div class="col-sm-12 col-lg-12 col-md-12 panel-group" ng-show="productosDelCarrito.length > 0">
                                     <div class="panel panel-default" ng-repeat="productoCarrito in productosDelCarrito"> 
                                         <div class="panel-heading"></div>
                                         <div class="panel-body">
@@ -93,7 +93,7 @@ include_once ('../incluciones/verificacionUsuario.php');
                                                 <br>
                                                 <p><label>Producto:</label> {{productoCarrito.descripcion}}</p>
                                                 <p>cantidad: <span><strong>{{productoCarrito.cantidad}}</strong></span></p>
-                                                <a href="" id="modificarCantidad" ng-model="modificarCantidad" data-toggle="modal" data-target="#modificarCantidadModal" ng-click="setearProductoCambioCantidad(<?= $id ?>, productoCarrito.idProducto, productoCarrito.cantidad)">Modificar cantidad</a>
+                                                <a href="" id="modificarCantidad" ng-model="modificarCantidad" data-toggle="modal" data-target="#modificarCantidadModal" ng-click="setearProductoCambioCantidad(<?= $id ?>, productoCarrito.idproducto, productoCarrito.cantidad)">Modificar cantidad</a>
                                             </div>
                                             <div class="col-md-3">
                                                 <h3 class="pull-right">{{productoCarrito.precio * moneda.valor * productoCarrito.cantidad | currency}}</h3>

@@ -6,13 +6,13 @@
  * Time: 20:55
  */
 
-include_once ('../incluciones/verificacionAdmin.php');
+include_once('../incluciones/verificacionAdmin.php');
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <?php include_once ('../incluciones/headAdmin.php'); ?>
+    <?php include_once('../incluciones/headAdmin.php'); ?>
     <script type="text/javascript" src="../js/adminModule.js"></script>
     <!-- Controlador angular -->
     <script type="text/javascript" src="../js/adminPreguntaController.js"></script>
@@ -30,17 +30,18 @@ include_once ('../incluciones/verificacionAdmin.php');
 
     <div class="w3-content" ng-model="divRespuesta" ng-show="divRespuesta">
         <div class="w3-container">
-            <div class="w3-card-4 w3-col l5 w3-display-middle w3-purple">
-                <header class="w3-orange">
-                    <button class="w3-button w3-right w3-orange w3-hover-blue-gray" ng-click="cerrarRespuestaForm()"><i class="fa fa-close "></i></button>
+            <div class="w3-card-4 w3-col l5 w3-display-middle w3-gray">
+                <header class="w3-blue-gray">
+                    <button class="w3-button w3-right w3-blue-gray w3-hover-orange" ng-click="cerrarRespuestaForm()"><i class="fa fa-close "></i></button>
                     <h2 class="w3-margin-left">Responder pregunta</h2>
                 </header>
                 <div>
                     <form class="w3-container" name="respuestaForm">
                         <p>Id de pregunta: {{idPregunta}}</p>
                         <p>
-                        <label for="">Respuesta:</label>
-                        <input type="text" class="w3-input" name="respuesta" ng-model="respuesta" placeholder="Ingrese su respuesta" required="required" autofocus></p>
+                            <label for="">Respuesta:</label>
+                            <input type="text" class="w3-input" name="respuesta" ng-model="respuesta" placeholder="Ingrese su respuesta" required="required" autofocus>
+                        </p>
                         <input type="hidden" name="idPregunta" ng-model="idPregunta">
                         <button class="w3-btn w3-green w3-right" ng-click="enviarRespuesta()" ng-disabled="respuestaForm.$invalid">
                             <span class="fa fa-send-o"></span>&nbsp;Enviar respuesta
@@ -70,11 +71,11 @@ include_once ('../incluciones/verificacionAdmin.php');
                         </thead>
                         <tbody>
                             <tr ng-repeat="pregunta in preguntasSinRespuestas track by $index">
-                                <td>{{pregunta.idProducto}}</td>
-                                <td>{{pregunta.fechaPregunta}}</td>
+                                <td>{{pregunta.idproducto}}</td>
+                                <td>{{pregunta.fechapregunta}}</td>
                                 <td>{{pregunta.pregunta}}</td>
                                 <td>{{pregunta.usuario}}</td>
-                                <td><button class="w3-btn w3-deep-purple" ng-click="responderPregunta(pregunta.idPregunta)">Responder</button></td>
+                                <td><button class="w3-btn w3-deep-purple" ng-click="responderPregunta(pregunta.idpregunta)">Responder</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -92,7 +93,7 @@ include_once ('../incluciones/verificacionAdmin.php');
                 </header>
                 <div>
                     <table class="w3-table w3-stripped w3-bordered w3-hovarable w3-light-gray">
-                        <thaed>
+                        <thead>
                             <tr>
                                 <th>Producto Id</th>
                                 <th>Fecha de pregunta</th>
@@ -101,13 +102,13 @@ include_once ('../incluciones/verificacionAdmin.php');
                                 <th>Respuesta</th>
                                 <th>Usuario</th>
                             </tr>
-                        </thaed>
+                        </thead>
                         <tbody>
                             <tr ng-repeat="preguntaConRespuesta in preguntasConRespuestas">
-                                <td>{{preguntaConRespuesta.idProducto}}</td>
-                                <td>{{preguntaConRespuesta.fechaPregunta}}</td>
+                                <td>{{preguntaConRespuesta.idproducto}}</td>
+                                <td>{{preguntaConRespuesta.fechapregunta}}</td>
                                 <td>{{preguntaConRespuesta.pregunta}}</td>
-                                <td>{{preguntaConRespuesta.fechaRespuesta}}</td>
+                                <td>{{preguntaConRespuesta.fecharespuesta}}</td>
                                 <td>{{preguntaConRespuesta.respuesta}}</td>
                                 <td>{{preguntaConRespuesta.usuario}}</td>
                             </tr>

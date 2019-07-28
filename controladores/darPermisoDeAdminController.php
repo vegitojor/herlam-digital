@@ -6,8 +6,8 @@
  * Time: 10:15
  */
 include_once('../incluciones/adminControlerVerificacion.php');
-include_once ('../clases/ConexionBDClass.php');
-include_once ('../clases/ClienteClass.php');
+include_once('../clases/ConexionBDClass.php');
+include_once('../clases/ClienteClass.php');
 //OBTENEMOS LOS DATOS DEL AJAX
 $data = json_decode(file_get_contents('php://input'));
 $idUsuario = strip_tags($data->usuario);

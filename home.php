@@ -1,6 +1,6 @@
 <?php 
 
-include_once ('incluciones/verificacionUsuario.php');
+include_once('incluciones/verificacionUsuario.php');
 ?>
 <!DOCTYPE html>
 <html lang="es" >
@@ -13,7 +13,7 @@ include_once ('incluciones/verificacionUsuario.php');
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Shop Homepage - MODPC</title>
+    <title>herlam-digital</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="librerias/template/css/bootstrap.min.css" rel="stylesheet">
@@ -51,7 +51,7 @@ include_once ('incluciones/verificacionUsuario.php');
             <div class="col-md-3">
                 <p class="lead">Categorias:</p>
                 <div class="list-group" ng-init="listarCategorias()">
-                    <a ng-repeat="categoria in categorias" href="vistas/categoria.php?id={{categoria.id}}" class="list-group-item" >{{categoria.descripcion}}</a>
+                    <a ng-repeat="categoria in categorias" href="vistas/categoria.php?id={{categoria.id}}" class="list-group-item" >{{categoria.nombre}}</a>
 
                 </div>
             </div>

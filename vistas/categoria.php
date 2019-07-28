@@ -6,7 +6,7 @@
  * Time: 11:32
  */
 
-include_once ('../incluciones/verificacionUsuario.php');
+include_once('../incluciones/verificacionUsuario.php');
 
 $idCategoria = $_GET['id'];
 ?>
@@ -45,7 +45,7 @@ $idCategoria = $_GET['id'];
             <div class="col-md-12">
                 <p class="lead">Categorias:</p>
                 <div class="list-group" ng-init="listarCategorias(); listarMarcas()" >
-                    <a ng-repeat="categoria in categorias" href="categoria.php?id={{categoria.id}}" class="list-group-item" >{{categoria.descripcion}}</a>
+                    <a ng-repeat="categoria in categorias" href="categoria.php?id={{categoria.id}}" class="list-group-item" >{{categoria.nombre}}</a>
 
                 </div>
             </div>
@@ -211,7 +211,7 @@ $idCategoria = $_GET['id'];
             <div class="row" ng-init="listarproductosPorCategoria(idCategoriaModel); cantidadDePaginacion(idCategoriaModel)">
 
                 <div class="jumbotron ">
-                    <h1 ng-init="traerCategoria(idCategoriaModel)">{{categoria.descripcion}}</h1>
+                    <h1 ng-init="traerCategoria(idCategoriaModel)">{{categoria.nombre}}</h1>
                 </div>
                 
                  <!-- preloader -->
@@ -330,7 +330,7 @@ $idCategoria = $_GET['id'];
                                             <p ng-show="producto.nuevo"><strong>Nuevo</strong></p>
                                             <p ng-hide="producto.nuevo"><strong>Usado</strong></p>
                                             <p>C&oacute;digo SKU: <strong>{{producto.sku}}</strong></p>
-                                            <p>Meses de garant&iacute;a: <strong>{{producto.mesesGarantia}}</strong></p>
+                                            <p>Meses de garant&iacute;a: <strong>{{producto.mesesgarantia}}</strong></p>
                                             <div>
                                                 <div>
                                                     <div class="btn col-sm-2" name="bajarCantidad" ng-click="restarCantidad()"><span class="glyphicon glyphicon-minus"></span></div>
@@ -464,7 +464,7 @@ $idCategoria = $_GET['id'];
                                                        <div class="panel panel-default" ng-repeat="preg in preguntas">
                                                          <div class="panel-body">{{preg.pregunta}} - ({{preg.fecha}})</div>
                                                          <div class="panel-footer" ng-show="preg.respuesta">
-                                                             {{preg.respuesta}} - ({{preg.fechaRespuesta}})
+                                                             {{preg.respuesta}} - ({{preg.fecharespuesta}})
                                                           </div>
                                                        </div>
                                                        <div class="text-center" ng-if="preguntas.length == 0">

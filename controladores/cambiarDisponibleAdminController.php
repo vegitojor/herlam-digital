@@ -14,7 +14,7 @@ include_once ('../clases/ProductoClass.php');
 $data = json_decode(file_get_contents('php://input'));
 
 $id = $data->idProducto;
-
+$id = (int)$id;
 
 //CONEXION DE DB
 $conn = new ConexionBD();
@@ -22,15 +22,22 @@ $conexion = $conn->getConexion();
 
 //INICIALIZAMOS EL PRODUCTO
 $producto = new Producto($id);
-
+// var_dump($producto);
 //guardamos los cambios
 
 //SI DATA-DISPONIBLE ES = 1 SE EDITA DISPONIBLE
 if($data->disponible == 1){
-    $respuesta = $producto->cambiarDisponible($conexion, $data->activo);
+	$activo = $data->activo;
+	if($activo == 1)
+		$activo = true;
+    $respuesta = $producto->cambiarDisponible($conexion, $activo);
 }else{
 //SI DATA-DISPONIBLE ES = 0 SE EDITA DESTACADO
-    $respuesta = $producto->cambiarDestacado($conexion, $data->activo);
+	$activo = $data->activo;
+	if($activo == 1){
+		$activo = true;
+	}
+	$respuesta = $producto->cambiarDestacadoV2($conexion, $activo);
 }
 
 if(($respuesta > 0 )){

@@ -25,6 +25,8 @@ $conexion = $conn->getConexion();
 //SE BUSCA LA INFORMACION NECESARIA
 $resultado = Producto::obtenerOpcionesFiltrosPorCampo($conexion, $idCategoria, $campo);
 
+
+
 //SE CIERRA CONEXION A BD 
 $conn->cerrarConexion();
 

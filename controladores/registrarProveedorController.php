@@ -36,7 +36,7 @@ $existeProveedor = $proveedor->buscarNombre($conexion);
 
 //validacion y persistencia
 $mensaje = array();
-if($existeProveedor == Null){
+if($existeProveedor == false){
     $proveedor->persistirse($conexion);
     $mensaje = ['respuesta'=> 1,];
     echo json_encode($mensaje);

@@ -27,36 +27,36 @@ app.controller("carritoController", function ($scope, $http, $sce, $filter) {
            })
    }
 
-   $scope.cargarProductosCarrito = function($idUsuario){
-      $scope.usuario = $idUsuario;
-   		$http.post('../controladores/usuario/cargarProductosCarritoController.php', {'usuario': $idUsuario})
-   		.success(function(response){
-   			$scope.productosDelCarrito = response;
+	$scope.cargarProductosCarrito = function($idUsuario){
+		$scope.usuario = $idUsuario;
+			$http.post('../controladores/usuario/cargarProductosCarritoController.php', {'usuario': $idUsuario})
+			.success(function(response){
+				$scope.productosDelCarrito = response;
 
-        $scope.totalDelCarrito = 0;
-        $scope.pesoTotal = 0;
-        $scope.paquetes = "";
-        angular.forEach($scope.productosDelCarrito, function(value, key){
-            $scope.totalDelCarrito = $scope.totalDelCarrito + (value.cantidad * (value.precio * $scope.moneda.valor));
+			$scope.totalDelCarrito = 0;
+			$scope.pesoTotal = 0;
+			$scope.paquetes = "";
+			angular.forEach($scope.productosDelCarrito, function(value, key){
+				$scope.totalDelCarrito = $scope.totalDelCarrito + (value.cantidad * (value.precio * $scope.moneda.valor));
 
-            $scope.pesoTotal = $scope.pesoTotal + (value.peso * value.cantidad);
+				$scope.pesoTotal = $scope.pesoTotal + (value.peso * value.cantidad);
 
-            $scope.paquetes = $scope.paquetes + value.alto + "x" + value.ancho + "x" + value.largo;
-            if ( key > $scope.productosDelCarrito.lentgh - 1 ){
-              $scope.paquetes += ",";
-            }
-        });
+				$scope.paquetes = $scope.paquetes + value.alto + "x" + value.ancho + "x" + value.largo;
+				if ( key > $scope.productosDelCarrito.lentgh - 1 ){
+				$scope.paquetes += ",";
+				}
+			});
 
-        //generarCheckoutBasicoMP($scope.usuario);
-   		});
-   }
+			//generarCheckoutBasicoMP($scope.usuario);
+			});
+	}
 
-   $scope.generarCheckoutBasicoMP = function($idUsuario){
-      $http.post('../controladores/usuario/generarCheckoutBasicoMPController.php', {'usuario': $idUsuario})
-      .success(function(response){
-        $scope.linkPagoMercadoPago = response;
-      });
-   }
+	$scope.generarCheckoutBasicoMP = function($idUsuario){
+		// $http.post('../controladores/usuario/generarCheckoutBasicoMPController.php', {'usuario': $idUsuario})
+		// .success(function(response){
+		// 	$scope.linkPagoMercadoPago = response;
+		// });
+	}
 
    $scope.quitarDelCarrito = function($idUsuario, $idProducto, cantidad){
    		$scope.usuario = $idUsuario;
@@ -81,33 +81,31 @@ app.controller("carritoController", function ($scope, $http, $sce, $filter) {
    		});
    }
 
-   $scope.setearProductoCambioCantidad = function(idUsuario, idProducto, cantidad){
-      $scope.usuario = idUsuario;
-      $scope.productoParamodificarCantidad = idProducto;
-      $scope.viejaCantidad = cantidad;
-   }
+	$scope.setearProductoCambioCantidad = function(idUsuario, idProducto, cantidad){
+		$scope.usuario = idUsuario;
+		$scope.productoParamodificarCantidad = idProducto;
+		$scope.viejaCantidad = cantidad;
+	}
 
-   $scope.modificarCantidadDesdeModal = function(){
-      $http.post("../controladores/usuario/cambiarCantidadProductoEncarritoController.php", 
-        {'usuario': $scope.usuario, 'producto': $scope.productoParamodificarCantidad, 'cantidad': $scope.nuevaCantidad, 'viejaCantidad': $scope.viejaCantidad})
-      .success( function( response ){
-          $("#modificarCantidadModal").modal('hide');
-          $scope.nuevaCantidad = null;
+	$scope.modificarCantidadDesdeModal = function(){
+		$http.post("../controladores/usuario/cambiarCantidadProductoEncarritoController.php", 
+			{'usuario': $scope.usuario, 'producto': $scope.productoParamodificarCantidad, 'cantidad': $scope.nuevaCantidad, 'viejaCantidad': $scope.viejaCantidad})
+		.success( function( response ){
+			$("#modificarCantidadModal").modal('hide');
+			$scope.nuevaCantidad = null;
 
-          if(response.respuesta == 1){
-            $scope.cargarProductosCarrito($scope.usuario);
-          }
-          else if(response.respuesta == 2){
-            bootbox.alert('No fue posible modificar la cantidad a este producto! Por favor vuelva a intentarlo en unos momentos.');
-          }
-          else if (response.respuesta == 3) 
-            bootbox.alert('Se introducieron valores erroneos!');
-          else
-            bootbox.alert('Ocurrio un error con la conexción. Vuelva a intentarlo en unos momentos.');
-          
-          
-      } );
-   }
+			if(response.respuesta == 1){
+				$scope.cargarProductosCarrito($scope.usuario);
+			}
+			else if(response.respuesta == 2){
+				bootbox.alert('No fue posible modificar la cantidad a este producto! Por favor vuelva a intentarlo en unos momentos.');
+			}
+			else if (response.respuesta == 3) 
+				bootbox.alert('Se introducieron valores erroneos!');
+			else
+				bootbox.alert('Ocurrio un error con la conexción. Vuelva a intentarlo en unos momentos.');
+		} );
+	}
 
    $scope.pasarAlSiguente = function( tab ){
       if ( tab == 2 ){

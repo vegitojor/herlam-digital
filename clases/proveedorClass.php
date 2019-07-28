@@ -31,108 +31,130 @@ Class Proveedor{
                   (nombre,
                   telefono,
                   direccion,
-                  cod_postal,
-                  mail,
+                  codigo_postal,
+                  email,
                   id_localidad) VALUES 
-                  (?, ?, ?, ?, ?, ?)";
+                  ($1,$2, $3, $4, $5, $6)";
 
-        $stmt = mysqli_prepare($conexion, $query);
-
-        mysqli_stmt_bind_param($stmt,'sssisi',
-                                $this->nombre,
-                                $this->telefono,
-                                $this->direccion,
-                                $this->codPostal,
-                                $this->email,
-                                $this->localidad);
-
-        mysqli_stmt_execute($stmt);
+        // $stmt = mysqli_prepare($conexion, $query);
+        // mysqli_stmt_bind_param($stmt,'sssisi',
+        //                         $this->nombre,
+        //                         $this->telefono,
+        //                         $this->direccion,
+        //                         $this->codPostal,
+        //                         $this->email,
+        //                         $this->localidad);
+		// mysqli_stmt_execute($stmt);
+		
+		//====================== Postgres ===============
+        pg_query_params($conexion, $query, array($this->nombre, $this->telefono, $this->direccion, $this->codPostal,
+            $this->email, $this->localidad));
     }
 
     public function buscarNombre($conexion){
 	    $consulta = "SELECT * FROM proveedor
-                    WHERE nombre = ?";
+                    WHERE nombre = $1";
 
-	    $stmt = mysqli_prepare($conexion, $consulta);
-
-	    mysqli_stmt_bind_param($stmt, 's', $this->nombre);
-
-	    mysqli_stmt_execute($stmt);
-
-	    $resultado = mysqli_stmt_fetch($stmt);
+	    // $stmt = mysqli_prepare($conexion, $consulta);
+	    // mysqli_stmt_bind_param($stmt, 's', $this->nombre);
+	    // mysqli_stmt_execute($stmt);
+		// $resultado = mysqli_stmt_fetch($stmt);
+		
+		//==================== Postgres ====================
+		$result = pg_query_params($conexion, $consulta, array($this->nombre));
+		$resultado = false;
+		while(pg_fetch_assoc($result))
+			$resultado = true;
 
 	    return $resultado;
 
     }
 
     public static function listarProveedores($conexion){
-        $consulta = "SELECT P.id_proveedor id, 
+        $consulta = "SELECT P.id, 
                         P.nombre,
                         P.telefono,
                         P.direccion,
-                        P.cod_postal codigoPostal,
-                        P.mail email,
-                        L.localidad localidad
-                    FROM proveedor P JOIN localidad L ON P.id_localidad=L.id_localidad;";
+                        P.codigo_postal codigoPostal,
+                        P.email,
+                        L.localidad 
+                    FROM proveedor P 
+					LEFT JOIN localidad L ON P.id_localidad=L.id";
 
-        $resultado = mysqli_query($conexion, $consulta);
-        $output = array();
-        while ($fila = mysqli_fetch_assoc($resultado)){
-            $fila['localidad'] = utf8_encode($fila['localidad']);
-            $output[] = $fila;
-        }
+        // $resultado = mysqli_query($conexion, $consulta);
+        // $output = array();
+        // while ($fila = mysqli_fetch_assoc($resultado)){
+        //     $fila['localidad'] = utf8_encode($fila['localidad']);
+        //     $output[] = $fila;
+		// }
+		
+		//===================== Postgres ==================
+		$result = pg_query($conexion, $consulta);
+		$output = array();
+		while($fila = pg_fetch_assoc($result))
+			$output[] = $fila;
 
         return $output;
     }
 
     public static function obtenerProveedorPorId($conexion, $id){
-        $consulta = "SELECT P.id_proveedor id,
+        $consulta = "SELECT P.id,
                     P.nombre,
                     P.telefono,
                     P.direccion,
-                    P.cod_postal codigoPostal,
-                    P.mail email,
-                    L.id_localidad idLocalidad,
-                    L.localidad localidad,
-                    PR.id_provincia idProvincia
-                    FROM proveedor P JOIN localidad L ON P.id_localidad = L.id_localidad 
-                    JOIN provincia PR ON PR.id_provincia = L.id_provincia
-                    WHERE P.id_proveedor = ?";
+                    P.codigo_postal codigoPostal,
+                    P.email,
+                    L.id idLocalidad,
+                    L.localidad,
+                    PR.id idProvincia
+                    FROM proveedor P 
+					LEFT JOIN localidad L ON P.id_localidad = L.id 
+                    JOIN provincia PR ON PR.id = L.id_provincia
+                    WHERE P.id = $1";
 
-        $stmt = mysqli_prepare($conexion, $consulta);
-        //probando la conexion
-        if ( !$stmt ) {
-            die('mysqli error: '.mysqli_error($conexion));
-        }
-        mysqli_stmt_bind_param($stmt, 'i', $id);
-        mysqli_stmt_execute($stmt);
+        // $stmt = mysqli_prepare($conexion, $consulta);
+        // //probando la conexion
+        // if ( !$stmt ) {
+        //     die('mysqli error: '.mysqli_error($conexion));
+        // }
+        // mysqli_stmt_bind_param($stmt, 'i', $id);
+        // mysqli_stmt_execute($stmt);
 
-        $resultado = mysqli_stmt_get_result($stmt);
-        $respuesta = mysqli_fetch_assoc($resultado);
-        $respuesta['localidad'] = utf8_encode($respuesta['localidad']);
+        // $resultado = mysqli_stmt_get_result($stmt);
+        // $respuesta = mysqli_fetch_assoc($resultado);
+		// $respuesta['localidad'] = utf8_encode($respuesta['localidad']);
+		
+		//===================== Postgres ===================
+		$result = pg_query_params($conexion, $consulta, array($id));
+		$respuesta = pg_fetch_assoc($result);
         return $respuesta;
     }
 
     public function editarse($conexion){
         $consulta = "UPDATE proveedor 
-                      SET nombre = ?,
-                          telefono = ?,
-                          direccion = ?,
-                          cod_postal = ?,
-                          mail = ?,
-                          id_localidad = ?
-                      WHERE id_proveedor = ?";
+                      SET nombre = $1,
+                          telefono = $2,
+                          direccion = $3,
+                          codigo_postal = $4,
+                          email = $5,
+                          id_localidad = $6
+                      WHERE id = $7";
 
-        $stmt = mysqli_prepare($conexion, $consulta);
-        mysqli_stmt_bind_param($stmt,"sssisii",
-            $this->nombre,
-            $this->telefono,
-            $this->direccion,
-            $this->codPostal,
-            $this->email,
-            $this->localidad,
-            $this->id);
-        mysqli_stmt_execute($stmt);
+        // $stmt = mysqli_prepare($conexion, $consulta);
+        // mysqli_stmt_bind_param($stmt,"sssisii",
+        //     $this->nombre,
+        //     $this->telefono,
+        //     $this->direccion,
+        //     $this->codPostal,
+        //     $this->email,
+        //     $this->localidad,
+        //     $this->id);
+		// mysqli_stmt_execute($stmt);
+		
+		//================= Postgres ==================
+		$result = pg_query_params($conexion, $consulta, array(
+			$this->nombre, $this->telefono, $this->direccion, $this->codPostal, $this->email, $this->localidad, $this->id
+		));
     }
 }
 ?>

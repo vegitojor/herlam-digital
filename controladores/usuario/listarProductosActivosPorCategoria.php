@@ -172,6 +172,8 @@ $resultado = Producto::listarProductosDisponiblesPorIdCategoria($conexion, $idCa
 			                                       $orden
 									);
 
+
+
 //SE CIERRA CONEXION A BD 
 $conn->cerrarConexion();
 

@@ -15,14 +15,14 @@ app.controller('adminCliente', function ($scope, $http, $window) {
     $scope.localidadClienteModal;
 
     $scope.listarClientes = function () {
-        $http.post('../controladores/listarClientesController.php', {'admin': 0, 'desde': desdeCliente, 'limite': limite})
+        $http.post('../controladores/listarClientesController.php', {'admin': false, 'desde': desdeCliente, 'limite': limite})
             .success(function (response) {
                 $scope.clientes = response;
             })
     }
 
     $scope.listarAdministradores = function () {
-        $http.post('../controladores/listarClientesController.php', {'admin': 1, 'desde': desdeAdmin, 'limite': limite})
+        $http.post('../controladores/listarClientesController.php', {'admin': true, 'desde': desdeAdmin, 'limite': limite})
             .success(function (response) {
                 $scope.administradores = response;
             })

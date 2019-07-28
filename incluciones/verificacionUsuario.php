@@ -15,11 +15,22 @@ if(isset($_SESSION['usuario'])){
     $apellido = $_SESSION['usuario']['apellido'];
     $admin = $_SESSION['usuario']['admin'];
 }else{
-    // session_destroy();
-    $id = 0;
-    $username = null;
-    $email = null;
-    $nombre = null;
-    $apellido = null;
-    $admin = null;
+    session_destroy();
+    $url= $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . '/';
+    // var_dump($_SERVER);
+    if($_SERVER['SERVER_NAME'] == 'localhost'){
+        $url = $url . 'herlam-digital/';
+    }
+
+    $url .= 'index.php';
+
+    header('location: ' . $url);
+
+
+    // $id = 0;
+    // $username = null;
+    // $email = null;
+    // $nombre = null;
+    // $apellido = null;
+    // $admin = null;
 }

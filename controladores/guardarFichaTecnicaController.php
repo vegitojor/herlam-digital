@@ -7,7 +7,7 @@
  */
 
 include_once('../incluciones/adminControlerVerificacion.php');
-include_once ('../clases/ConexionBDClass.php');
+include_once('../clases/ConexionBDClass.php');
 include_once('../clases/ProductoClass.php');
 
 //CAPTURA DE DATOS DEL AJAX
@@ -45,7 +45,7 @@ $conexion = $conn->getConexion();
 $listaNombresFichas = Producto::listarNombresFichas($conexion);
 $fichaSinRegistrar = true;
 foreach ($listaNombresFichas as $item) {
-    if ($nombre == $item['nombre_ficha']){
+    if ($nombre == $item['nombre']){
         $fichaSinRegistrar = false;
         break;
     }

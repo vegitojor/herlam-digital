@@ -2,7 +2,7 @@
 require_once('../clases/ConexionBDClass.php');
 require_once('../clases/ClienteClass.php');
 
-error_reporting('E_ALL ^ E_NOTICE');
+// error_reporting('E_ALL ^ E_NOTICE');
 
 //toma de datos desde llamado ajax
 $data = json_decode(file_get_contents('php://input'));
@@ -62,12 +62,17 @@ $usuario = new Cliente($id,
 //comprobacion de que no existe el email en la BD
 $listaEmail = Cliente::listarEmail($conexion);
 $emailSinRegistrar = true;
+
 foreach ($listaEmail as $emailBD) {
+	
 	if($emailBD == $email){
+		
 		$emailSinRegistrar = false;
 		break;
 	}
 }
+
+
 
 //si no existe el email se realiza la persistencia de datos
 $mensaje = array();

@@ -13,14 +13,14 @@ $id = (int)$id;
 ?>
 <!DOCTYPE html>
 <html>
-    <haed>
+    <head>
         <?php include_once ('../incluciones/headAdmin.php');?>
         <script type="text/javascript" src="../js/adminModule.js"></script>
         <script typt="text/javascript" src="../js/editarProveedorController.js"></script>
         <script typt="text/javascript" src="../js/editarRedireccionarController.js"></script>
 
         <title>Editar proveedor</title>
-    </haed>
+    </head>
     <body ng-app="admin" ng-controller="editarProveedor" class="w3-light-gray">
         <?php include_once ('../incluciones/navegadorAdmin.php');?>
 
@@ -38,7 +38,7 @@ $id = (int)$id;
                         <div class="w3-row">
                             <div class="w3-content w3-padding">
                                 <input type="hidden" name="id" value="{{proveedorObtenido.id}}">
-                                <input type="hidden" name="idLocalidad" value="{{proveedorObtenido.idLocalidad}}">
+                                <input type="hidden" name="idLocalidad" value="{{proveedorObtenido.idlocalidad}}">
                                 <input type="text" class="w3-input w3-hover-orange" name="nombre" value="{{proveedorObtenido.nombre}}"  required >
                                 <label for="">Nombre del proveedor</label>
                                 <div  ng-show="formProveedor.nombre.$touched || formProveedor.$submitted">
@@ -74,7 +74,7 @@ $id = (int)$id;
                                     </div>
                                 </div>
                                 <div class="w3-col l3 w3-padding">
-                                    <input type="number" class="w3-input w3-hover-orange" name="codigoPostal" value="{{proveedorObtenido.codigoPostal}}" required>
+                                    <input type="number" class="w3-input w3-hover-orange" name="codigoPostal" value="{{proveedorObtenido.codigopostal}}" required>
                                     <label for="">Código Postal</label>
                                     <div  ng-show="formProveedor.codigoPostal.$touched || formProveedor.$submitted">
                                         <span class="w3-text-red" ng-show="formProveedor.codigoPostal.$error.required">El campo es obligatorio.</span>

@@ -1,37 +1,39 @@
 app.controller("formularioRegistro", function($scope, $http, $window, $filter){
 	$scope.preloader = true;
 //		*****este metodo quedo obsoleto al empezar a utilizar EnvioPack
+	$scope.cargarProvincias = function(){
+		$http.get("../controladores/cargarProvinciasController.php")
+			.success(function(data){
+				$scope.provincias =  data;
+				$scope.preloader = false;
+			})
+	}
+
 	// $scope.cargarProvincias = function(){
-	// 	$http.get("../controladores/cargarProvinciasController.php")
+	// 	$http.get("../controladores/cargarProvinciaEnvioPackController.php", {'idProvincia': null})
 	// 		.success(function(data){
+	// 			$scope.preloader = false;
 	// 			$scope.provincias =  data;
 	// 		})
 	// }
 
-	$scope.cargarProvincias = function(){
-		$http.get("../controladores/cargarProvinciaEnvioPackController.php", {'idProvincia': null})
+//		*****este metodo quedo obsoleto al empezar a utilizar EnvioPack
+	$scope.cargarLocalidades = function(){
+		$http.post("../controladores/cargarLocalidadesController.php", {'idProvincia': $scope.provincia})
 			.success(function(data){
 				$scope.preloader = false;
-				$scope.provincias =  data;
+				$scope.localidades = data;
 			})
 	}
 
-//		*****este metodo quedo obsoleto al empezar a utilizar EnvioPack
 	// $scope.cargarLocalidades = function(){
-	// 	$http.post("../controladores/cargarLocalidadesController.php", {'idProvincia': $scope.provincia})
+	// 	$scope.preloader = true;
+	// 	$http.post("../controladores/cargarProvinciaEnvioPackController.php", {'idProvincia': $scope.provincia})
 	// 		.success(function(data){
 	// 			$scope.localidades = data;
+	// 			$scope.preloader = false;
 	// 		})
 	// }
-
-	$scope.cargarLocalidades = function(){
-		$scope.preloader = true;
-		$http.post("../controladores/cargarProvinciaEnvioPackController.php", {'idProvincia': $scope.provincia})
-			.success(function(data){
-				$scope.localidades = data;
-				$scope.preloader = false;
-			})
-	}
 	
 	$scope.listarCategorias = function () {
 
@@ -61,7 +63,7 @@ app.controller("formularioRegistro", function($scope, $http, $window, $filter){
 					$scope.data = response;
 
 					if($scope.data.respuesta == 1){
-						$window.location.href = "../index.php";
+						$window.location.href = "../home.php";
 					}else if ($scope.data.respuesta == 0){
 						alert("El email ingresado ya esta en uso. Por favor ingrese un email diferente.");
 					}else {

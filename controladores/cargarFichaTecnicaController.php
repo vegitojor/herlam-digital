@@ -7,8 +7,8 @@
  */
 
 include_once('../incluciones/verificacionUsuario.php');
-include_once ('../clases/ConexionBDClass.php');
-include_once ('../clases/ProductoClass.php');
+include_once('../clases/ConexionBDClass.php');
+include_once('../clases/ProductoClass.php');
 
 //OBTENER DATOS DEL AJAX
 $data = json_decode(file_get_contents('php://input'));
@@ -22,6 +22,7 @@ $conexion = $conn->getConexion();
 
 //carga de FICHA TECNICA
 $respuesta = Producto::cargarFichaTecnicaPorIdCategoria($conexion, $idCategoria);
+
 
 echo json_encode($respuesta);
 

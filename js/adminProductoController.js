@@ -74,20 +74,20 @@ app.controller("adminProducto", function ($scope, $http) {
         $scope.descripcionEditar = $producto.descripcion;
         $scope.precioEditar = parseFloat($producto.precio);
         
-        $scope.mesesGarantiaEditar = $producto.mesesGarantia;
-        $scope.codigoFabricanteEditar = $producto.codFabricante;
-        $scope.codigoProveedorEditar = $producto.codProveedor;
+        $scope.mesesGarantiaEditar = parseInt( $producto.mesesgarantia);
+        $scope.codigoFabricanteEditar = $producto.codfabricante;
+        $scope.codigoProveedorEditar = parseInt( $producto.codproveedor);
         $scope.skuEditar = $producto.sku;
         $scope.videoEditar = $producto.video;
-        $scope.proveedorEditar = $producto.proveedorId;
+        $scope.proveedorEditar = $producto.proveedorid;
         $scope.altoEditar = parseFloat($producto.alto);
         $scope.anchoEditar = parseFloat($producto.ancho);
         $scope.profundidadEditar = parseFloat($producto.profundidad);
         $scope.pesoEditar = parseFloat($producto.peso);
-        $scope.marcaEditar = $producto.marcaId;
-        $scope.categoriaEditar = $producto.categoriaId;
+        $scope.marcaEditar = $producto.marcaid;
+        $scope.categoriaEditar = $producto.categoriaid;
         //se setea categoria para la busqueda de la funcion
-        $scope.categoria = $producto.categoriaId;
+        $scope.categoria = $producto.categoriaid;
         $scope.cargarFichaTecnica();
 
         $scope.campoProducto01Editar = $producto.campo01;

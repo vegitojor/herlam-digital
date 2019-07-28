@@ -87,9 +87,9 @@ include_once ("../incluciones/verificacionAdmin.php");
                             <div class="w3-col l5 w3-padding">
                                 <div ng-init="provinciasProveedores()">
                                     <label for="provincia">Provincia del proveedor:</label>
-                                    <select class="w3-select w3-hover-orange" name="provinciaProveedor" id="provinciaProveedor" ng-model="provincia" ng-change="localidadesProveedores()" required="">
+                                    <select class="w3-select w3-hover-orange" name="provincia" id="provincia" ng-model="provincia" ng-change="localidadesProveedores()" required="">
                                         <option value="">Seleccione una provincia</option>
-                                        <option ng-repeat="provincia in provincias" value="{{provincia.id_provincia}}">{{provincia.provincia}}</option>
+                                        <option ng-repeat="provincia in provincias" value="{{provincia.id}}">{{provincia.provincia}}</option>
                                     </select>
                                     <div  ng-show="formProveedor.provincia.$touched || formProveedor.$submitted">
                                         <span class="w3-text-red" ng-show="formProveedor.provincia.$error.required">El campo es obligatorio.</span>
@@ -99,7 +99,7 @@ include_once ("../incluciones/verificacionAdmin.php");
                                     <label for="localidad">Localidad del proveedor:</label>
                                     <select class="w3-select w3-hover-orange" name="localidadProveedor" id="localidadProveedor" ng-model="localidad" required>
                                         <option value="">Seleccione una Localidad</option>
-                                        <option ng-repeat="localidad in localidades" value="{{localidad.id_localidad}}">{{localidad.localidad}}</option>
+                                        <option ng-repeat="localidad in localidades" value="{{localidad.id}}">{{localidad.localidad}}</option>
                                     </select>
                                     <div  ng-show="formProveedor.localidad.$touched || formProveedor.$submitted">
                                         <span class="w3-text-red" ng-show="formProveedor.localidad.$error.required">El campo es obligatorio.</span>

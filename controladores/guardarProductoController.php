@@ -7,10 +7,10 @@
  */
 
 include_once('../incluciones/adminControlerVerificacion.php');
-include_once ('../clases/ConexionBDClass.php');
+include_once('../clases/ConexionBDClass.php');
 include_once('../clases/ProductoClass.php');
 
-error_reporting('E_All' ^ 'E_NOTICE');
+// error_reporting('E_All' ^ 'E_NOTICE');
 //SE CAPTURAN LOS DATOS DEL AJAX
 $modelo = strip_tags($_POST['modelo']);
 $descripcion = strip_tags($_POST['descripcion']);
@@ -129,6 +129,8 @@ $nuevoProducto = new Producto($id, $descripcion, $precio, $mesesGarantia, $nuevo
 
 $nuevoProducto->persistirse($conexion);
 //**************************************************************************
+
+
 
 
 header('location: ../vistas/cargar-producto.php');

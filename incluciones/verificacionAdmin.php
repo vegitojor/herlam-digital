@@ -9,11 +9,11 @@
 
 session_start();
 if(isset($_SESSION['usuario'])){
-    if($_SESSION['usuario']['admin'] == 1){
+    if($_SESSION['usuario']['admin'] == 't'){
         $id = $_SESSION['usuario']['id'];
-        $username = $_SESSION['usuario']['username'];
+        $username = $_SESSION['usuario']['usuario'];
     }else{
-        header('location: ../index.php');
+        header('location: ../home.php');
     }
 }else{
     session_destroy();

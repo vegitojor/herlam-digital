@@ -25,6 +25,8 @@ $emailRegistrado = Cliente::consultarCliente($conexion, $email, $pass);
 //se crea la sesion en base a la respuesta de la funcion anterior
 $mensaje = array();
 
+
+
 //inicio de sesion
 ini_set('session.cookie_lifetime', "600");
 ini_set('session.hash_bits_per_character','4');

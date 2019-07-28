@@ -12,14 +12,23 @@ include_once ('../clases/ClienteClass.php');
 $data = json_decode(file_get_contents('php://input'));
 $admin = strip_tags($data->admin);
 $admin = (int)$admin;
+if($admin == 1)
+    $admin = (bool)$admin;
+
+// var_dump($admin);
+
 
 $desde = strip_tags($data->desde);
+$desde = (int)$desde;
 $limite = strip_tags($data->limite);
 $limite = (int)$limite;
 //CONEXION CON BD
 $conn = new ConexionBD();
 $conexion = $conn->getConexion();
 
+
+// var_dump($desde);
+// var_dump($limite);
 //LISTADO DE ClienteClass
 $clientes = Cliente::listarClientes($conexion, $admin, $desde, $limite);
 

@@ -126,59 +126,60 @@ app.controller("categoriaController", function ($scope, $http, $sce, $filter, $w
            });
    }
 
-   $scope.enviarPregunta = function($idUsuario, $idProducto){
-         $scope.preguntaBoootbox = "";
-         $scope.idProducto = $idProducto;
-         $scope.fechaActual = new Date();
-         $scope.fechaActual = $filter('date')($scope.fechaActual, 'yyyy-MM-dd HH:mm:ss');
-         bootbox.prompt({ 
-           size: "medium",
-           title: "Acerquenos su inquietud:",
-           buttons: {
-              confirm: {
-                  label: 'Enviar',
-                  className: 'btn-success'
-              },
-              cancel: {
-                  label: 'Cancelar',
-                  className: 'btn-danger'
-              }
-          }, 
-           callback: function(result){ if(result != null){
-                                          $scope.preguntaBoootbox = result;
-                                          $http.post('../controladores/usuario/guardarPreguntaController.php', 
-                                             {'idUsuario':$idUsuario, 'pregunta': $scope.preguntaBoootbox , 'idProducto':$idProducto, 'fecha': $scope.fechaActual})
-                                          .success(function(response){
-                                             if(response.respuesta == 1){
-                                                bootbox.alert('Su pregunta se envió con éxito! El vendedor la respondera a la brevedad.',
-                                                   function(){
-                                                      $scope.listarPreguntas($scope.idProducto);
-                                                   });
-                                             }
-                                             else if(response.respuesta == 2){
-                                                bootbox.alert('Su pregunta no pudo ser enviada! Por favor vuelva a intentarlo en unos momentos.');
-                                             }
-                                             else if (response.respuesta == 3) 
-                                                bootbox.alert('Se introducieron valores erroneos!');
-                                             else
-                                                bootbox.alert('Ocurrio un error con la conexción. Vuelva a intentarlo en unos momentos.');
-                                          });
-                                        } 
-              }
-         })
-   }
+	$scope.enviarPregunta = function($idUsuario, $idProducto){
+		$scope.preguntaBoootbox = "";
+		$scope.idProducto = $idProducto;
+		$scope.fechaActual = new Date();
+		$scope.fechaActual = $filter('date')($scope.fechaActual, 'yyyy-MM-dd HH:mm:ss');
+		bootbox.prompt({ 
+			size: "medium",
+			title: "Acerquenos su inquietud:",
+			buttons: {
+				confirm: {
+					label: 'Enviar',
+					className: 'btn-success'
+				},
+				cancel: {
+					label: 'Cancelar',
+					className: 'btn-danger'
+				}
+			}, 
+			callback: function(result){ 
+				if(result != null){
+					$scope.preguntaBoootbox = result;
+					$http.post('../controladores/usuario/guardarPreguntaController.php', 
+						{'idUsuario':$idUsuario, 'pregunta': $scope.preguntaBoootbox , 'idProducto':$idProducto, 'fecha': $scope.fechaActual})
+					.success(function(response){
+						if(response.respuesta == 1){
+							bootbox.alert('Su pregunta se envió con éxito! El vendedor la respondera a la brevedad.',
+							function(){
+								$scope.listarPreguntas($scope.idProducto);
+							});
+						}
+						else if(response.respuesta == 2){
+							bootbox.alert('Su pregunta no pudo ser enviada! Por favor vuelva a intentarlo en unos momentos.');
+						}
+						else if (response.respuesta == 3) 
+							bootbox.alert('Se introducieron valores erroneos!');
+						else
+							bootbox.alert('Ocurrio un error con la conexción. Vuelva a intentarlo en unos momentos.');
+					});
+				} 
+			}
+		});
+	}
 
-   $scope.listarPreguntas = function($idProducto, todas){
-      $http.post('../controladores/usuario/listarPreguntasController.php', {'idProducto':$idProducto, 'todas': todas})
-      .success(function(response){
-         $scope.preguntas = response;
-      });
+	$scope.listarPreguntas = function($idProducto, todas){
+		$http.post('../controladores/usuario/listarPreguntasController.php', {'idProducto':$idProducto, 'todas': todas})
+		.success(function(response){
+			$scope.preguntas = response;
+		});
 
-      if(todas == 1 )
-        $scope.botonVerTodasPreguntas = false;
-      else
-        $scope.botonVerTodasPreguntas = true;
-   }
+		if(todas == 1 )
+			$scope.botonVerTodasPreguntas = false;
+		else
+			$scope.botonVerTodasPreguntas = true;
+	}
 
    $scope.agregarAlCarrito = function($idUsuario, $idProducto, $cantidad){
       $scope.fechaActual = new Date();

@@ -45,6 +45,11 @@ $proveedor = new Proveedor($id,$nombre, $telefono, $direccion, $codigoPostal, $e
 
 $proveedor->editarse($conexion);
 
+
+
+
+
+
 /*
 //ARRAY DE RESPUESTA
 $respuesta = array();

@@ -19,4 +19,6 @@ $output = array();
 
 $output = Producto::cargarFichasTecnicas($conexion);
 
+
+
 echo json_encode($output);
