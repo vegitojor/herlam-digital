@@ -40,9 +40,11 @@ if($data->disponible == 1){
 	$respuesta = $producto->cambiarDestacadoV2($conexion, $activo);
 }
 
+//SE CIERRA LA CONEXION DE LA BASE DE DATOS
+$conn->cerrarConexion();
+
 if(($respuesta > 0 )){
 	$mensaje = ['respuesta'=>1, 'activo'=> $data->activo,];
-
 	echo json_encode($mensaje);
 }elseif ($respuesta == 0 ) {
 	$mensaje = ['respuesta'=>0,];

@@ -7,8 +7,8 @@
  */
 
 include_once('../incluciones/adminControlerVerificacion.php');
-include_once ('../clases/ConexionBDClass.php');
-include_once ('../clases/MarcaClass.php');
+include_once('../clases/ConexionBDClass.php');
+include_once('../clases/MarcaClass.php');
 
 //datos del ajax
 $data = json_decode(file_get_contents('php://input'));
@@ -24,5 +24,7 @@ $conexion = $conn->getConexion();
 //busqueda de información
 $respuesta = Marca::buscarMarcaPorId($conexion, $id);
 
+//SE CIERRA LA CONEXION DE LA BASE DE DATOS
+$conn->cerrarConexion();
 
 echo json_encode($respuesta);

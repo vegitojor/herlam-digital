@@ -102,14 +102,14 @@ include_once ('../incluciones/verificacionUsuario.php');
     <hr>
 
     <!-- Footer -->
-    <footer>
+    <!-- <footer>
         <div class="row">
             <div class="col-lg-12 text-center">
                 <p>Copyright &copy; ModPC 2017</p>
             </div>
         </div>
-    </footer>
-
+    </footer> -->
+    <?php include_once('../incluciones/footer.php') ?>
 </div>
 <!-- /.container -->
 <!-- jQuery -->

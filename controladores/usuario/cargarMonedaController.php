@@ -17,4 +17,7 @@ $conexion = $conn->getConexion();
 
 $output = Moneda::traerMonedaActiva($conexion);
 
+//SE CIERRA LA CONEXION DE LA BASE DE DATOS
+$conn->cerrarConexion();
+
 echo json_encode($output);

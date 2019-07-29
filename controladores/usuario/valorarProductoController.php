@@ -6,9 +6,9 @@
  * Time: 21:34
  */
 
-include_once ('../../incluciones/verificacionUsuario.php');
-include_once ('../../clases/ConexionBDClass.php');
-include_once ('../../clases/ProductoClass.php');
+include_once('../../incluciones/verificacionUsuario.php');
+include_once('../../clases/ConexionBDClass.php');
+include_once('../../clases/ProductoClass.php');
 
 $data = json_decode(file_get_contents('php://input'));
 

@@ -10,10 +10,10 @@
 
 // include_once('../../incluciones/verificacionUsuario.php');
 
-include_once ('../../clases/ConexionBDClass.php');
-include_once ('../../clases/ProductoClass.php');
-include_once ('../../clases/MonedaClass.php');
-include_once ('../../librerias/mercadoPago/mercadopago.php');
+include_once('../../clases/ConexionBDClass.php');
+include_once('../../clases/ProductoClass.php');
+include_once('../../clases/MonedaClass.php');
+include_once('../../librerias/mercadoPago/mercadopago.php');
 
 //TOMO LOS DATOS DEL AJAX DEL JS
 $data = json_decode(file_get_contents('php://input'));
@@ -54,6 +54,10 @@ $preference_data = ['items'=>$productos,];
 $mp = new MP('7808904984310469', 'nTDv7afG77ckV38hFa3xg3xBHU1AXlOV');
 
 $preference = $mp->create_preference($preference_data);
+
+//SE CIERRA LA CONEXION DE LA BASE DE DATOS
+$conn->cerrarConexion();
+
 
 echo json_encode($preference);
 

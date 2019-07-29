@@ -93,7 +93,7 @@ include_once('incluciones/verificacionUsuario.php');
                     <!-- LISTA DE PRODUCTOS DESTACADOS - MAX 6 -->
                     <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="producto in productos">
                     <div class="thumbnail">
-                        <a href="" data-toggle="modal" data-target="#id{{producto.id}}" ng-click="cargarFichaTecnica(producto.idCategoria)">
+                        <a href="" data-toggle="modal" data-target="#id{{producto.id}}" ng-click="cargarFichaTecnica(producto.idcategoria)">
                             <img src="resourses/imagen_producto/{{producto.imagen}}" class="foto320x150" alt="imagen-{{producto.modelo}}" ng-hide="producto.imagen == '<--NoFoto-->'" >
                             <img src="http://placehold.it/320x150" alt="" class="foto320x150" ng-show="producto.imagen == '<--NoFoto-->'">
                         </a>
@@ -102,7 +102,7 @@ include_once('incluciones/verificacionUsuario.php');
                             <p ng-show="producto.nuevo">Nuevo</p>
                             <p ng-hide="producto.nuevo">Usado</p>
                             <h4>
-                                <a href="" data-toggle="modal" data-target="#id{{producto.id}}" ng-click="cargarFichaTecnica(producto.idCategoria)">{{producto.descripcion}}</a>
+                                <a href="" data-toggle="modal" data-target="#id{{producto.id}}" ng-click="cargarFichaTecnica(producto.idcategoria)">{{producto.descripcion}}</a>
                             </h4>
 
                             <p>{{producto.modelo}}</p>
@@ -306,14 +306,14 @@ include_once('incluciones/verificacionUsuario.php');
         <hr>
 
         <!-- Footer -->
-        <footer>
+        <!-- <footer>
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <p>Copyright &copy; ModPC 2017</p>
                 </div>
             </div>
-        </footer>
-
+        </footer> -->
+        <?php //include_once('incluciones/footer.php') ?>
     </div>
     <!-- /.container -->
 

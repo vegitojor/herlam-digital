@@ -50,6 +50,8 @@ if( $usuario == 0 ){
 	if($verificacion['existe'] > 0 ){
 		$mensaje = ['respuesta'=>2,];
 		echo json_encode($mensaje);
+		//SE CIERRA LA CONEXION DE LA BASE DE DATOS
+		$conn->cerrarConexion();
 	}else{
 		//SI EL PRODUCTO NO SE AGREGO, SE AGREGA
 		$respuesta = Producto::agregarAlCarrito($conexion, $producto, $usuario, $fecha, $cantidad);

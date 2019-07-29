@@ -1,8 +1,8 @@
 <?php
 
-include_once ('../../incluciones/verificacionUsuario.php');
-include_once ('../../clases/ConexionBDClass.php');
-include_once ('../../clases/ProductoClass.php');
+include_once('../../incluciones/verificacionUsuario.php');
+include_once('../../clases/ConexionBDClass.php');
+include_once('../../clases/ProductoClass.php');
 
 //TOMO LOS DATOS DEL AJAX DEL JS
 $data = json_decode(file_get_contents('php://input'));

@@ -7,8 +7,8 @@
  */
 
 include_once('../incluciones/adminControlerVerificacion.php');
-include_once ('../clases/ConexionBDClass.php');
-include_once ('../clases/ProductoClass.php');
+include_once('../clases/ConexionBDClass.php');
+include_once('../clases/ProductoClass.php');
 
 //conexxion a la base de datos
 $conn = new ConexionBD();
@@ -19,7 +19,11 @@ $archivoCarga = $_FILES['archivoCarga'];
 
 
 if($archivoCarga["size"]>2000000){
-    $mensaje = ['respuesta'=> 0,];
+	$mensaje = ['respuesta'=> 0,];
+	
+	//SE CIERRA LA CONEXION DE LA BASE DE DATOS
+	$conn->cerrarConexion();
+
     echo json_encode($mensaje);
 }else{
     // sacamos todas las propiedades del archivo
@@ -184,12 +188,18 @@ if($archivoCarga["size"]>2000000){
 	    	}
 	    }//fin del while
 	    fclose($gestor);
-	    
+		
+		//SE CIERRA LA CONEXION DE LA BASE DE DATOS
+		$conn->cerrarConexion();
+
 	    $mensaje = ['respuesta'=>1,'filas'=>($fila - 1),];
 	    echo json_encode($mensaje);
 	    
 	}else{
 		
+		//SE CIERRA LA CONEXION DE LA BASE DE DATOS
+		$conn->cerrarConexion();
+
 		$mensaje = ['respuesta'=>2,];
 		echo json_encode($mensaje);
 		

@@ -2,7 +2,7 @@
 
 // require_once("../clases/ConexionBDClass.php");
 // require_once ("../clases/ClienteClass.php");
-require_once ("../clases/EnvioPackClass.php");
+require_once("../clases/EnvioPackClass.php");
 
 //se capturan los datos del ajax
 $data = json_decode(file_get_contents("php://input"));

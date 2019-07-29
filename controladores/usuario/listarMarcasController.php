@@ -6,8 +6,8 @@
  * Time: 2:23
  */
 
-include_once ('../../clases/ConexionBDClass.php');
-include_once ('../../clases/MarcaClass.php');
+include_once('../../clases/ConexionBDClass.php');
+include_once('../../clases/MarcaClass.php');
 
 //DATOS DEL AJAX
 
@@ -17,5 +17,8 @@ $conexion = $conn->getConexion();
 
 //LISTAR CATEGORIAS
 $marcas = Marca::listarMarcas($conexion);
+
+//SE CIERRA LA CONEXION DE LA BASE DE DATOS
+$conn->cerrarConexion();
 
 echo json_encode($marcas);

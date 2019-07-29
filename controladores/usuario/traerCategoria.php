@@ -6,8 +6,8 @@
  * Time: 22:29
  */
 
-include_once ('../../clases/ConexionBDClass.php');
-include_once ('../../clases/CategoriaClass.php');
+include_once('../../clases/ConexionBDClass.php');
+include_once('../../clases/CategoriaClass.php');
 
 $data = json_decode(file_get_contents('php://input'));
 

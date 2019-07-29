@@ -23,6 +23,9 @@ $conexion = $conn->getConexion();
 //PERSISTIR LA MONEDA
 $respuesta = Moneda::cambiarActivoMoneda($conexion, $id, $activo);
 
+//SE CIERRA LA CONEXION DE LA BASE DE DATOS
+$conn->cerrarConexion();
+
 //SE DEVUELVE LA RESPUESTA
 if($respuesta > 0) {
     $mensaje = ['respuesta' => 1,];
