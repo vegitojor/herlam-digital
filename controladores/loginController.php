@@ -8,8 +8,7 @@ $data = json_decode(file_get_contents('php://input'));
 $email = strip_tags($data->email);
 $pass = md5($data->pass);
 
-var_dump($email);
-die();
+
 
 /*
 //se realiza adaptacion del controller para evitar el llamado ajax
