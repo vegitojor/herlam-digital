@@ -12,8 +12,8 @@ include_once ('../clases/ClienteClass.php');
 $data = json_decode(file_get_contents('php://input'));
 $admin = strip_tags($data->admin);
 $admin = (int)$admin;
-if($admin == 1)
-    $admin = (bool)$admin;
+// if($admin == 1)
+//     $admin = (bool)$admin;
 
 // var_dump($admin);
 

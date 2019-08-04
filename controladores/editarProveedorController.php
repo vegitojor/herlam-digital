@@ -49,7 +49,6 @@ $proveedor->editarse($conexion);
 
 
 
-
 /*
 //ARRAY DE RESPUESTA
 $respuesta = array();

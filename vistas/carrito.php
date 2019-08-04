@@ -93,7 +93,7 @@ include_once ('../incluciones/verificacionUsuario.php');
                                                 <br>
                                                 <p><label>Producto:</label> {{productoCarrito.descripcion}}</p>
                                                 <p>cantidad: <span><strong>{{productoCarrito.cantidad}}</strong></span></p>
-                                                <a href="" id="modificarCantidad" ng-model="modificarCantidad" data-toggle="modal" data-target="#modificarCantidadModal" ng-click="setearProductoCambioCantidad(<?= $id ?>, productoCarrito.idproducto, productoCarrito.cantidad)">Modificar cantidad</a>
+                                                <a href="" id="modificarCantidad" ng-model="modificarCantidad" data-toggle="modal" data-target="#modificarCantidadModal" ng-click="setearProductoCambioCantidad(<?= $id ?>, productoCarrito.id_producto, productoCarrito.cantidad)">Modificar cantidad</a>
                                             </div>
                                             <div class="col-md-3">
                                                 <h3 class="pull-right">{{productoCarrito.precio * moneda.valor * productoCarrito.cantidad | currency}}</h3>

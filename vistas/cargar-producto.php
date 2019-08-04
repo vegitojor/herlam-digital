@@ -320,12 +320,12 @@ include_once ("../incluciones/verificacionAdmin.php");
                             <span ng-hide="{{producto.nuevo}}">No</span>
                         </td>
                         <td>
-                            <a href="" class="w3-btn w3-round w3-green" ng-show="{{producto.disponible == 't'}}" data-toggle="tooltip" data-placement="bottom" title="Pulsa para Quitar de disponible" ng-click="cambiarDisponible(producto.id, 0)"><span class="fa fa-check-circle"></span></a> 
-                            <a href="" class="w3-btn w3-round w3-red" ng-hide="{{producto.disponible == 't'}}" data-toggle="tooltip" data-placement="bottom" title="Pulsa para poner como disponible" ng-click="cambiarDisponible(producto.id, 1)"><span class="fa fa-warning " ></span></a>
+                            <a href="" class="w3-btn w3-round w3-green" ng-show="{{producto.disponible == 1}}" data-toggle="tooltip" data-placement="bottom" title="Pulsa para Quitar de disponible" ng-click="cambiarDisponible(producto.id, 0)"><span class="fa fa-check-circle"></span></a> 
+                            <a href="" class="w3-btn w3-round w3-red" ng-hide="{{producto.disponible == 1}}" data-toggle="tooltip" data-placement="bottom" title="Pulsa para poner como disponible" ng-click="cambiarDisponible(producto.id, 1)"><span class="fa fa-warning " ></span></a>
                         </td >
                         <td>
-                            <a href="" class="w3-btn w3-round w3-green" ng-show="{{producto.destacado == 't'}}" data-toggle="tooltip" data-placement="bottom" title="Pulsa para Quitar de destacado" ng-click="cambiarDestacado(producto.id, 0)"><span class="fa fa-check-circle w3-large" ></span></a>
-                            <a href="" class="w3-btn w3-round w3-red" ng-hide="{{producto.destacado == 't'}}" data-toggle="tooltip" data-placement="bottom" title="Pulsa para destacar" ng-click="cambiarDestacado(producto.id, 1)"><span class="fa fa-warning w3-large" ></span></a>
+                            <a href="" class="w3-btn w3-round w3-green" ng-show="{{producto.destacado == 1}}" data-toggle="tooltip" data-placement="bottom" title="Pulsa para Quitar de destacado" ng-click="cambiarDestacado(producto.id, 0)"><span class="fa fa-check-circle w3-large" ></span></a>
+                            <a href="" class="w3-btn w3-round w3-red" ng-hide="{{producto.destacado == 1}}" data-toggle="tooltip" data-placement="bottom" title="Pulsa para destacar" ng-click="cambiarDestacado(producto.id, 1)"><span class="fa fa-warning w3-large" ></span></a>
                             
                         </td >
                         <td>

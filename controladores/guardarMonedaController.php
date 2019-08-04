@@ -29,6 +29,8 @@ $valor = number_format($valor, 2, '.','');
 $conn = new ConexionBD();
 $conexion = $conn->getConexion();
 
+
+
 //PERSISTIR LA MONEDA
 $moneda = new Moneda($id, $descripcion, $valor, $activo);
 $moneda->persistirMoneda($conexion);

@@ -4,13 +4,13 @@
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="ModPc es el carrito de compras donde encontraras toda la tecnologia que estas buscando.">
+    <meta name="description" content="herlam Digital es el carrito de compras donde encontraras toda la tecnologia que estas buscando.">
     <meta name="author" content="Jorge Velazquez">
 
     <!-- W3 core CSS -->
     <link rel="stylesheet" href="../css/w3.css">
 
-    
+    <link rel="shortcut icon" href="http://www.herlam.com.ar/favicon.ico?v=2" type="image/x-icon">
     
     <!-- w3 javascript -->
     <script type="text/javascript" src="../js/w3.js"></script>

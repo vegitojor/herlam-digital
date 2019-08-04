@@ -4,6 +4,9 @@
     <meta name="description" content="">
     <meta name="author" content="Jorge Velazquez">
 
+    <!-- favicon -->
+    <link rel="shortcut icon" href="http://www.herlam.com.ar/favicon.ico?v=2" type="image/x-icon">
+
     <!-- W3 core CSS -->
     <link rel="stylesheet" href="../css/w3.css">
     

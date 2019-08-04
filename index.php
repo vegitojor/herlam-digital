@@ -10,6 +10,7 @@
 		<meta name="author" content="">
 
 		<title>herlam-digital</title>
+		<link rel="shortcut icon" href="http://www.herlam.com.ar/favicon.ico?v=2" type="image/x-icon">
 
 		<!-- Bootstrap Core CSS -->
 		<link href="librerias/template/css/bootstrap.min.css" rel="stylesheet">
@@ -22,7 +23,7 @@
 	<body class="bg-black">
 		
 			<div class="row" id="top" class="heigth-10">
-				<div id="navbar" class="container top-navbar heigth-100">
+				<div id="navbar" class="container top-navbar heigth-100" >
 					<img src="img/logo.png" class="logo"  />
 				</div>
 			</div>

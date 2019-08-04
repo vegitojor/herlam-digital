@@ -58,7 +58,7 @@ include_once ('../incluciones/verificacionAdmin.php');
                             <div id="fichasCargadas" class="w3-container w3-padding productos w3-center" style="display: none" ng-init="cargarFichasTecnicas()">
                                 <select name="fichaTecnica" id="fichaTecnica" class="w3-select" ng-model="fichaTecnica" required="">
                                     <option value="" disabled selected>Seleccione una ficha técnica</option>
-                                    <option ng-repeat="ficha in fichas" value="{{ficha.id}}">{{ficha.nombreficha}}</option>
+                                    <option ng-repeat="ficha in fichas" value="{{ficha.id}}">{{ficha.nombre_ficha}}</option>
                                 </select>
                             </div>
                             <div id="nuevaFicha" class="w3-container w3-padding productos w3-center" style="display: none">
@@ -105,7 +105,7 @@ include_once ('../incluciones/verificacionAdmin.php');
                     <tr ng-repeat="categoria in categorias">
                         <td>{{categoria.id}}</td>
                         <td>{{categoria.nombre}}</td>
-                        <td>{{categoria.fichatecnica}}</td>
+                        <td>{{categoria.ficha_tecnica}}</td>
                         <td>
                             <a class="w3-btn w3-blue" ng-click="editarCategoria(categoria)">Editar</a>
                         </td>

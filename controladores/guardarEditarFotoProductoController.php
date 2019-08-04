@@ -25,6 +25,7 @@ $producto = new Producto($id);
 
 $idFichaTecnica = $producto->obtenerFichaTecnica($conexion);
 $sku = $producto->getSku($conexion);
+
 //RECEPCIONAMOS LA FOTO
 $foto = $_FILES['foto'];
 

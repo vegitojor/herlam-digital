@@ -1,265 +1,202 @@
-CREATE TABLE cliente
-(
-    id bigserial NOT NULL,
-    nombre character varying NOT NULL,
-    apellido character varying NOT NULL,
-    usuario character varying,
-    telefono character varying,
-    email character varying NOT NULL,
-    fecha_nacimiento timestamp without time zone,
-    pass character varying NOT NULL,
-    codigo_postal character varying,
-    domicilio character varying,
-    localidad character varying,
-    admin boolean,
-    PRIMARY KEY (id)
+
+
+CREATE TABLE  cliente (
+  id INT NOT NULL AUTO_INCREMENT,
+  usuario VARCHAR(30) NULL,
+  email VARCHAR(255) NOT NULL,
+  pass VARCHAR(50) NOT NULL,
+  telefono VARCHAR(45) NULL,
+  nombre VARCHAR(100) NULL,
+  apellido VARCHAR(100) NULL,
+  codigo_postal INT NULL,
+  domicilio VARCHAR(100) NULL,
+  admin TINYINT(1) NULL,
+  fecha_nacimiento DATE NULL,
+  id_localidad INT NULL,
+  PRIMARY KEY (id));
+
+CREATE TABLE ficha_tecnica (
+  id INT NOT NULL AUTO_INCREMENT,
+  nombre_ficha VARCHAR(50) NULL,
+  campo01 VARCHAR(100) NULL,
+  campo02 VARCHAR(100) NULL,
+  campo03 VARCHAR(100) NULL,
+  campo04 VARCHAR(100) NULL,
+  campo05 VARCHAR(100) NULL,
+  campo06 VARCHAR(100) NULL,
+  campo07 VARCHAR(100) NULL,
+  campo08 VARCHAR(100) NULL,
+  campo09 VARCHAR(100) NULL,
+  campo10 VARCHAR(100) NULL,
+  campo11 VARCHAR(100) NULL,
+  campo12 VARCHAR(100) NULL,
+  campo13 VARCHAR(100) NULL,
+  campo14 VARCHAR(100) NULL,
+  campo15 VARCHAR(100) NULL,
+  campo16 VARCHAR(100) NULL,
+  campo17 VARCHAR(100) NULL,
+  campo18 VARCHAR(100) NULL,
+  campo19 VARCHAR(100) NULL,
+  campo20 VARCHAR(100) NULL,
+  PRIMARY KEY (id));
+
+CREATE TABLE categoria (
+  id INT NOT NULL AUTO_INCREMENT,
+  nombre VARCHAR(100) NULL,
+  id_ficha_tecnica INT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (id_ficha_tecnica) REFERENCES ficha_tecnica(id));
+
+CREATE TABLE marca (
+  id INT NOT NULL AUTO_INCREMENT,
+  descripcion VARCHAR(100) NULL,
+  PRIMARY KEY (id));
+
+CREATE TABLE moneda (
+  id INT NOT NULL AUTO_INCREMENT,
+  descripcion VARCHAR(45) NULL,
+  valor_en_peso DECIMAL(6,2) NULL,
+  PRIMARY KEY (id));
+
+CREATE TABLE provincia (
+  id INT NOT NULL,
+  provincia VARCHAR(45) NULL,
+  PRIMARY KEY (id));
+
+CREATE TABLE localidad (
+  id INT NOT NULL,
+  localidad VARCHAR(45) NULL,
+  id_provincia INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (id_provincia) REFERENCES provincia(id));
+
+CREATE TABLE proveedor (
+  id INT NOT NULL AUTO_INCREMENT,
+  nombre VARCHAR(100) NULL,
+  telefono VARCHAR(30) NULL,
+  direccion VARCHAR(100) NULL,
+  codigo_postal INT NULL,
+  email VARCHAR(255) NULL,
+  id_localidad INT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (id_localidad) REFERENCES localidad(id));
+
+CREATE TABLE estado (
+	id INT NOT NULL AUTO_INCREMENT,
+	descripcion VARCHAR(250) NULL,
+	PRIMARY KEY (id)
+);
+CREATE TABLE producto (
+  id INT NOT NULL AUTO_INCREMENT,
+  descripcion VARCHAR(300) NULL,
+  precio DECIMAL(6,2) NULL,
+  meses_garantia INT NULL,
+  nuevo TINYINT(1) NULL,
+  cod_fabricante VARCHAR(255) NULL,
+  modelo VARCHAR(100) NULL,
+  disponible TINYINT(1) NULL,
+  cod_proveedor INT NULL,
+  path_imagen VARCHAR(500) NULL,
+  path_video VARCHAR(500) NULL,
+  id_categoria INT NULL,
+  id_proveedor INT NULL,
+  id_marca INT NULL,
+  codigo_sku VARCHAR(100) NULL,
+  peso_caja DECIMAL(6,2) NULL,
+  alto_caja DECIMAL(6,2) NULL,
+  ancho_caja DECIMAL(6,2) NULL,
+  profundidad_caja DECIMAL(6,2) NULL,
+  destacado TINYINT(1) NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (id_categoria) REFERENCES categoria(id),
+  FOREIGN KEY (id_proveedor) REFERENCES proveedor(id),
+  FOREIGN KEY (id_marca) REFERENCES marca(id));
+
+CREATE TABLE producto_ficha_tecnica (
+  id INT NOT NULL AUTO_INCREMENT,
+  campo01 VARCHAR(100) NULL,
+  campo02 VARCHAR(100) NULL,
+  campo03 VARCHAR(100) NULL,
+  campo04 VARCHAR(100) NULL,
+  campo05 VARCHAR(100) NULL,
+  campo06 VARCHAR(100) NULL,
+  campo07 VARCHAR(100) NULL,
+  campo08 VARCHAR(100) NULL,
+  campo09 VARCHAR(100) NULL,
+  campo10 VARCHAR(100) NULL,
+  campo11 VARCHAR(100) NULL,
+  campo12 VARCHAR(100) NULL,
+  campo13 VARCHAR(100) NULL,
+  campo14 VARCHAR(100) NULL,
+  campo15 VARCHAR(100) NULL,
+  campo16 VARCHAR(100) NULL,
+  campo17 VARCHAR(100) NULL,
+  campo18 VARCHAR(100) NULL,
+  campo19 VARCHAR(100) NULL,
+  campo20 VARCHAR(100) NULL,
+  PRIMARY KEY (id));
+
+ALTER TABLE producto
+    ADD COLUMN id_producto_ficha_tecnica INT NOT NULL;
+ALTER TABLE producto
+    ADD CONSTRAINT FOREIGN KEY (id_producto_ficha_tecnica)
+    REFERENCES producto_ficha_tecnica(id);
+
+CREATE TABLE carrito_compra (
+	id_cliente INT NOT NULL,
+	id_producto INT NOT NULL,
+	fecha DATETIME NOT NULL,
+	cantidad INT,
+	PRIMARY KEY (id_cliente, id_producto),
+	FOREIGN KEY (id_cliente) REFERENCES cliente(id),
+	FOREIGN KEY (id_producto) REFERENCES producto(id)
 );
 
-CREATE TABLE public.ficha_tecnica
+CREATE TABLE pregunta
 (
-    id bigserial NOT NULL,
-    nombre character varying,
-    campo01 character varying,
-    campo02 character varying,
-    campo03 character varying,
-    campo04 character varying,
-    campo05 character varying,
-    campo06 character varying,
-    campo07 character varying,
-    campo08 character varying,
-    campo09 character varying,
-    campo10 character varying,
-    campo11 character varying,
-    campo12 character varying,
-    campo13 character varying,
-    campo14 character varying,
-    campo15 character varying,
-    campo16 character varying,
-    campo17 character varying,
-    campo18 character varying,
-    campo19 character varying,
-    campo20 character varying,
-    PRIMARY KEY (id)
-);
-
-
-CREATE TABLE public.categoria
-(
-    id bigserial NOT NULL,
-    nombre character varying,
-    id_ficha_tecnica bigint,
-    PRIMARY KEY (id),
-    FOREIGN KEY (id_ficha_tecnica)
-        REFERENCES public.ficha_tecnica (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-);
-
-CREATE TABLE public.marca
-(
-    id bigserial NOT NULL,
-    descripcion character varying,
-    PRIMARY KEY (id)
-);
-
-CREATE TABLE public.moneda
-(
-    id bigserial NOT NULL,
-    descripcion character varying,
-    valor_en_pesos numeric,
-    activo boolean,
-    PRIMARY KEY (id)
-);
-
-CREATE TABLE public.provincia
-(
-    id bigserial NOT NULL,
-    provincia character varying,
-    PRIMARY KEY (id)
-);
-
-CREATE TABLE public.localidad
-(
-    id bigserial NOT NULL,
-    id_provincia bigint,
-    localidad character varying,
-    PRIMARY KEY (id),
-    FOREIGN KEY (id_provincia)
-        REFERENCES public.provincia (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-);
-
-CREATE TABLE public.proveedor
-(
-    id bigserial NOT NULL,
-    nombre character varying,
-    telefono character varying,
-    direccion character varying,
-    codigo_postal character varying,
-    email character varying,
-    id_localidad bigint,
-    PRIMARY KEY (id),
-    FOREIGN KEY (id_localidad)
-        REFERENCES public.localidad (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-);
-
-CREATE TABLE public.estado
-(
-    id bigserial NOT NULL,
-    descripcion character varying,
-    PRIMARY KEY (id)
-);
-
-CREATE TABLE public.producto
-(
-    id bigserial NOT NULL,
-    descripcion character varying,
-    precio numeric,
-    meses_garantia integer,
-    nuevo boolean,
-    cod_fabricante character varying,
-    modelo character varying,
-    disponible boolean,
-    cod_proveedor character varying,
-    path_imagen character varying,
-    path_video character varying,
-    id_categoria bigint NOT NULL,
-    id_proveedor bigint NOT NULL,
-    id_marca bigint,
-    codigo_sku character varying,
-    peso_caja numeric,
-    ancho_caja numeric,
-    alto_caja numeric,
-    profundidad_caja numeric,
-    destacado boolean,
-    PRIMARY KEY (id),
-    FOREIGN KEY (id_categoria)
-        REFERENCES public.categoria (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    FOREIGN KEY (id_proveedor)
-        REFERENCES public.proveedor (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    FOREIGN KEY (id_marca)
-        REFERENCES public.marca (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-);
-
-CREATE TABLE public.producto_ficha_tecnica
-(
-    id bigserial NOT NULL,
-    campo01 character varying,
-    campo02 character varying,
-    campo03 character varying,
-    campo04 character varying,
-    campo05 character varying,
-    campo06 character varying,
-    campo07 character varying,
-    campo08 character varying,
-    campo09 character varying,
-    campo10 character varying,
-    campo11 character varying,
-    campo12 character varying,
-    campo13 character varying,
-    campo14 character varying,
-    campo15 character varying,
-    campo16 character varying,
-    campo17 character varying,
-    campo18 character varying,
-    campo19 character varying,
-    campo20 character varying,
-    PRIMARY KEY (id)
-);
-
-ALTER TABLE public.producto
-    ADD COLUMN id_producto_ficha_tecnica bigint NOT NULL;
-ALTER TABLE public.producto
-    ADD FOREIGN KEY (id_producto_ficha_tecnica)
-    REFERENCES public.producto_ficha_tecnica (id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
-
-CREATE TABLE public.carrito_compra
-(
-    id_cliente bigint NOT NULL,
-    id_producto bigint NOT NULL,
-    fecha timestamp without time zone,
-    canitdad integer,
-    PRIMARY KEY (id_cliente, id_producto),
-    FOREIGN KEY (id_cliente)
-        REFERENCES public.cliente (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    FOREIGN KEY (id_producto)
-        REFERENCES public.producto (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-);
-
-CREATE TABLE public.pregunta
-(
-    id bigserial NOT NULL,
-    id_producto bigint,
-    id_cliente bigint,
-    pregunta character varying,
-    respondida boolean,
-    fecha timestamp without time zone,
+    id INT NOT NULL AUTO_INCREMENT,
+    id_producto INT NULL,
+    id_cliente INT NULL,
+    pregunta VARCHAR(500),
+    respondida TINYINT(1),
+    fecha DATETIME NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id_producto)
-        REFERENCES public.producto (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
+        REFERENCES producto(id),
     FOREIGN KEY (id_cliente)
-        REFERENCES public.cliente (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        REFERENCES cliente(id)
 );
 
-CREATE TABLE public.respuesta
+CREATE TABLE respuesta
 (
-    id bigserial NOT NULL,
-    respuesta character varying,
-    id_pregunta bigint,
-    fecha_respuesta timestamp without time zone,
+    id INT NOT NULL AUTO_INCREMENT,
+    respuesta VARCHAR(500),
+    id_pregunta INT NOT NULL,
+    fecha_respuesta DATETIME,
     PRIMARY KEY (id),
     FOREIGN KEY (id_pregunta)
-        REFERENCES public.pregunta (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+        REFERENCES pregunta(id)
 );
 
-CREATE TABLE public.valoracion_producto
+CREATE TABLE valoracion_producto
 (
-    id_producto bigint NOT NULL,
-    id_cliente bigint NOT NULL,
-    PRIMARY KEY (id_producto, id_cliente)
+    id_producto INT NOT NULL,
+    id_cliente INT NOT NULL,
+    PRIMARY KEY (id_producto, id_cliente),
+	FOREIGN KEY (id_producto) REFERENCES producto(id),
+	FOREIGN KEY (id_cliente) REFERENCES cliente(id)
 );
 
-ALTER TABLE public.cliente DROP COLUMN localidad;
+ALTER TABLE cliente
+    ADD CONSTRAINT FOREIGN KEY (id_localidad)
+    REFERENCES localidad(id);
 
-ALTER TABLE public.cliente
-    ADD COLUMN id_localidad bigint;
-ALTER TABLE public.cliente
-    ADD FOREIGN KEY (id_localidad)
-    REFERENCES public.localidad (id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
+ALTER TABLE ficha_tecnica CHANGE nombre_ficha nombre VARCHAR(50)  NULL;
 
-ALTER TABLE public.carrito_compra
-    RENAME canitdad TO cantidad;
+ALTER TABLE moneda ADD COLUMN activo decimal(6,2) null
 
-
-insert into cliente (id, nombre, apellido, email, pass, admin)
-select nextval('cliente_id_seq'), 'admin', 'administrador', 'admin@herlam', '81dc9bdb52d04dc20036dbd8313ed055', true
-WHERE
-    NOT EXISTS (
-        SELECT id FROM cliente WHERE email = 'admin@herlam' 
-    );
+insert into cliente ( nombre, apellido, email, pass, admin)
+VALUE ('admin', 'administrador', 'admin@herlam', '81dc9bdb52d04dc20036dbd8313ed055', 1);
 
 INSERT INTO provincia (id, provincia) VALUES
 (1, 'Buenos Aires'),
@@ -287,8 +224,6 @@ INSERT INTO provincia (id, provincia) VALUES
 (23, 'Santiago del Estero'),
 (24, 'Tierra del Fuego'),
 (25, 'Tucumán');
-
-
 
 INSERT INTO localidad (id, id_provincia, localidad) VALUES
 (1, 1, '25 de Mayo'),

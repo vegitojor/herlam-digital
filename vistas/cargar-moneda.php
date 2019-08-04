@@ -89,12 +89,12 @@ include_once ('../incluciones/verificacionAdmin.php');
                             <tr ng-repeat="moneda in monedas">
                                 <td>{{moneda.descripcion}}</td>
                                 <td>${{moneda.valor}}</td>
-                                <td ng-show="moneda.activo == 't'">S&iacute;</td>
-                                <td ng-hide="moneda.activo == 't'">No</td>
+                                <td ng-show="moneda.activo == 1">S&iacute;</td>
+                                <td ng-hide="moneda.activo == 1">No</td>
                                 <td>
                                     <a href="editar-moneda.php?var={{moneda.id}}" class="w3-btn w3-blue">Editar</a>
-                                    <a href="" class="w3-btn w3-orange" ng-click="activarMoneda(moneda.id, 1)" ng-hide="moneda.activo == 't'">Activar</a>
-                                    <a href="" class="w3-btn w3-orange" ng-click="activarMoneda(moneda.id, 0)" ng-show="moneda.activo == 't'">Desactivar</a>
+                                    <a href="" class="w3-btn w3-orange" ng-click="activarMoneda(moneda.id, 1)" ng-hide="moneda.activo == 1">Activar</a>
+                                    <a href="" class="w3-btn w3-orange" ng-click="activarMoneda(moneda.id, 0)" ng-show="moneda.activo == 1">Desactivar</a>
                                 </td>
                             </tr>
                         </tbody>

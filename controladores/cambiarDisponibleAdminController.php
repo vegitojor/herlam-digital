@@ -25,20 +25,23 @@ $producto = new Producto($id);
 // var_dump($producto);
 //guardamos los cambios
 
+
+$activo = $data->activo;
+if($activo == 1){
+	$activo = true;
+}     //<--------------- necesario para postgres
+
 //SI DATA-DISPONIBLE ES = 1 SE EDITA DISPONIBLE
 if($data->disponible == 1){
-	$activo = $data->activo;
-	if($activo == 1)
-		$activo = true;
+	
     $respuesta = $producto->cambiarDisponible($conexion, $activo);
 }else{
 //SI DATA-DISPONIBLE ES = 0 SE EDITA DESTACADO
-	$activo = $data->activo;
-	if($activo == 1){
-		$activo = true;
-	}
+
 	$respuesta = $producto->cambiarDestacadoV2($conexion, $activo);
 }
+
+
 
 //SE CIERRA LA CONEXION DE LA BASE DE DATOS
 $conn->cerrarConexion();

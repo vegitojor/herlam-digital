@@ -133,4 +133,4 @@ $nuevoProducto->persistirse($conexion);
 
 
 
-header('location: ../vistas/cargar-producto.php');
+header('location: ../vistas/cargar-producto.php');  

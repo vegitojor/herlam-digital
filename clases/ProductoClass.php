@@ -103,57 +103,57 @@ Class Producto{
                     profundidad_caja, 
                     id_producto_ficha_tecnica,
                     destacado)
-                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19, $20)";
-	   //  $stmt = mysqli_prepare($conexion, $consulta);
-	   //  mysqli_stmt_bind_param($stmt, "sdiissiissiiisddddii",
-      //       $this->descripcion,
-      //       $this->precio,
-      //       $this->mesesGarantia,
-      //       $this->nuevo,
-      //       $this->codFabricante,
+                    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, ?)";
+	    $stmt = mysqli_prepare($conexion, $consulta);
+	    mysqli_stmt_bind_param($stmt, "sdiissiissiiisddddii",
+            $this->descripcion,
+            $this->precio,
+            $this->mesesGarantia,
+            $this->nuevo,
+            $this->codFabricante,
 
-      //       $this->modelo,
-      //       $this->disponible,
-      //       $this->codProveedor,
-      //       $this->fotoProducto,
-      //       $this->videoProducto,
+            $this->modelo,
+            $this->disponible,
+            $this->codProveedor,
+            $this->fotoProducto,
+            $this->videoProducto,
 
-      //       $this->categoria,
-      //       $this->proveedor,
-      //       $this->marca,
-      //       $this->sku,
-      //       $this->peso,
+            $this->categoria,
+            $this->proveedor,
+            $this->marca,
+            $this->sku,
+            $this->peso,
 
-      //       $this->alto,
-      //       $this->ancho,
-      //       $this->profundidad,
-      //       $this->idProductoFichaTecnica,
-      //       $this->destacado);
-      //  mysqli_stmt_execute($stmt);
+            $this->alto,
+            $this->ancho,
+            $this->profundidad,
+            $this->idProductoFichaTecnica,
+            $this->destacado);
+       mysqli_stmt_execute($stmt);
       
       //=========================== Postgres =========================
-      pg_query_params($conexion, $consulta, array(
-         $this->descripcion,
-         $this->precio,
-         $this->mesesGarantia,
-         $this->nuevo,
-         $this->codFabricante,
-         $this->modelo,
-         $this->disponible,
-         $this->codProveedor,
-         $this->fotoProducto,
-         $this->videoProducto,
-         $this->categoria,
-         $this->proveedor,
-         $this->marca,
-         $this->sku,
-         $this->peso,
-         $this->alto,
-         $this->ancho,
-         $this->profundidad,
-         $this->idProductoFichaTecnica,
-         $this->destacado
-      ));
+      // pg_query_params($conexion, $consulta, array(
+      //    $this->descripcion,
+      //    $this->precio,
+      //    $this->mesesGarantia,
+      //    $this->nuevo,
+      //    $this->codFabricante,
+      //    $this->modelo,
+      //    $this->disponible,
+      //    $this->codProveedor,
+      //    $this->fotoProducto,
+      //    $this->videoProducto,
+      //    $this->categoria,
+      //    $this->proveedor,
+      //    $this->marca,
+      //    $this->sku,
+      //    $this->peso,
+      //    $this->alto,
+      //    $this->ancho,
+      //    $this->profundidad,
+      //    $this->idProductoFichaTecnica,
+      //    $this->destacado
+      // ));
 
 
     }
@@ -161,223 +161,224 @@ Class Producto{
    public function obtenerFichaTecnica($conexion){
       $consulta = "SELECT id_producto_ficha_tecnica AS fichatecnica
                   FROM producto
-                  WHERE id = $1";
-      // $stmt = mysqli_prepare($conexion, $consulta);
-      // mysqli_stmt_bind_param($stmt, 'i', $this->id);
-      // mysqli_stmt_execute($stmt);
-      // $resultado = mysqli_stmt_get_result($stmt);
-      // $output = mysqli_fetch_assoc($resultado);
+                  WHERE id = ?";
+      $stmt = mysqli_prepare($conexion, $consulta);
+      mysqli_stmt_bind_param($stmt, 'i', $this->id);
+      mysqli_stmt_execute($stmt);
+      $resultado = mysqli_stmt_get_result($stmt);
+      $output = mysqli_fetch_assoc($resultado);
 
       //================== Postgres ======================
-      $result = pg_query_params($conexion, $consulta, array($this->id));
-      $output = pg_fetch_assoc($result);
+      // $result = pg_query_params($conexion, $consulta, array($this->id));
+      // $output = pg_fetch_assoc($result);
       return $output['fichatecnica'];
    }
 
-   public function editarFichaTecnica($conexion,
-                        $campo01,
-                        $campo02,
-                        $campo03,
-                        $campo04,
-                        $campo05,
-                        $campo06,
-                        $campo07,
-                        $campo08,
-                        $campo09,
-                        $campo10,
-                        $campo11,
-                        $campo12,
-                        $campo13,
-                        $campo14,
-                        $campo15,
-                        $campo16,
-                        $campo17,
-                        $campo18,
-                        $campo19,
-                        $campo20,
-                        $idFichaTecnica){
-      $consulta = "UPDATE producto_ficha_tecnica
-                  SET campo01 = $1,
-                     campo02 = $2,
-                     campo03 = $3,
-                     campo04 = $4,
-                     campo05 = $5,
-                     campo06 = $6,
-                     campo07 = $7,
-                     campo08 = $8,
-                     campo09 = $9,
-                     campo10 = $10,
-                     campo11 = $11,
-                     campo12 = $12,
-                     campo13 = $13,
-                     campo14 = $14,
-                     campo15 = $15,
-                     campo16 = $16,
-                     campo17 = $17,
-                     campo18 = $18,
-                     campo19 = $19,
-                     campo20 = $20
-                  WHERE id = $21";
-    //   $stmt = mysqli_prepare($conexion, $consulta);
-    //   mysqli_stmt_bind_param($stmt,'ssssssssssssssssssssi', 
-    //                        $campo01,
-    //                        $campo02,
-    //                        $campo03,
-    //                        $campo04,
-    //                        $campo05,
-    //                        $campo06,
-    //                        $campo07,
-    //                        $campo08,
-    //                        $campo09,
-    //                        $campo10,
-    //                        $campo11,
-    //                        $campo12,
-    //                        $campo13,
-    //                        $campo14,
-    //                        $campo15,
-    //                        $campo16,
-    //                        $campo17,
-    //                        $campo18,
-    //                        $campo19,
-    //                        $campo20,
-    //                        $idFichaTecnica
-    //                        );
-    //   mysqli_stmt_execute($stmt);
+	public function editarFichaTecnica($conexion,
+						$campo01,
+						$campo02,
+						$campo03,
+						$campo04,
+						$campo05,
+						$campo06,
+						$campo07,
+						$campo08,
+						$campo09,
+						$campo10,
+						$campo11,
+						$campo12,
+						$campo13,
+						$campo14,
+						$campo15,
+						$campo16,
+						$campo17,
+						$campo18,
+						$campo19,
+						$campo20,
+						$idFichaTecnica){
+		$consulta = "UPDATE producto_ficha_tecnica
+					SET campo01 = ?,
+					campo02 = ?,
+					campo03 = ?,
+					campo04 = ?,
+					campo05 = ?,
+					campo06 = ?,
+					campo07 = ?,
+					campo08 = ?,
+					campo09 = ?,
+					campo10 = ?,
+					campo11 = ?,
+					campo12 = ?,
+					campo13 = ?,
+					campo14 = ?,
+					campo15 = ?,
+					campo16 = ?,
+					campo17 = ?,
+					campo18 = ?,
+					campo19 = ?,
+					campo20 = ?
+					WHERE id = ?";
+	$stmt = mysqli_prepare($conexion, $consulta);
+	mysqli_stmt_bind_param($stmt,'ssssssssssssssssssssi', 
+						$campo01,
+						$campo02,
+						$campo03,
+						$campo04,
+						$campo05,
+						$campo06,
+						$campo07,
+						$campo08,
+						$campo09,
+						$campo10,
+						$campo11,
+						$campo12,
+						$campo13,
+						$campo14,
+						$campo15,
+						$campo16,
+						$campo17,
+						$campo18,
+						$campo19,
+						$campo20,
+						$idFichaTecnica
+						);
+	mysqli_stmt_execute($stmt);
 
-	//   $output = mysqli_stmt_affected_rows($stmt);
+	$output = mysqli_stmt_affected_rows($stmt);
 	
-	$result = pg_query_params($conexion, $consulta, array(
-		$campo01, $campo02, $campo03, $campo04, $campo05,
-		$campo06, $campo07, $campo08, $campo09, $campo10,
-		$campo11, $campo12, $campo13, $campo14, $campo15,
-		$campo16, $campo17, $campo18, $campo19, $campo20,
-		$idFichaTecnica
-	));
-	$output = pg_affected_rows($result);
-      return $output;
-   }
-
-   public function editarse($conexion,
-                           $modelo,
-                           $descripcion,
-                           $precio,
-                           $mesesGarantia,
-                           $codigoFabricante,
-                           $codigoProveedor,
-                           $sku,
-                           $video,
-                           $proveedor,
-                           $alto,
-                           $ancho,
-                           $profundidad,
-                           $peso,
-                           $marca,
-                           $categoria,
-                           $id){
-      $consulta = "UPDATE producto
-                  SET descripcion = $1,
-                     precio = $2,
-                     meses_garantia = $3,
-                     cod_fabricante = $4,
-                     modelo = $5,
-                     cod_proveedor = $6,
-                     path_video = $7,
-                     id_categoria = $8,
-                     id_proveedor = $9,
-                     id_marca = $10,
-                     codigo_sku = $11,
-                     peso_caja = $12,
-                     alto_caja = $13,
-                     ancho_caja = $14,
-                     profundidad_caja = $15
-                  WHERE id = $16";
-    //   $stmt = mysqli_prepare($conexion, $consulta);
-    //   mysqli_stmt_bind_param($stmt, 'sdissssiiisddddi', $descripcion,
-    //                        $precio,
-    //                        $mesesGarantia,
-    //                        $codigoFabricante,
-    //                        $modelo,
-    //                        $codigoProveedor,
-    //                        $video,
-    //                        $categoria,
-    //                        $proveedor,
-    //                        $marca,
-    //                        $sku,
-    //                        $peso,
-    //                        $alto,
-    //                        $ancho,
-    //                        $profundidad,
-    //                        $id);
-    //   mysqli_stmt_execute($stmt);
-	//   $output = mysqli_stmt_affected_rows($stmt);
-	
-	//======================= Postgres =======================
-	$result = pg_query_params($conexion, $consulta, array(
-		$descripcion, $precio, $mesesGarantia, $codigoFabricante, $modelo,
-		$codigoProveedor, $video, $categoria, $proveedor, $marca,
-		$sku, $peso, $alto, $ancho, $profundidad, $id));
-	$output = pg_affected_rows($result);
-      return $output;
-
-   }
-
-   public function getSku($conexion){
-      $consulta = "SELECT codigo_sku sku FROM producto WHERE id = $1";
-
-    //   $stmt = mysqli_prepare($conexion, $consulta);
-    //   mysqli_stmt_bind_param($stmt, 'i', $this->id);
-    //   mysqli_stmt_execute($stmt);
-	//   $resultado = mysqli_stmt_get_result($stmt);
-	
-	//==================== Postgres ===================
-	$result = pg_query_params($conexion, $consulta, array($this->id));
-	$output = pg_fetch_assoc($result);
-	//   return mysqli_fetch_assoc($resultado);
+	// $result = pg_query_params($conexion, $consulta, array(
+	// $campo01, $campo02, $campo03, $campo04, $campo05,
+	// $campo06, $campo07, $campo08, $campo09, $campo10,
+	// $campo11, $campo12, $campo13, $campo14, $campo15,
+	// $campo16, $campo17, $campo18, $campo19, $campo20,
+	// $idFichaTecnica
+	// ));
+	// $output = pg_affected_rows($result);
 	return $output;
    }
 
+	public function editarse($conexion,
+							$modelo,
+							$descripcion,
+							$precio,
+							$mesesGarantia,
+							$codigoFabricante,
+							$codigoProveedor,
+							$sku,
+							$video,
+							$proveedor,
+							$alto,
+							$ancho,
+							$profundidad,
+							$peso,
+							$marca,
+							$categoria,
+							$id){
+		$consulta = "UPDATE producto
+					SET descripcion = ?,
+						precio = ?,
+						meses_garantia = ?,
+						cod_fabricante = ?,
+						modelo = ?,
+						cod_proveedor = ?,
+						path_video = ?,
+						id_categoria = ?,
+						id_proveedor = ?,
+						id_marca = ?,
+						codigo_sku = ?,
+						peso_caja = ?,
+						alto_caja = ?,
+						ancho_caja = ?,
+						profundidad_caja = ?
+					WHERE id = ?";
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'sdissssiiisddddi', $descripcion,
+							$precio,
+							$mesesGarantia,
+							$codigoFabricante,
+							$modelo,
+							$codigoProveedor,
+							$video,
+							$categoria,
+							$proveedor,
+							$marca,
+							$sku,
+							$peso,
+							$alto,
+							$ancho,
+							$profundidad,
+							$id);
+		mysqli_stmt_execute($stmt);
+		$output = mysqli_stmt_affected_rows($stmt);
+		
+		//======================= Postgres =======================
+		// $result = pg_query_params($conexion, $consulta, array(
+		// 	$descripcion, $precio, $mesesGarantia, $codigoFabricante, $modelo,
+		// 	$codigoProveedor, $video, $categoria, $proveedor, $marca,
+		// 	$sku, $peso, $alto, $ancho, $profundidad, $id));
+		// $output = pg_affected_rows($result);
+		return $output;
+
+	}
+
+	public function getSku($conexion){
+		$consulta = "SELECT codigo_sku sku FROM producto WHERE id = ?";
+
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'i', $this->id);
+		mysqli_stmt_execute($stmt);
+		$respuesta = mysqli_stmt_get_result($stmt);
+		$output = mysqli_fetch_assoc($respuesta);
+		
+		//==================== Postgres ===================
+		// $result = pg_query_params($conexion, $consulta, array($this->id));
+		// $output = pg_fetch_assoc($result);
+		
+		return $output;
+	}
+
 	public function cambiarFoto($conexion, $foto){
 		$consulta = "UPDATE producto  
-						SET path_imagen = $1
-						WHERE id = $2";
-		//   $stmt = mysqli_prepare($conexion, $consulta);
-		//   mysqli_stmt_bind_param($stmt, 'si', $foto, $this->id);
-		//   mysqli_stmt_execute($stmt);
-		//   $output = mysqli_stmt_affected_rows($stmt);
+						SET path_imagen = ?
+						WHERE id = ?";
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'si', $foto, $this->id);
+		mysqli_stmt_execute($stmt);
+		$output = mysqli_stmt_affected_rows($stmt);
 		
 		//=========================== Postgres ==================
-		$result = pg_query_params($conexion, $consulta, array($foto, $this->id));
-		$output =pg_affected_rows($result);
+		// $result = pg_query_params($conexion, $consulta, array($foto, $this->id));
+		// $output =pg_affected_rows($result);
 		return $output;
 	}
 
 	public function cambiarDisponible($conexion, $estado){
 		$consulta = "UPDATE producto
-						SET disponible = $1
-						WHERE id = $2";
-		// $stmt = mysqli_prepare($conexion, $consulta);
-		// mysqli_stmt_bind_param($stmt, 'ii', $estado, $this->id);
-		// mysqli_stmt_execute($stmt);
-		// $output = mysqli_stmt_affected_rows($stmt);
+						SET disponible = ?
+						WHERE id = ?";
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'ii', $estado, $this->id);
+		mysqli_stmt_execute($stmt);
+		$output = mysqli_stmt_affected_rows($stmt);
 
 		//================= Postgres ======================
-		$result = pg_query_params($conexion, $consulta, array($estado, $this->id));
-		$output = pg_affected_rows($result);
+		// $result = pg_query_params($conexion, $consulta, array($estado, $this->id));
+		// $output = pg_affected_rows($result);
 		return $output;
 	}
 
 	public function cambiarDestacadoV2($conexion, $estado){
 		$consulta = "UPDATE producto
-						SET destacado = $1
-						WHERE id = $2";
-		// $stmt = mysqli_prepare($conexion, $consulta);
-		// mysqli_stmt_bind_param($stmt, 'ii', $estado, $this->id);
-		// mysqli_stmt_execute($stmt);
-		// $output = mysqli_stmt_affected_rows($stmt);
+						SET destacado = ?
+						WHERE id = ?";
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'ii', $estado, $this->id);
+		mysqli_stmt_execute($stmt);
+		$output = mysqli_stmt_affected_rows($stmt);
 
 		//================= Postgres ======================
-		$result = pg_query_params($conexion, $consulta, array($estado, $this->id));
-		$output = pg_affected_rows($result);
+		// $result = pg_query_params($conexion, $consulta, array($estado, $this->id));
+		// $output = pg_affected_rows($result);
 		return $output;
 	}
 
@@ -423,59 +424,58 @@ Class Producto{
                                     campo18,
                                     campo19,
                                     campo20)
-                      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21)";
+                      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
       //============================ MySQL ===============================
-	   //  $stmt = mysqli_prepare($conexion, $consulta);
-	   //  mysqli_stmt_bind_param($stmt, 'sssssssssssssssssssss', $nombre,
-      //                                                   $campo01,
-      //                                                   $campo02,
-      //                                                   $campo03,
-      //                                                   $campo04,
-      //                                                   $campo05,
-      //                                                   $campo06,
-      //                                                   $campo07,
-      //                                                   $campo08,
-      //                                                   $campo09,
-      //                                                   $campo10,
-      //                                                   $campo11,
-      //                                                   $campo12,
-      //                                                   $campo13,
-      //                                                   $campo14,
-      //                                                   $campo15,
-      //                                                   $campo16,
-      //                                                   $campo17,
-      //                                                   $campo18,
-      //                                                   $campo19,
-      //                                                   $campo20);
-      //  mysqli_stmt_execute($stmt);
+	    $stmt = mysqli_prepare($conexion, $consulta);
+	    mysqli_stmt_bind_param($stmt, 'sssssssssssssssssssss', $nombre,
+                                                        $campo01,
+                                                        $campo02,
+                                                        $campo03,
+                                                        $campo04,
+                                                        $campo05,
+                                                        $campo06,
+                                                        $campo07,
+                                                        $campo08,
+                                                        $campo09,
+                                                        $campo10,
+                                                        $campo11,
+                                                        $campo12,
+                                                        $campo13,
+                                                        $campo14,
+                                                        $campo15,
+                                                        $campo16,
+                                                        $campo17,
+                                                        $campo18,
+                                                        $campo19,
+                                                        $campo20);
+       mysqli_stmt_execute($stmt);
       
-
       //============================ POSTGRES ===============================
-      $params = array(
-         $nombre,
-         $campo01,
-         $campo02,
-         $campo03,
-         $campo04,
-         $campo05,
-         $campo06,
-         $campo07,
-         $campo08,
-         $campo09,
-         $campo10,
-         $campo11,
-         $campo12,
-         $campo13,
-         $campo14,
-         $campo15,
-         $campo16,
-         $campo17,
-         $campo18,
-         $campo19,
-         $campo20
-      );
-      pg_query_params($conexion, $consulta, $params);
+    //   $params = array(
+    //      $nombre,
+    //      $campo01,
+    //      $campo02,
+    //      $campo03,
+    //      $campo04,
+    //      $campo05,
+    //      $campo06,
+    //      $campo07,
+    //      $campo08,
+    //      $campo09,
+    //      $campo10,
+    //      $campo11,
+    //      $campo12,
+    //      $campo13,
+    //      $campo14,
+    //      $campo15,
+    //      $campo16,
+    //      $campo17,
+    //      $campo18,
+    //      $campo19,
+    //      $campo20
+    //   );
+    //   pg_query_params($conexion, $consulta, $params);
     }
 
    	public static function listarNombresFichas($conexion){
@@ -483,40 +483,40 @@ Class Producto{
 						FROM ficha_tecnica";
 
 		//============== MYsql ==============================
-		//   $resultado = mysqli_query($conexion, $consulta);
-		//   $output = array();
-		//   while($fila = mysqli_fetch_assoc($resultado)){
-		//       $output[] = $fila;
-		//   }
+		  $resultado = mysqli_query($conexion, $consulta);
+		  $output = array();
+		  while($fila = mysqli_fetch_assoc($resultado)){
+		      $output[] = $fila;
+		  }
 
 		//============== MYsql ==============================
-		$result = pg_query($conexion, $consulta);
-		$output = array();
-		while($fila = pg_fetch_assoc($result))
-			$output[]= $fila;
+		// $result = pg_query($conexion, $consulta);
+		// $output = array();
+		// while($fila = pg_fetch_assoc($result))
+		// 	$output[]= $fila;
 
 		return $output;
     }
 
     public static function cargarFichasTecnicas($conexion){
         $consulta = "SELECT id,
-                            nombre AS nombreFicha
+                            nombre AS nombre_ficha
                     FROM ficha_tecnica";
 
 		//=================== MySQL =============================
-		//   $resultado = mysqli_query($conexion, $consulta);
-		//   $output = array();
-		//   while($fila = mysqli_fetch_assoc($resultado)){
-		//       $fila['id'] = (int)$fila['id'];
-		//       $fila['nombreFicha'] = utf8_encode($fila['nombreFicha']);
-		//       $output[] = $fila;
-		//   }
+		  $resultado = mysqli_query($conexion, $consulta);
+		  $output = array();
+		  while($fila = mysqli_fetch_assoc($resultado)){
+		      $fila['id'] = (int)$fila['id'];
+		      $fila['nombre_ficha'] = utf8_encode($fila['nombre_ficha']);
+		      $output[] = $fila;
+		  }
 
 		//=================== Postgres =============================
-		$result = pg_query($conexion, $consulta);
-		$output = array();
-		while($fila = pg_fetch_assoc($result))
-			$output[] = $fila;
+		// $result = pg_query($conexion, $consulta);
+		// $output = array();
+		// while($fila = pg_fetch_assoc($result))
+		// 	$output[] = $fila;
 
 		return $output;
     }
@@ -544,18 +544,18 @@ Class Producto{
                       campo19,
                       campo20                      
                     FROM categoria C JOIN ficha_tecnica F ON C.id_ficha_tecnica = F.id
-                    WHERE C.id = $1";
+                    WHERE C.id = ?";
 
 		//================= MySQL ========================
-        // $stmt = mysqli_prepare($conexion, $consulta);
-        // mysqli_stmt_bind_param($stmt, "i", $idCategoria);
-        // mysqli_stmt_execute($stmt);
-        // $resultado = mysqli_stmt_get_result($stmt);
-		// $output = mysqli_fetch_assoc($resultado);
+        $stmt = mysqli_prepare($conexion, $consulta);
+        mysqli_stmt_bind_param($stmt, "i", $idCategoria);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_stmt_get_result($stmt);
+		$output = mysqli_fetch_assoc($resultado);
 		
 		//================= Posrestg ========================
-		$result = pg_query_params($conexion, $consulta, array($idCategoria));
-		$output = pg_fetch_assoc($result);
+		// $result = pg_query_params($conexion, $consulta, array($idCategoria));
+		// $output = pg_fetch_assoc($result);
         return $output;
     }
 
@@ -582,43 +582,46 @@ Class Producto{
         $consulta = "INSERT INTO producto_ficha_tecnica (campo01, campo02,campo03,campo04,campo05,campo06,
                                   campo07,campo08,campo09,campo10,campo11,campo12,campo13,campo14,campo15,
                                   campo16,campo17,campo18,campo19,campo20)
-                                  VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20) RETURNING id";
+                                  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-        // $stmt = mysqli_prepare($conexion, $consulta);
-        // mysqli_stmt_bind_param($stmt, "ssssssssssssssssssss",
-        //     $campo01,
-        //     $campo02,
-        //     $campo03,
-        //     $campo04,
-        //     $campo05,
-        //     $campo06,
-        //     $campo07,
-        //     $campo08,
-        //     $campo09,
-        //     $campo10,
-        //     $campo11,
-        //     $campo12,
-        //     $campo13,
-        //     $campo14,
-        //     $campo15,
-        //     $campo16,
-        //     $campo17,
-        //     $campo18,
-        //     $campo19,
-        //     $campo20);
-        // mysqli_stmt_execute($stmt);
-        // //se obtiene el id autogenerado yse retorna el valor
-		// $id = mysqli_insert_id($conexion);
-		
+				//  RETURNING id    <----- COLOCAR AL FINAL DE LA CONSULTA EN CASO DE USAR POSTGRES
+
+
+        $stmt = mysqli_prepare($conexion, $consulta);
+        mysqli_stmt_bind_param($stmt, "ssssssssssssssssssss",
+            $campo01,
+            $campo02,
+            $campo03,
+            $campo04,
+            $campo05,
+            $campo06,
+            $campo07,
+            $campo08,
+            $campo09,
+            $campo10,
+            $campo11,
+            $campo12,
+            $campo13,
+            $campo14,
+            $campo15,
+            $campo16,
+            $campo17,
+            $campo18,
+            $campo19,
+            $campo20);
+        mysqli_stmt_execute($stmt);
+        //se obtiene el id autogenerado yse retorna el valor
+		$id = mysqli_insert_id($conexion);
+		return $id;
 		//================== Postgres ============================
-		$result = pg_query_params($conexion, $consulta, array(
-			$campo01, $campo02, $campo03, $campo04, $campo05,
-			$campo06, $campo07, $campo08, $campo09, $campo10,
-			$campo11, $campo12, $campo13, $campo14, $campo15,
-			$campo16, $campo17, $campo18, $campo19, $campo20
-		));
-		$id = pg_fetch_array($result);
-        return $id[0];
+		// $result = pg_query_params($conexion, $consulta, array(
+		// 	$campo01, $campo02, $campo03, $campo04, $campo05,
+		// 	$campo06, $campo07, $campo08, $campo09, $campo10,
+		// 	$campo11, $campo12, $campo13, $campo14, $campo15,
+		// 	$campo16, $campo17, $campo18, $campo19, $campo20
+		// ));
+		// $id = pg_fetch_array($result);
+        // return $id[0];
     }
 
     public static function cargarProductos($conexion, $desde, $limite){
@@ -671,23 +674,24 @@ Class Producto{
                     JOIN proveedor pr ON pr.id = p.id_proveedor
                     JOIN marca m ON m.id = p.id_marca
                     LEFT JOIN producto_ficha_tecnica pft ON pft.id = p.id_producto_ficha_tecnica
-                    LIMIT  $1 offset $2";
+					LIMIT ?, ?" ;
+                    /* LIMIT  $1 offset $2"; */  //<------------ CONDIDICON LIMIT PARA POSTGRES
 
-        //$resultado = mysqli_query($conexion,$consulta);
-        //  $stmt = mysqli_prepare($conexion, $consulta);
-        //  mysqli_stmt_bind_param($stmt, 'ii', $desde, $limite);
-        //  mysqli_stmt_execute($stmt);
-        //  $resultado = mysqli_stmt_get_result($stmt);
-        // $output = array();
-        // while ($fila = mysqli_fetch_assoc($resultado)){
-        //     $output[] = $fila;
-		// }
+		$resultado = mysqli_query($conexion,$consulta);
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'ii', $desde, $limite);
+		mysqli_stmt_execute($stmt);
+		$resultado = mysqli_stmt_get_result($stmt);
+		$output = array();
+		while ($fila = mysqli_fetch_assoc($resultado)){
+			$output[] = $fila;
+		}
 		
 		//================== Postgres ==========================
-		$result = pg_query_params($conexion, $consulta, array($limite, $desde));
-		$output = array();
-		while($fila = pg_fetch_assoc($result))
-			$output[] = $fila;
+		// $result = pg_query_params($conexion, $consulta, array($limite, $desde));
+		// $output = array();
+		// while($fila = pg_fetch_assoc($result))
+		// 	$output[] = $fila;
 
         return $output;
     }
@@ -717,14 +721,18 @@ Class Producto{
                                        $campo20,
                                        $orden){
 
-        $selectMarca = " AND p.id_marca = $22";
+		$selectMarca = " AND p.id_marca = ?";
+		// $selectMarca = " AND p.id_marca = $22"; //<-------para postgres
         if( $marcaFiltro == 0 ){
-          $selectMarca = " AND p.id_marca > $22";
+			$selectMarca = " AND p.id_marca > ?";
+			//   $selectMarca = " AND p.id_marca > $22";
         }
 
-        $selectDestacados = " AND p.destacado = $23";
+		$selectDestacados = " AND p.destacado = ?";
+		// $selectDestacados = " AND p.destacado = $23";
         if( $destacados == 0 ){
-          $selectDestacados = " AND p.destacado >= $23";
+			$selectDestacados = " AND p.destacado >= ?";
+			// $selectDestacados = " AND p.destacado >= $23";
         }
 
         $selectOrder = " ORDER BY ";
@@ -800,27 +808,27 @@ Class Producto{
                     LEFT JOIN valoracion_producto vp ON vp.id_producto = p.id
                     LEFT JOIN producto_ficha_tecnica pft ON pft.id = p.id_producto_ficha_tecnica
                     WHERE p.disponible = true
-                    AND  p.id_categoria = $1
-                    AND  pft.campo01 LIKE $2
-					AND  pft.campo02 LIKE $3
-					AND  pft.campo03 LIKE $4
-					AND  pft.campo04 LIKE $5
-					AND  pft.campo05 LIKE $6
-					AND  pft.campo06 LIKE $7
-					AND  pft.campo07 LIKE $8
-					AND  pft.campo08 LIKE $9
-					AND  pft.campo09 LIKE $10
-					AND  pft.campo10 LIKE $11
-					AND  pft.campo11 LIKE $12
-					AND  pft.campo12 LIKE $13
-					AND  pft.campo13 LIKE $14
-					AND  pft.campo14 LIKE $15
-					AND  pft.campo15 LIKE $16
-					AND  pft.campo16 LIKE $17
-					AND  pft.campo17 LIKE $18
-					AND  pft.campo18 LIKE $19
-					AND  pft.campo19 LIKE $20
-					AND  pft.campo20 LIKE $21";
+                    AND  p.id_categoria = ?
+                    AND  pft.campo01 LIKE ?
+					AND  pft.campo02 LIKE ?
+					AND  pft.campo03 LIKE ?
+					AND  pft.campo04 LIKE ?
+					AND  pft.campo05 LIKE ?
+					AND  pft.campo06 LIKE ?
+					AND  pft.campo07 LIKE ?
+					AND  pft.campo08 LIKE ?
+					AND  pft.campo09 LIKE ?
+					AND  pft.campo10 LIKE ?
+					AND  pft.campo11 LIKE ?
+					AND  pft.campo12 LIKE ?
+					AND  pft.campo13 LIKE ?
+					AND  pft.campo14 LIKE ?
+					AND  pft.campo15 LIKE ?
+					AND  pft.campo16 LIKE ?
+					AND  pft.campo17 LIKE ?
+					AND  pft.campo18 LIKE ?
+					AND  pft.campo19 LIKE ?
+					AND  pft.campo20 LIKE ?";
 
 		$grupos = " GROUP BY vp.id_producto, p.id, c.nombre, pr.nombre, m.descripcion,
 					pft.campo01, pft.campo02, pft.campo03, pft.campo04, pft.campo05, 
@@ -828,54 +836,54 @@ Class Producto{
 					pft.campo11, pft.campo12, pft.campo13, pft.campo14, pft.campo15,
 					pft.campo16, pft.campo17, pft.campo18, pft.campo19, pft.campo20";
                     // ORDER BY p.descripcion
-        $limit =  " LIMIT $24 OFFSET $25";
+		$limit =  " LIMIT ?,?";
+		// $limit =  " LIMIT $24 OFFSET $25";
         $consulta .= $selectMarca . $selectDestacados . $grupos . $selectOrder . $limit;
 
-        
-        // $stmt = mysqli_prepare($conexion, $consulta);
-        // mysqli_stmt_bind_param($stmt,'issssssssssssssssssssiiii', $idCategoria, 
-        //                                         $campo01,
-        //                                $campo02,
-        //                                $campo03,
-        //                                $campo04,
-        //                                $campo05,
-        //                                $campo06,
-        //                                $campo07,
-        //                                $campo08,
-        //                                $campo09,
-        //                                $campo10,
-        //                                $campo11,
-        //                                $campo12,
-        //                                $campo13,
-        //                                $campo14,
-        //                                $campo15,
-        //                                $campo16,
-        //                                $campo17,
-        //                                $campo18,
-        //                                $campo19,
-        //                                $campo20,
-        //                                $marcaFiltro,
-        //                                $destacados,
-        //                                $desde, $limite);
-        // mysqli_stmt_execute($stmt);
-        // $resultado = mysqli_stmt_get_result($stmt);
-        // $output = array();
-        // while ($fila = mysqli_fetch_assoc($resultado)){
-        //     $fila['descripcion'] = utf8_encode($fila['descripcion']);
-        //     $output[] = $fila;
-		// }
+        $stmt = mysqli_prepare($conexion, $consulta);
+        mysqli_stmt_bind_param($stmt,'issssssssssssssssssssiiii', $idCategoria, 
+                                                $campo01,
+                                       $campo02,
+                                       $campo03,
+                                       $campo04,
+                                       $campo05,
+                                       $campo06,
+                                       $campo07,
+                                       $campo08,
+                                       $campo09,
+                                       $campo10,
+                                       $campo11,
+                                       $campo12,
+                                       $campo13,
+                                       $campo14,
+                                       $campo15,
+                                       $campo16,
+                                       $campo17,
+                                       $campo18,
+                                       $campo19,
+                                       $campo20,
+                                       $marcaFiltro,
+                                       $destacados,
+                                       $desde, $limite);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_stmt_get_result($stmt);
+        $output = array();
+        while ($fila = mysqli_fetch_assoc($resultado)){
+            $fila['descripcion'] = utf8_encode($fila['descripcion']);
+            $output[] = $fila;
+		}
 		
 		//========================= pOSTGRES =====================
-		$result = pg_query_params($conexion, $consulta, array(
-			$idCategoria, $campo01, $campo02, $campo03, $campo04,
-			$campo05, $campo06, $campo07, $campo08, $campo09,
-			$campo10, $campo11, $campo12, $campo13, $campo14,
-			$campo15, $campo16, $campo17, $campo18, $campo19,
-			$campo20, $marcaFiltro, $destacados, $limite, $desde
-		));
-		$output = array();
-		while($fila = pg_fetch_assoc($result))
-			$output[] = $fila;
+		// $result = pg_query_params($conexion, $consulta, array(
+		// 	$idCategoria, $campo01, $campo02, $campo03, $campo04,
+		// 	$campo05, $campo06, $campo07, $campo08, $campo09,
+		// 	$campo10, $campo11, $campo12, $campo13, $campo14,
+		// 	$campo15, $campo16, $campo17, $campo18, $campo19,
+		// 	$campo20, $marcaFiltro, $destacados, $limite, $desde
+		// ));
+		// $output = array();
+		// while($fila = pg_fetch_assoc($result))
+		// 	$output[] = $fila;
         return $output;
     }
 
@@ -935,53 +943,53 @@ Class Producto{
 					pft.campo11, pft.campo12, pft.campo13, pft.campo14, pft.campo15, pft.campo16, pft.campo17,
 					pft.campo18, pft.campo19, pft.campo20
                     ORDER BY p.precio DESC
-                    LIMIT $1";
+                    LIMIT ?";
 
-        // $stmt = mysqli_prepare($conexion, $consulta);
-        // mysqli_stmt_bind_param($stmt,'i', $limite);
-        // mysqli_stmt_execute($stmt);
-        // $resultado = mysqli_stmt_get_result($stmt);
-        // $output = array();
-        // while ($fila = mysqli_fetch_assoc($resultado)){
-        //     $fila['descripcion'] = utf8_encode($fila['descripcion']);
-        //     $output[] = $fila;
-		// }
+        $stmt = mysqli_prepare($conexion, $consulta);
+        mysqli_stmt_bind_param($stmt,'i', $limite);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_stmt_get_result($stmt);
+        $output = array();
+        while ($fila = mysqli_fetch_assoc($resultado)){
+            $fila['descripcion'] = utf8_encode($fila['descripcion']);
+            $output[] = $fila;
+		}
 		
 		//=================== Postgres =======================
-		$result = pg_query_params($conexion, $consulta, array($limite));
-		$output = array();
-		while($fila = pg_fetch_assoc($result))
-			$output[] = $fila;
+		// $result = pg_query_params($conexion, $consulta, array($limite));
+		// $output = array();
+		// while($fila = pg_fetch_assoc($result))
+		// 	$output[] = $fila;
         return $output;
     }
 
     public static function valorarProducto($conexion, $idUsuario, $idProducto){
         $consulta = "INSERT INTO valoracion_producto (id_producto, id_cliente)
-                      VALUES ($1, $2)";
+                      VALUES (?, ?)";
 
-        // $stmt = mysqli_prepare($conexion, $consulta);
-        // mysqli_stmt_bind_param($stmt, 'ii', $idProducto, $idUsuario);
-        // mysqli_stmt_execute($stmt);
-		// $output = mysqli_stmt_affected_rows($stmt);
+        $stmt = mysqli_prepare($conexion, $consulta);
+        mysqli_stmt_bind_param($stmt, 'ii', $idProducto, $idUsuario);
+        mysqli_stmt_execute($stmt);
+		$output = mysqli_stmt_affected_rows($stmt);
 		
 		//============== Postgres ========================
-		$result = pg_query_params($conexion, $consulta, array($idProducto, $idUsuario));
-		$output = pg_affected_rows($result);
+		// $result = pg_query_params($conexion, $consulta, array($idProducto, $idUsuario));
+		// $output = pg_affected_rows($result);
         return $output;
     }
 
     public static function guardarPregunta($conexion, $pregunta, $respondida, $idUsuario, $idProducto, $fecha){
 		$consulta = "INSERT INTO pregunta (pregunta, respondida, id_cliente, id_producto, fecha)
-						VALUES ($1,$2,$3,$4,$5)";
+						VALUES (?,?,?,?,?)";
 
-		//   $stmt = mysqli_prepare($conexion, $consulta);
-		//   mysqli_stmt_bind_param($stmt, 'siiis', $pregunta, $respondida, $idUsuario, $idProducto, $fecha);
-		//   mysqli_stmt_execute($stmt);
-		//   $output = mysqli_stmt_affected_rows($stmt);
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'siiis', $pregunta, $respondida, $idUsuario, $idProducto, $fecha);
+		mysqli_stmt_execute($stmt);
+		$output = mysqli_stmt_affected_rows($stmt);
 		
 		//================== Postgres ========================
-		$result = pg_query_params($conexion, $consulta, array($pregunta, $respondida, $idUsuario, $idProducto, $fecha));
-		$output = pg_affected_rows($result);
+		// $result = pg_query_params($conexion, $consulta, array($pregunta, $respondida, $idUsuario, $idProducto, $fecha));
+		// $output = pg_affected_rows($result);
 		return $output;
     }
 
@@ -996,26 +1004,26 @@ Class Producto{
 							r.fecha_respuesta AS fechaRespuesta
 					FROM pregunta p 
 					LEFT JOIN respuesta r ON p.id = r.id_pregunta
-					WHERE p.id_producto = $1
+					WHERE p.id_producto = ?
 					ORDER BY p.fecha DESC";
 		$consulta = $consulta . $limite;
 
-		// $stmt = mysqli_prepare($conexion, $consulta);
-		// mysqli_stmt_bind_param($stmt, 'i', $idProducto);
-		// mysqli_stmt_execute($stmt);
-		// $resultado = mysqli_stmt_get_result($stmt);
-		// $output = array();
-		// while ($fila = mysqli_fetch_assoc($resultado)){
-		// 	$fila['pregunta'] = utf8_encode($fila['pregunta']);
-		// 	$fila['respuesta'] = utf8_encode($fila['respuesta']);
-		// 	$output[] = $fila;
-		// }
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'i', $idProducto);
+		mysqli_stmt_execute($stmt);
+		$resultado = mysqli_stmt_get_result($stmt);
+		$output = array();
+		while ($fila = mysqli_fetch_assoc($resultado)){
+			$fila['pregunta'] = utf8_encode($fila['pregunta']);
+			$fila['respuesta'] = utf8_encode($fila['respuesta']);
+			$output[] = $fila;
+		}
 
 		//==================== postgres =============================
-		$result = pg_query_params($conexion, $consulta, array($idProducto));
-		$output = array();
-		while($fila = pg_fetch_assoc($result))
-			$output[] = $fila;
+		// $result = pg_query_params($conexion, $consulta, array($idProducto));
+		// $output = array();
+		// while($fila = pg_fetch_assoc($result))
+		// 	$output[] = $fila;
 		return $output;
 
     } 
@@ -1032,89 +1040,90 @@ Class Producto{
 					FROM pregunta P 
 					LEFT JOIN respuesta R ON P.id = R.id_pregunta
 					LEFT JOIN cliente C ON P.id_cliente = C.id
-					WHERE P.respondida = $1
+					WHERE P.respondida = ?
 					ORDER BY P.fecha
-					LIMIT $2 OFFSET $3";
+					LIMIT ?,?";
+					// LIMIT $2 OFFSET $3"; // <----para postgres
 
-		// $stmt = mysqli_prepare($conexion, $consulta);
-		// mysqli_stmt_bind_param($stmt, 'iii', $sinRespuesta, $desde, $limite);
-		// mysqli_stmt_execute($stmt);
-		// $resultado = mysqli_stmt_get_result($stmt);
-		// $output = array();
-		// while ($fila = mysqli_fetch_assoc($resultado)){
-		// 	$fila['pregunta'] = utf8_encode($fila['pregunta']);
-		// 	$fila['respuesta'] = utf8_encode($fila['respuesta']);
-		// 	$output[] = $fila;
-		// }
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'iii', $sinRespuesta, $desde, $limite);
+		mysqli_stmt_execute($stmt);
+		$resultado = mysqli_stmt_get_result($stmt);
+		$output = array();
+		while ($fila = mysqli_fetch_assoc($resultado)){
+			$fila['pregunta'] = utf8_encode($fila['pregunta']);
+			$fila['respuesta'] = utf8_encode($fila['respuesta']);
+			$output[] = $fila;
+		}
 
 		//================ Postgres ===========================
-		$result = pg_query_params($conexion, $consulta, array($sinRespuesta, $limite, $desde));
-		$output = array();
-		while($fila = pg_fetch_assoc($result))
-			$output[] = $fila;
+		// $result = pg_query_params($conexion, $consulta, array($sinRespuesta, $limite, $desde));
+		// $output = array();
+		// while($fila = pg_fetch_assoc($result))
+		// 	$output[] = $fila;
 		return $output;
 	}
 
 	public static function guardarRespuesta($conexion, $idPregunta, $respuesta, $fecha){
 		$consulta = "INSERT INTO respuesta (respuesta, id_pregunta, fecha_respuesta)
-				VALUES($1,$2,$3)";
+				VALUES(?,?,?)";
 
-		// $stmt = mysqli_prepare($conexion, $consulta);
-		// mysqli_stmt_bind_param($stmt, 'sis', $respuesta, $idPregunta, $fecha);
-		// mysqli_stmt_execute($stmt);
-		// $output = mysqli_stmt_affected_rows($stmt);
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'sis', $respuesta, $idPregunta, $fecha);
+		mysqli_stmt_execute($stmt);
+		$output = mysqli_stmt_affected_rows($stmt);
 
 		//=============== Postgres ====================
-		$result = pg_query_params($conexion, $consulta, array($respuesta, $idPregunta, $fecha));
-		$output = pg_affected_rows($result);
+		// $result = pg_query_params($conexion, $consulta, array($respuesta, $idPregunta, $fecha));
+		// $output = pg_affected_rows($result);
 		return $output;
 	}
 
 	public static function cambiarEstadoPreguntaARespondida($conexion, $idPregunta){
 		$consulta = "UPDATE pregunta  
 					SET respondida = true
-					WHERE id = $1";
-		//   $stmt = mysqli_prepare($conexion, $consulta);
-		//   mysqli_stmt_bind_param($stmt, 'i', $idPregunta);
-		//   mysqli_stmt_execute($stmt);
+					WHERE id = ?";
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'i', $idPregunta);
+		mysqli_stmt_execute($stmt);
 		
 		//==================== Postgres =====================
-		pg_query_params($conexion, $consulta, array($idPregunta));
+		// pg_query_params($conexion, $consulta, array($idPregunta));
 	}
 
 	public static function verificarExistenciaDeProductoEnCarrito($conexion, $idProducto, $idUsuario){
 		$consulta = "SELECT COUNT(*) AS existe FROM carrito_compra
-					WHERE id_producto = $1
-					AND id_cliente = $2";
+					WHERE id_producto = ?
+					AND id_cliente = ?";
 
-		// $stmt = mysqli_prepare($conexion, $consulta);
-		// mysqli_stmt_bind_param($stmt, 'ii', $idProducto, $idUsuario);
-		// mysqli_stmt_execute($stmt);
-		// $resultado = mysqli_stmt_get_result($stmt);
-		// return mysqli_fetch_assoc($resultado);
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'ii', $idProducto, $idUsuario);
+		mysqli_stmt_execute($stmt);
+		$resultado = mysqli_stmt_get_result($stmt);
+		return mysqli_fetch_assoc($resultado);
 		
 		//================= Postgres ========================
-		$result = pg_query_params($conexion, $consulta, array($idProducto, $idUsuario));
-		return pg_fetch_assoc($result);
+		// $result = pg_query_params($conexion, $consulta, array($idProducto, $idUsuario));
+		// return pg_fetch_assoc($result);
 	}
 
    public static function agregarAlCarrito($conexion, $idProducto, $idUsuario, $fecha, $cantidad){
         $consulta = "INSERT INTO carrito_compra (id_cliente, id_producto, fecha, cantidad)
-                    VALUES ($1, $2, $3, $4)";
+                    VALUES (?, ?, ?, ?)";
 
-        // $stmt = mysqli_prepare($conexion, $consulta);
-        // mysqli_stmt_bind_param($stmt, 'iisi', $idUsuario, $idProducto, $fecha, $cantidad);
-        // mysqli_stmt_execute($stmt);
-		// $output = mysqli_stmt_affected_rows($stmt);
+        $stmt = mysqli_prepare($conexion, $consulta);
+        mysqli_stmt_bind_param($stmt, 'iisi', $idUsuario, $idProducto, $fecha, $cantidad);
+        mysqli_stmt_execute($stmt);
+		$output = mysqli_stmt_affected_rows($stmt);
 		
 		//================ Postgres ====================
-		$result = pg_query_params($conexion, $consulta, array($idUsuario, $idProducto, $fecha, $cantidad));
-		$output = pg_affected_rows($result);
+		// $result = pg_query_params($conexion, $consulta, array($idUsuario, $idProducto, $fecha, $cantidad));
+		// $output = pg_affected_rows($result);
         return $output;
    }
 
    public static function cargarProductosCarrito($conexion, $idUsuario){
-        $consulta = "SELECT CC.id_producto idProducto,
+        $consulta = "SELECT CC.id_producto,
                             CC.cantidad,
                             P.descripcion,
                             P.precio,
@@ -1125,22 +1134,22 @@ Class Producto{
                             P.peso_caja peso
                     FROM carrito_compra CC
                     JOIN producto P ON CC.id_producto = P.id
-                    WHERE CC.id_cliente = $1";
+                    WHERE CC.id_cliente = ?";
 
-        // $stmt = mysqli_prepare($conexion, $consulta);
-        // mysqli_stmt_bind_param($stmt, 'i', $idUsuario);
-        // mysqli_stmt_execute($stmt);
-        // $resultado = mysqli_stmt_get_result($stmt);
-        // $output = array();
-        // while ($fila = mysqli_fetch_assoc($resultado)){
-        //     $output[] = $fila;
-		// }
+        $stmt = mysqli_prepare($conexion, $consulta);
+        mysqli_stmt_bind_param($stmt, 'i', $idUsuario);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_stmt_get_result($stmt);
+        $output = array();
+        while ($fila = mysqli_fetch_assoc($resultado)){
+            $output[] = $fila;
+		}
 		
 		//======================= Postgres ===============
-		$result = pg_query_params($conexion, $consulta, array($idUsuario));
-		$output = array();
-		while($fila = pg_fetch_assoc($result))
-			$output[] = $fila;
+		// $result = pg_query_params($conexion, $consulta, array($idUsuario));
+		// $output = array();
+		// while($fila = pg_fetch_assoc($result))
+		// 	$output[] = $fila;
         return $output;
    }
 
@@ -1170,17 +1179,17 @@ Class Producto{
 
    public static function quitarDelCarrito($conexion, $idProducto, $idUsuario){
         $consulta = "DELETE FROM carrito_compra 
-                    WHERE id_cliente = $1
-                    AND id_producto = $2";
+                    WHERE id_cliente = ?
+                    AND id_producto = ?";
 
-        // $stmt = mysqli_prepare($conexion, $consulta);
-        // mysqli_stmt_bind_param($stmt, 'ii', $idUsuario, $idProducto);
-        // mysqli_stmt_execute($stmt);
-		// $output = mysqli_stmt_affected_rows($stmt);
+        $stmt = mysqli_prepare($conexion, $consulta);
+        mysqli_stmt_bind_param($stmt, 'ii', $idUsuario, $idProducto);
+        mysqli_stmt_execute($stmt);
+		$output = mysqli_stmt_affected_rows($stmt);
 		
 		//================Posrtgres ===================
-		$result = pg_query_params($conexion, $consulta, array($idUsuario, $idProducto));
-		$output = pg_affected_rows($result);
+		// $result = pg_query_params($conexion, $consulta, array($idUsuario, $idProducto));
+		// $output = pg_affected_rows($result);
         return $output;
    }
 
@@ -1207,83 +1216,85 @@ Class Producto{
 										$campo19,
 										$campo20
 											){
-		$selectMarca = " AND p.id_marca = $22";
+		$selectMarca = " AND p.id_marca = ?";
+		// $selectMarca = " AND p.id_marca = $22";  //<---------- para postgres
 		if( $marcaFiltro == 0 ){
-			$selectMarca = " AND p.id_marca > $22";
+			$selectMarca = " AND p.id_marca > ?";
+			// $selectMarca = " AND p.id_marca > $22";
 		}
 		$consulta = "SELECT count(*) as cantidad
 					FROM producto p
 					Left JOIN producto_ficha_tecnica pft ON pft.id = p.id_producto_ficha_tecnica
-					WHERE p.id_categoria = $1
-					AND  pft.campo01 LIKE $2
-					AND  pft.campo02 LIKE $3
-					AND  pft.campo03 LIKE $4
-					AND  pft.campo04 LIKE $5
-					AND  pft.campo05 LIKE $6
-					AND  pft.campo06 LIKE $7
-					AND  pft.campo07 LIKE $8
-					AND  pft.campo08 LIKE $9
-					AND  pft.campo09 LIKE $10
-					AND  pft.campo10 LIKE $11
-					AND  pft.campo11 LIKE $12
-					AND  pft.campo12 LIKE $13
-					AND  pft.campo13 LIKE $14
-					AND  pft.campo14 LIKE $15
-					AND  pft.campo15 LIKE $16
-					AND  pft.campo16 LIKE $17
-					AND  pft.campo17 LIKE $18
-					AND  pft.campo18 LIKE $19
-					AND  pft.campo19 LIKE $20
-					AND  pft.campo20 LIKE $21";
+					WHERE p.id_categoria = ?
+					AND  pft.campo01 LIKE ?
+					AND  pft.campo02 LIKE ?
+					AND  pft.campo03 LIKE ?
+					AND  pft.campo04 LIKE ?
+					AND  pft.campo05 LIKE ?
+					AND  pft.campo06 LIKE ?
+					AND  pft.campo07 LIKE ?
+					AND  pft.campo08 LIKE ?
+					AND  pft.campo09 LIKE ?
+					AND  pft.campo10 LIKE ?
+					AND  pft.campo11 LIKE ?
+					AND  pft.campo12 LIKE ?
+					AND  pft.campo13 LIKE ?
+					AND  pft.campo14 LIKE ?
+					AND  pft.campo15 LIKE ?
+					AND  pft.campo16 LIKE ?
+					AND  pft.campo17 LIKE ?
+					AND  pft.campo18 LIKE ?
+					AND  pft.campo19 LIKE ?
+					AND  pft.campo20 LIKE ?";
 		$consulta .= $selectMarca; 
 
-		//   $stmt = mysqli_prepare($conexion, $consulta);
-		//   mysqli_stmt_bind_param($stmt, 'issssssssssssssssssssi', $idCategoria, 
-		//                                    $campo01,
-		//                                    $campo02,
-		//                                    $campo03,
-		//                                    $campo04,
-		//                                    $campo05,
-		//                                    $campo06,
-		//                                    $campo07,
-		//                                    $campo08,
-		//                                    $campo09,
-		//                                    $campo10,
-		//                                    $campo11,
-		//                                    $campo12,
-		//                                    $campo13,
-		//                                    $campo14,
-		//                                    $campo15,
-		//                                    $campo16,
-		//                                    $campo17,
-		//                                    $campo18,
-		//                                    $campo19,
-		//                                    $campo20,
-		//                                     $marcaFiltro);
-		//   mysqli_stmt_execute($stmt);
-		//   $resultado = mysqli_stmt_get_result($stmt);
-		//   return mysqli_fetch_assoc($resultado); 
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'issssssssssssssssssssi', $idCategoria, 
+										$campo01,
+										$campo02,
+										$campo03,
+										$campo04,
+										$campo05,
+										$campo06,
+										$campo07,
+										$campo08,
+										$campo09,
+										$campo10,
+										$campo11,
+										$campo12,
+										$campo13,
+										$campo14,
+										$campo15,
+										$campo16,
+										$campo17,
+										$campo18,
+										$campo19,
+										$campo20,
+										$marcaFiltro);
+		mysqli_stmt_execute($stmt);
+		$resultado = mysqli_stmt_get_result($stmt);
+		return mysqli_fetch_assoc($resultado); 
 
 		//======================== Postgres ========================
-		$result = pg_query_params($conexion, $consulta, array(
-			$idCategoria, $campo01, $campo02, $campo03, $campo04,
-			$campo05, $campo06, $campo07, $campo08, $campo09,
-			$campo10, $campo11, $campo12, $campo13, $campo14, 
-			$campo15, $campo16, $campo17, $campo18, $campo19,
-			$campo20, $marcaFiltro
-		));
-		return pg_fetch_assoc($result);
+		// $result = pg_query_params($conexion, $consulta, array(
+		// 	$idCategoria, $campo01, $campo02, $campo03, $campo04,
+		// 	$campo05, $campo06, $campo07, $campo08, $campo09,
+		// 	$campo10, $campo11, $campo12, $campo13, $campo14, 
+		// 	$campo15, $campo16, $campo17, $campo18, $campo19,
+		// 	$campo20, $marcaFiltro
+		// ));
+		// return pg_fetch_assoc($result);
 	}
 
 	public static function contarCantidadProductosAdmin($conexion){
 		$consulta = "SELECT count(*) as cantidad
 					FROM producto";
-		// $resultado = mysqli_query($conexion,$consulta);
-		// $output = mysqli_fetch_assoc($resultado);
+		$resultado = mysqli_query($conexion,$consulta);
+		$output = mysqli_fetch_assoc($resultado);
 
 		//===================== Postgres =================
-		$result = pg_query($conexion, $consulta);
-		$output = pg_fetch_assoc($result);
+		// $result = pg_query($conexion, $consulta);
+		// $output = pg_fetch_assoc($result);
 		return $output;
 	}
 
@@ -1375,62 +1386,63 @@ Class Producto{
 
 		$consulta = $select . " FROM producto_ficha_tecnica ftp 
 					JOIN producto p ON ftp.id = p.id_producto_ficha_tecnica
-					WHERE p.id_categoria = $1 " . $grupo;
+					WHERE p.id_categoria = ? " . $grupo;
 
-		// $stmt = mysqli_prepare($conexion, $consulta);
-		// mysqli_stmt_bind_param($stmt, 'i', $idCategoria);
-		// mysqli_stmt_execute($stmt);
-		// $resultado = mysqli_stmt_get_result($stmt);
-		// $output = array();
-		// while ($fila = mysqli_fetch_assoc($resultado)){
-		// 	$output[] = $fila;
-		// }
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'i', $idCategoria);
+		mysqli_stmt_execute($stmt);
+		$resultado = mysqli_stmt_get_result($stmt);
+		$output = array();
+		while ($fila = mysqli_fetch_assoc($resultado)){
+			$output[] = $fila;
+		}
 
 		//===================== Postgres ====================
-		$result = pg_query_params($conexion, $consulta, array($idCategoria));
-		$output = array();
-		while($fila = pg_fetch_assoc($result))
-			$output[] = $fila;
+		// $result = pg_query_params($conexion, $consulta, array($idCategoria));
+		// $output = array();
+		// while($fila = pg_fetch_assoc($result))
+		// 	$output[] = $fila;
 		return $output;
 	}
 
 	public static function buscarProductoPorSku($sku, $conexion){
 		$consulta = "SELECT id
 					FROM producto
-					WHERE codigo_sku = $1";
+					WHERE codigo_sku = ?";
 
-		// $stmt = mysqli_prepare($conexion, $consulta);
-		// mysqli_stmt_bind_param($stmt, "s", $sku);
-		// mysqli_stmt_execute($stmt);
-		// $resultado = mysqli_stmt_get_result($stmt);
-		// $output = array();
-		// while ($fila = mysqli_fetch_assoc($resultado)){
-		//    $output[] = $fila;
-		// }
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, "s", $sku);
+		mysqli_stmt_execute($stmt);
+		$resultado = mysqli_stmt_get_result($stmt);
+		$output = array();
+		while ($fila = mysqli_fetch_assoc($resultado)){
+		   $output[] = $fila;
+		}
 		
 		//======================== Postgres =============
-		$result = pg_query_params($conexion, $consulta, array($sku));
-		$output = array();
-		while($fila = pg_fetch_assoc($result))
-			$output[] = $fila;
+		// $result = pg_query_params($conexion, $consulta, array($sku));
+		// $output = array();
+		// while($fila = pg_fetch_assoc($result))
+		// 	$output[] = $fila;
 		return $output;
 	}
 
 	public static function cambiarCantidadCarrito($conexion, $producto, $usuario, $cantidad){
 		$consulta = 'UPDATE carrito_compra
-					SET cantidad = $1,
-					fecha = now()::timestamp without time zone
-					WHERE id_cliente = $2
-					and id_producto = $3';
+					SET cantidad = ?,
+					fecha = now()
+					/* fecha = now()::timestamp without time zone */ /* para postgres */
+					WHERE id_cliente = ?
+					and id_producto = ?';
 
-		// $stmt = mysqli_prepare($conexion, $consulta);
-		// mysqli_stmt_bind_param($stmt, "iii", $cantidad, $usuario, $producto);
-		// mysqli_stmt_execute($stmt);
-		// $output = mysqli_stmt_affected_rows($stmt);
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, "iii", $cantidad, $usuario, $producto);
+		mysqli_stmt_execute($stmt);
+		$output = mysqli_stmt_affected_rows($stmt);
 
 		//======================== Postgres ==================
-		$result = pg_query_params($conexion, $consulta, array($cantidad, $usuario, $producto));
-		$output = pg_affected_rows($result);
+		// $result = pg_query_params($conexion, $consulta, array($cantidad, $usuario, $producto));
+		// $output = pg_affected_rows($result);
 		return $output;
 	}
 }

@@ -13,7 +13,7 @@ $(document).ready(function(){
             .success(function(response){
                 response = JSON.parse(response);
                 if(response.respuesta == 1){
-                    if(response.admin == 't'){
+                    if(response.admin == 1){
                         window.location.href = "vistas/admin-home.php";
                     }else {
                         window.location.href = "home.php";	

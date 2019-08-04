@@ -34,47 +34,47 @@ class Categoria
 
     public function guardarCategoria($conexion){
         $consulta = "INSERT INTO categoria(nombre, id_Ficha_tecnica) 
-                        VALUES ($1 , $2)";
+                        VALUES (? , ?)";
         //=============== MySQL ======================
-        // $stmt = mysqli_prepare($conexion, $consulta);
-        // mysqli_stmt_bind_param($stmt, 'si', $this->descripcion, $this->fichaTecnica);
-        // mysqli_stmt_execute($stmt);
+        $stmt = mysqli_prepare($conexion, $consulta);
+        mysqli_stmt_bind_param($stmt, 'si', $this->descripcion, $this->fichaTecnica);
+        mysqli_stmt_execute($stmt);
 
         //=============== POSTGRES ======================
-        pg_query_params($conexion, $consulta, array($this->descripcion, $this->fichaTecnica));
+        // pg_query_params($conexion, $consulta, array($this->descripcion, $this->fichaTecnica));
     }
 
     public function traerNombreCategoria($conexion){
         $consulta = "SELECT nombre
                     FROM categoria
-                    WHERE categoria.id = $1";
+                    WHERE categoria.id = ?";
 
         //=================== MySQL =====================
-        // $stmt = mysqli_prepare($conexion, $consulta);
-        // mysqli_stmt_bind_param($stmt, 'i', $this->id);
-        // mysqli_stmt_execute($stmt);
-        // $resultado = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+        $stmt = mysqli_prepare($conexion, $consulta);
+        mysqli_stmt_bind_param($stmt, 'i', $this->id);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
 
         //=================== POSTGRES =====================
-        $result = pg_query_params($conexion, $consulta, array($this->id));
-        $resultado = pg_fetch_assoc($result);
+        // $result = pg_query_params($conexion, $consulta, array($this->id));
+        // $resultado = pg_fetch_assoc($result);
 
         return $resultado;
     }
     
     public function editarCategoria($conexion, $nombre){
         $consulta = "UPDATE categoria
-                        SET nombre = $1
-                        WHERE id = $2";
+                        SET nombre = ?
+                        WHERE id = ?";
         //============== MySQL ===========================
-        // $stmt = mysqli_prepare($conexion, $consulta);
-        // mysqli_stmt_bind_param($stmt, 'si', $nombre, $this->id);
-        // mysqli_stmt_execute($stmt);
-        // $output = mysqli_stmt_affected_rows($stmt);
+        $stmt = mysqli_prepare($conexion, $consulta);
+        mysqli_stmt_bind_param($stmt, 'si', $nombre, $this->id);
+        mysqli_stmt_execute($stmt);
+        $output = mysqli_stmt_affected_rows($stmt);
 
         //============== POSTGRES ===========================
-        $result = pg_query_params($conexion, $consulta, array($nombre, $this->id));
-        $output = pg_affected_rows($result);
+        // $result = pg_query_params($conexion, $consulta, array($nombre, $this->id));
+        // $output = pg_affected_rows($result);
         return $output;
 
     }
@@ -82,25 +82,25 @@ class Categoria
     public static function listarCategorias($conexion){
         $consulta = "SELECT  c.id,
                         c.nombre,
-                        ft.nombre fichaTecnica
+                        ft.nombre ficha_tecnica  
                         FROM categoria c
-                        JOIN ficha_tecnica ft ON ft.id = c.id_Ficha_tecnica
+                        LEFT JOIN ficha_tecnica ft ON ft.id = c.id_Ficha_tecnica
                         ORDER BY c.id";
         
         //================= MySQL ========================
-        // $respuesta = mysqli_query($conexion, $consulta);
-        // $output = array();
-        // while($fila = mysqli_fetch_assoc($respuesta)){
-        //     $fila['descripcion'] = utf8_encode($fila['descripcion']);
-        //     $output[] = $fila;
-        // }
-
-        //================= POSTGRES ========================
-        $result = pg_query($conexion, $consulta);
+        $respuesta = mysqli_query($conexion, $consulta);
         $output = array();
-        while($fila = pg_fetch_assoc($result)){
+        while($fila = mysqli_fetch_assoc($respuesta)){
+            $fila['nombre'] = utf8_encode($fila['nombre']);
             $output[] = $fila;
         }
+
+        //================= POSTGRES ========================
+        // $result = pg_query($conexion, $consulta);
+        // $output = array();
+        // while($fila = pg_fetch_assoc($result)){
+        //     $output[] = $fila;
+        // }
         return $output;
     }
 
