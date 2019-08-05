@@ -14,6 +14,7 @@ Class ConexionBD {
 	 private $pass = "MZTrfokHERLAM";
 	 private $bd = "daniel33_herlamdigital";
 
+	//Esto es un comentario de prueba===== git deploy problem
 
 	private $conexion;
 
