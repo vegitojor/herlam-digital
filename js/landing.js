@@ -24,6 +24,7 @@ $(document).ready(function(){
                     bootbox.alert("Ha ocurrido un error con la conexion a la base de datos. Por favor vuelva a intenter iniciar sesión.");
                 }
             })
-        }  
+        }
+        return false;  
     })
 })

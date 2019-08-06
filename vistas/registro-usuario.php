@@ -25,7 +25,7 @@
     <!-- <script type="text/javascript" src="../librerias/angular-video/anguvideo.js"></script>
     <script type="text/javascript" src="../librerias/angular-video/controller.js"></script> -->
 
-    <title>Registro de usuario - MODPC</title>
+    <title>Registro de usuario - Herlam</title>
 
 </head>
 
@@ -58,7 +58,7 @@
                     <a href="#" data-toggle="modal" data-target="#contactModal">Contacto</a>
                 </li>
             </ul> -->
-            <!-- <ul class="nav navbar-nav pull-right " ng-hide="<?= $id ?>">
+            <!-- <ul class="nav navbar-nav pull-right " ng-hide="">
 
                 <li >
                     <a href="registro-usuario.php">registrarse</a>
@@ -67,12 +67,12 @@
                     <a href="login.php">Ingresar</a>
                 </li>
             </ul> -->
-            <!-- <ul class="nav navbar-nav pull-right " ng-show="<?= $id ?>">
+            <!-- <ul class="nav navbar-nav pull-right " ng-show="">
                 <li>
                     <a href="carrito.php" data-toggle="tooltip" data-placement="bottom" title="Mis compras"><span class="glyphicon glyphicon-shopping-cart"></span></a>
                 </li>
                 <li class="dropdown">
-                    <a href="" id="usuario" data-toggle="dropdown"><?= $nombre ?><span class="caret"></span></a>
+                    <a href="" id="usuario" data-toggle="dropdown"><span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="usuario">
                         <li role="presentation"><a href="../controladores/cerrarSesionController.php">Salir</a></li>
                     </ul>
