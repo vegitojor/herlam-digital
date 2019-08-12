@@ -15,11 +15,11 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li >
-                        <a href="vistas/nosotros.php">Así somos</a>
+                        <a href="vistas/nosotros.php">T&eacute;rminos y condiciones</a>
                     </li>
-                    <li >
+                    <!-- <li >
                         <a href="vistas/institucional.php">Institucional</a>
-                    </li>
+                    </li> -->
                     <li >
                         <a href="#" data-toggle="modal" data-target="#contactModal">Contacto</a>
                     </li>
@@ -35,7 +35,7 @@
                 </ul>
                 <ul class="nav navbar-nav pull-right " ng-show="<?= $id ?>">
                     <li>
-                        <a href="vistas/carrito.php" data-toggle="tooltip" data-placement="bottom" title="Mis compras"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+                        <a href="vistas/carrito.php" data-toggle="tooltip" data-placement="bottom" title="Carrito"><span class="glyphicon glyphicon-shopping-cart"></span></a>
                     </li>
                     <li class="dropdown">
                         <a href="" id="usuario" data-toggle="dropdown"><?= $nombre ?><span class="caret"></span></a>

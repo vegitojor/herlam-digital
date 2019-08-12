@@ -13,9 +13,9 @@ include_once('../incluciones/verificacionAdmin.php');
 <html>
 <head>
     <?php include_once('../incluciones/headAdmin.php'); ?>
-    <script type="text/javascript" src="../js/adminModule.js"></script>
+    <script type="text/javascript" src="../js/adminModule.js?<?= $versionJs ?>"></script>
     <!-- Controlador angular -->
-    <script type="text/javascript" src="../js/adminPreguntaController.js"></script>
+    <script type="text/javascript" src="../js/adminPreguntaController.js?<?= $versionJs ?>"></script>
     <title>Preguntas</title>
 </head>
 <body ng-app="admin" class="w3-light-gray" ng-controller="adminPregunta">

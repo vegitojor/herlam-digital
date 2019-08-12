@@ -901,7 +901,7 @@ Class Producto{
                             p.path_imagen AS imagen,
                             p.path_video AS video,
                             c.nombre AS categoria,
-                            c.id AS idCategoria,
+                            c.id AS id_categoria,
                             pr.nombre AS proveedor,
                             m.descripcion AS  marca,
                             p.peso_caja AS peso,

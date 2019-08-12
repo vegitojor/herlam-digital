@@ -14,27 +14,27 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li >
-                    <a href="nosotros.php">Así somos</a>
+                    <a href="nosotros.php">T&eacute;rminos y condiciones</a>
                 </li>
-                <li >
+                <!-- <li >
                     <a href="institucional.php">Institucional</a>
-                </li>
+                </li> -->
                 <li >
                     <a href="#" data-toggle="modal" data-target="#contactModal">Contacto</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav pull-right " ng-hide="<?= $id ?>">
 
-                <li >
+                <!-- <li >
                     <a href="registro-usuario.php">registrarse</a>
                 </li>
                 <li>
                     <a href="login.php">Ingresar</a>
-                </li>
+                </li> -->
             </ul>
             <ul class="nav navbar-nav pull-right " ng-show="<?= $id ?>">
                 <li>
-                    <a href="carrito.php" data-toggle="tooltip" data-placement="bottom" title="Mis compras"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+                    <a href="carrito.php" data-toggle="tooltip" data-placement="bottom" title="Carrito"><span class="glyphicon glyphicon-shopping-cart"></span></a>
                 </li>
                 <li class="dropdown">
                     <a href="" id="usuario" data-toggle="dropdown"><?= $nombre ?><span class="caret"></span></a>

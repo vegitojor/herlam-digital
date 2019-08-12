@@ -7,7 +7,7 @@
  */
 
 // include_once ('../incluciones/verificacionUsuario.php');
-
+    $versionJs = rand();
 ?>
 <!DOCTYPE html>
 <html lang="es" >
@@ -15,11 +15,11 @@
 <head>
     <?php include_once ('../incluciones/head.php'); ?>
     <!-- modulo angular -->
-    <script type="text/javascript" src="../js/registroUsuarioValidacion.js"></script>
+    <script type="text/javascript" src="../js/registroUsuarioValidacion.js?<?= $versionJs ?>"></script>
     <!-- controlador angular -->
-    <script type="text/javascript" src="../js/registroUsuarioValidacionController.js"></script>
+    <script type="text/javascript" src="../js/registroUsuarioValidacionController.js?<?= $versionJs ?>"></script>
     <!-- directiva angular -->
-    <script type="text/javascript" src="../js/registroUsuarioValidacionDirective.js"></script>
+    <script type="text/javascript" src="../js/registroUsuarioValidacionDirective.js?<?= $versionJs ?>"></script>
 
     <!-- AngularVideo directive -->
     <!-- <script type="text/javascript" src="../librerias/angular-video/anguvideo.js"></script>
@@ -123,7 +123,9 @@
                                 <span class="text-danger" ng-show="registroUsuario.nombreUsuario.$error.required">El campo es obligatorio.</span>
                             </div>
                         </div> -->             
-                        <h3>Datos obligatorios</h3>     
+                        <!-- <h3>Datos obligatorios</h3>      -->
+
+
                         <!-- preloader -->
                         <div id="preloader" ng-show="preloader">
                             <div class="sk-cube-grid">
@@ -175,52 +177,59 @@
                                 <span class="text-danger" ng-show="registroUsuario.passValid.$error.pwmatch">La contraseña no coincide.</span>
                             </div>
                         </div>
-                        <hr>
-                        <h3>Datos opcionales</h3>
+                        <!-- <hr>
+                        <h3>Datos opcionales</h3> -->
                         <div class="form-group">
                             <label for="telefono">Ingrese su número telefónico</label>
-                            <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Introduzca su teléfono" ng-model="telefono" ng-model-option="{updateOn: 'blur'}" >
-                            <!-- <div  ng-show="registroUsuario.$submitted || registroUsuario.telefono.$touched">
+                            <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Introduzca su teléfono" ng-model="telefono" ng-model-option="{updateOn: 'blur'}" required>
+                            <div  ng-show="registroUsuario.$submitted || registroUsuario.telefono.$touched">
                                 <span class="text-danger" ng-show="registroUsuario.telefono.$error.required">El campo es obligatorio.</span>
-                            </div> -->
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="fechaNacimiento">Ingrese su fecha de Nacimiento</label>
-                            <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" placeholder="Introduzca su fecha de nacimiento" ng-model="fechaNacimiento" ng-model-option="{updateOn: 'blur'}" >
-                            <!-- <div  ng-show="registroUsuario.$submitted || registroUsuario.fechaNacimiento.$touched">
+                            <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" placeholder="Introduzca su fecha de nacimiento" ng-model="fechaNacimiento" ng-model-option="{updateOn: 'blur'}" required>
+                            <div  ng-show="registroUsuario.$submitted || registroUsuario.fechaNacimiento.$touched">
                                 <span class="text-danger" ng-show="registroUsuario.fechaNacimiento.$error.required">El campo es obligatorio.</span>
-                            </div> -->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cuil">CUIL/CUIT</label>
+                            <input type="text" class="form-control" id="cuil" name="cuil" placeholder="Introduzca su cuil/cuit" ng-model="cuil" ng-model-option="{updateOn: 'blur'}" required>
+                            <div  ng-show="registroUsuario.$submitted || registroUsuario.cuil.$touched">
+                                <span class="text-danger" ng-show="registroUsuario.cuil.$error.required">El campo es obligatorio.</span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="domicilio">Ingrese su domicilio</label>
-                            <input type="text" class="form-control" id="domicilio" name="domicilio" placeholder="Introduzca su domicilio (calle y altura)" ng-model="direccion" ng-model-option="{updateOn: 'blur'} ">
-                            <!-- <div  ng-show="registroUsuario.$submitted || registroUsuario.domicilio.$touched">
+                            <input type="text" class="form-control" id="domicilio" name="domicilio" placeholder="Introduzca su domicilio (calle y altura)" ng-model="direccion" ng-model-option="{updateOn: 'blur'} " required>
+                            <div  ng-show="registroUsuario.$submitted || registroUsuario.domicilio.$touched">
                                 <span class="text-danger" ng-show="registroUsuario.domicilio.$error.required">El campo es obligatorio.</span>
-                            </div> -->
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="codPostal">Ingrese su código postal</label>
-                            <input type="number" class="form-control" id="codPostal" name="codPostal" placeholder="Introduzca su código postal" ng-model="codPostal" ng-model-option="{updateOn: 'blur'} " >
-                            <!-- <div  ng-show="registroUsuario.$submitted || registroUsuario.codPostal.$touched">
+                            <input type="number" class="form-control" id="codPostal" name="codPostal" placeholder="Introduzca su código postal" ng-model="codPostal" ng-model-option="{updateOn: 'blur'} " required>
+                            <div  ng-show="registroUsuario.$submitted || registroUsuario.codPostal.$touched">
                                 <span class="text-danger" ng-show="registroUsuario.codPostal.$error.required">El campo es obligatorio.</span>
-                            </div> -->
+                            </div>
                         </div>
                         <div class="form-group" ng-init="cargarProvincias()">
                             <label for="provincia">Seleccione su provincia</label>
-                            <select class="form-control" name="provincia" ng-model="provincia" ng-change="cargarLocalidades()" >
+                            <select class="form-control" name="provincia" ng-model="provincia" ng-change="cargarLocalidades()" required>
                                 <option value="">Seleccione una provincia</option>
                                 <option ng-repeat="provincia in provincias" value={{provincia.id}}>{{provincia.provincia}}</option>
                             </select>
                         </div>
                         <div class="form-group" >
                             <label for="localidad">Seleccione su localidad</label>
-                            <select class="form-control" name="localidad" ng-model="localidad" >
+                            <select class="form-control" name="localidad" ng-model="localidad" required>
                                 <option value="">Seleccione una localidad</option>
                                 <option ng-repeat="localidad in localidades" value="{{localidad.id}}">{{localidad.localidad}}</option>
                             </select>
-                            <!-- <div  ng-show="registroUsuario.$submitted || registroUsuario.localidad.$touched">
+                            <div  ng-show="registroUsuario.$submitted || registroUsuario.localidad.$touched">
                                 <span class="text-danger" ng-show="registroUsuario.localidad.$error.required">El campo es obligatorio.</span>
-                            </div> -->
+                            </div>
                         </div>
                         <div class="form-group">                
                             <input type="submit" class="btn btn-success pull-right btn-block bnt-large" id="submit"  ng-click="submitFormulario(registroUsuario.$valid)">
@@ -253,19 +262,19 @@
 </div>
 <!-- /.container -->
 <!-- jQuery -->
-<script src="../librerias/template/js/jquery.js"></script>
+<script src="../librerias/template/js/jquery.js?<?= $versionJs ?>"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="../librerias/template/js/bootstrap.min.js"></script>
+<script src="../librerias/template/js/bootstrap.min.js?<?= $versionJs ?>"></script>
 
 <!-- Bootbox js -->
-<script type="text/javascript" src="../librerias/bootbox/bootbox.min.js"></script>
+<script type="text/javascript" src="../librerias/bootbox/bootbox.min.js?<?= $versionJs ?>"></script>
 
 
 <!-- modal de contacto -->
 <?php include_once('../incluciones/formularioContacto.php'); ?>
-<script src="../librerias/formulario_contacto/jqBootstrapValidation.js"></script>
-<script src="../librerias/formulario_contacto/contact_me.js"></script>
+<script src="../librerias/formulario_contacto/jqBootstrapValidation.js?<?= $versionJs ?>"></script>
+<script src="../librerias/formulario_contacto/contact_me.js?<?= $versionJs ?>"></script>
 
 
 </body>

@@ -73,4 +73,59 @@ app.controller('adminCliente', function ($scope, $http, $window) {
             });
         }
     }
+
+    $scope.eliminarCliente = function(cliente){
+        var option;
+
+        let idAEliminar = prompt("Por favor introduzca el id del usuario a eliminar");
+        if(idAEliminar == cliente.id){
+            option = confirm("Esta accion eliminará definitivamente al usuario y todo su historial de pedidos. ¿Desea continuar?");
+            if(option){
+                $http.post('../controladores/eliminarClienteController.php', {'usuario': cliente.id})
+                .success(function(response){
+                    if (response.respuesta == 1) {
+                        alert('La eliminación se realizó exitosamente.');
+                        $scope.listarClientes();
+                        // $scope.listarAdministradores();
+                    }
+                    else if (response.respuesta.respuesta == 2)
+                        alert('Falló el intento de eliminar el usuario. Por favor vuelva a intentarlo mas tarde.');
+                    else if (response.respuesta.respuesta == 3)
+                        alert('Se introducieron valores erroneos!');
+                    else
+                        alert('Ocurrio un error con la conexción. Vuelva a intentarlo en unos momentos.');
+                });
+                }
+        }else{
+            alert("El id ingresado no coincide con el del usuario que intento eliminar.");
+        }
+
+        
+    }
+
+    $scope.activarCliente = function(cliente){
+        let permiso = 1;
+        if(cliente.activo)
+            permiso = 0;
+        var option = true;
+        if(cliente.activo)
+            option = confirm("Esta accion desactivará al usuario " + cliente.nombre + " " + cliente.apellido +". ¿Desea continuar?");
+        if(option){
+            $http.post('../controladores/activarClienteController.php', {'usuario': cliente.id, 'permiso': permiso })
+            .success(function(response){
+                if (response.respuesta == 1) {
+                    
+                    alert('El cambio se realizó exitosamente.');
+                    $scope.listarClientes();
+                    // $scope.listarAdministradores();
+                }
+                else if (response.respuesta.respuesta == 2)
+                    alert('Falló el intento de eliminar el usuario. Por favor vuelva a intentarlo mas tarde.');
+                else if (response.respuesta.respuesta == 3)
+                    alert('Se introducieron valores erroneos!');
+                else
+                    alert('Ocurrio un error con la conexción. Vuelva a intentarlo en unos momentos.');
+            });
+        }
+    }
 })

@@ -9,6 +9,7 @@
 
 session_start();
 if(isset($_SESSION['usuario'])){
+    $versionJs = rand();
     if($_SESSION['usuario']['admin'] == 1){
         $id = $_SESSION['usuario']['id'];
         $username = $_SESSION['usuario']['usuario'];

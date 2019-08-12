@@ -95,8 +95,11 @@ include_once ('../incluciones/verificacionAdmin.php');
                                     <td>{{cliente.nombre}}</td>
                                     <td>{{cliente.apellido}}</td>
                                     <td>
-                                        <a href="" ng-click="verDetalleCliente({cliente})" class="w3-btn w3-blue">Ver detalles</a>
-                                        <a href="" ng-click="activarAdmin(cliente.id, 1)" class="w3-btn w3-red">Dar permiso Admin</a>
+                                        <a href="" ng-click="verDetalleCliente(cliente)" class="w3-btn w3-blue">Ver detalles</a>
+                                        <a href="" ng-click="activarAdmin(cliente.id, 1)" class="w3-btn w3-orange">Dar permiso Admin</a>
+                                        <a href="" ng-click="activarCliente(cliente)" class="w3-btn "  ng-class="{'w3-blue': cliente.activo ==1, 'w3-green': cliente.activo != 1}" >
+                                            <span ng-if="cliente.activo != 1" >Activar</span><span ng-if="cliente.activo == 1" >Desactivar</span></a>
+                                        <a href="" ng-click="eliminarCliente(cliente)" class="w3-btn w3-red">Eliminar</a>
                                     </td>
                                 </tr>
                             </tbody>

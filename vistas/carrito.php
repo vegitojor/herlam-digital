@@ -87,7 +87,7 @@ include_once ('../incluciones/verificacionUsuario.php');
                                         <div class="panel-body">
                                             <div class="col-md-3">
                                                 <img src="../resourses/imagen_producto/{{productoCarrito.imagen}}" class="foto320x100" alt="imagen-{{productoCarrito.modelo}}" ng-hide="productoCarrito.imagen == '<--NoFoto-->'" >
-                                                <img src="http://placehold.it/320x150" alt="{{productoCarrito.modelo}}" class="foto320x100" ng-show="productoCarrito.imagen == '<--NoFoto-->'">
+                                                <img src="../img/empty.jpeg" alt="{{productoCarrito.modelo}}" class="foto320x100" ng-show="productoCarrito.imagen == '<--NoFoto-->'">
                                             </div>
                                             <div class="col-md-4">
                                                 <br>
@@ -104,7 +104,7 @@ include_once ('../incluciones/verificacionUsuario.php');
                                             </div>
                                             <div class="col-md-2">
                                                 <div class=" pull-right">
-                                                    <a href="" class="btn btn-danger" ng-click="quitarDelCarrito(<?= $id ?>, productoCarrito.idProducto, productoCarrito.cantidad)" " data-tooltip="tooltip" title="Quitar del carrito" onmouseenter="$(this).tooltip('show')"><span class="fa fa-times"></span></a>    
+                                                    <a href="" class="btn btn-danger" ng-click="quitarDelCarrito(<?= $id ?>, productoCarrito.id_producto, productoCarrito.cantidad)" " data-tooltip="tooltip" title="Quitar del carrito" onmouseenter="$(this).tooltip('show')"><span class="fa fa-times"></span></a>    
                                                     
                                                 </div>
                                             </div>

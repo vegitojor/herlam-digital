@@ -1,3 +1,5 @@
+<?php $versionJs = rand(); ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -8,6 +10,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="">
 		<meta name="author" content="">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Last-Modified" content="0">
+		<meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+		<meta http-equiv="Pragma" content="no-cache">
 
 		<title>herlam-digital</title>
 		<link rel="shortcut icon" href="http://www.herlam.com.ar/favicon.ico?v=2" type="image/x-icon">
@@ -73,18 +79,18 @@
 		
 	</body>
 	 <!-- jQuery -->
-	<script src="librerias/template/js/jquery.js"></script>
+	<script src="librerias/template/js/jquery.js?<?= $versionJs ?>"></script>
 
-	<script src="js/landing.js"></script>
+	<script src="js/landing.js?<?= $versionJs ?>"></script>
 
 	<!-- Bootstrap Core JavaScript -->
-	<script src="librerias/template/js/bootstrap.min.js"></script>
+	<script src="librerias/template/js/bootstrap.min.js?<?= $versionJs ?>"></script>
 
 	<!-- Bootbox js -->
-	<script type="text/javascript" src="librerias/bootbox/bootbox.min.js"></script>
+	<script type="text/javascript" src="librerias/bootbox/bootbox.min.js?<?= $versionJs ?>"></script>
 
 	<!-- modal de contacto -->
 	<?php include_once('incluciones/formularioContacto.php'); ?>
-	<script src="librerias/formulario_contacto/jqBootstrapValidation.js"></script>
-	<script src="librerias/formulario_contacto/contact_me_index.js"></script>
+	<script src="librerias/formulario_contacto/jqBootstrapValidation.js?<?= $versionJs ?>"></script>
+	<script src="librerias/formulario_contacto/contact_me_index.js?<?= $versionJs ?>"></script>
 </html>

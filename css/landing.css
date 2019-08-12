@@ -63,9 +63,7 @@ html, body{
     background-size: cover;
 }
 
-#footer{
-    /* background-color: blueviolet; */
-}
+
 
 .container-login{
     border: 4px solid;
@@ -123,5 +121,9 @@ html, body{
     .top-navbar{
         margin-top: 0;
         margin-bottom: 0;
+    }
+
+    .heigth-70{
+        height: 500px;
     }
 }

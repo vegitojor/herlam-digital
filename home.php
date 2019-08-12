@@ -23,13 +23,13 @@ include_once('incluciones/verificacionUsuario.php');
     <link href="librerias/template/css/shop-homepage.css" rel="stylesheet">
 
     <!-- Angular JS -->
-    <script type="text/javascript" src="librerias/angularjs/angular.min.js"></script>
-    <script type="text/javascript" src="js/indexModulo.js"></script>
-    <script type="text/javascript" src="js/indexController.js"></script>
+    <script type="text/javascript" src="librerias/angularjs/angular.min.js?<?= $versionJs ?>"></script>
+    <script type="text/javascript" src="js/indexModulo.js?<?= $versionJs ?>"></script>
+    <script type="text/javascript" src="js/indexController.js?<?= $versionJs ?>"></script>
 
     <!-- AngularVideo directive -->
-    <script type="text/javascript" src="librerias/angular-video/anguvideo.js"></script>
-    <script type="text/javascript" src="librerias/angular-video/controller.js"></script>
+    <script type="text/javascript" src="librerias/angular-video/anguvideo.js?<?= $versionJs ?>"></script>
+    <script type="text/javascript" src="librerias/angular-video/controller.js?<?= $versionJs ?>"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -70,13 +70,14 @@ include_once('incluciones/verificacionUsuario.php');
                             </ol>
                             <div class="carousel-inner">
                                 <div class="item active">
-                                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
+                                    <img class="slide-image" src="img/banner-1.jpeg" alt="">
+                                    <!-- src="http://placehold.it/800x300" -->
                                 </div>
                                 <div class="item">
-                                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
+                                    <img class="slide-image" src="img/banner-2.jpeg" alt="">
                                 </div>
                                 <div class="item">
-                                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
+                                    <img class="slide-image" src="img/banner-3.jpeg" alt="">
                                 </div>
                             </div>
                             <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
@@ -94,16 +95,17 @@ include_once('incluciones/verificacionUsuario.php');
                     <!-- LISTA DE PRODUCTOS DESTACADOS - MAX 6 -->
                     <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="producto in productos">
                     <div class="thumbnail">
-                        <a href="" data-toggle="modal" data-target="#id{{producto.id}}" ng-click="cargarFichaTecnica(producto.idcategoria)">
+                        <a href="" data-toggle="modal" data-target="#id{{producto.id}}" ng-click="cargarFichaTecnica(producto.id_categoria)">
                             <img src="resourses/imagen_producto/{{producto.imagen}}" class="foto320x150" alt="imagen-{{producto.modelo}}" ng-hide="producto.imagen == '<--NoFoto-->'" >
-                            <img src="http://placehold.it/320x150" alt="" class="foto320x150" ng-show="producto.imagen == '<--NoFoto-->'">
+                            <img src="img/empty.jpeg" alt="" class="foto320x150" ng-show="producto.imagen == '<--NoFoto-->'">
+                            <!-- src="http://placehold.it/320x150" -->
                         </a>
                         <div class="caption">
                             <h4 class="pull-right">{{producto.precio * moneda.valor | currency}}</h4>
                             <p ng-show="producto.nuevo">Nuevo</p>
                             <p ng-hide="producto.nuevo">Usado</p>
                             <h4>
-                                <a href="" data-toggle="modal" data-target="#id{{producto.id}}" ng-click="cargarFichaTecnica(producto.idcategoria)">{{producto.descripcion}}</a>
+                                <a href="" data-toggle="modal" data-target="#id{{producto.id}}" ng-click="cargarFichaTecnica(producto.id_categoria)">{{producto.descripcion}}</a>
                             </h4>
 
                             <p>{{producto.modelo}}</p>
@@ -133,7 +135,8 @@ include_once('incluciones/verificacionUsuario.php');
                                         <div class="col-md-8">
                                             <div class="thumbnail">
                                                 <img src="resourses/imagen_producto/{{producto.imagen}}" alt="{{producto.modelo}}" class="img-responsive foto640x300" ng-hide="producto.imagen == '<--NoFoto-->'">
-                                                <img src="http://placehold.it/320x150" alt="{{producto.imagen}}" ng-show="producto.imagen == '<--NoFoto-->'">
+                                                <img src="img/empty.jpeg" alt="{{producto.imagen}}" ng-show="producto.imagen == '<--NoFoto-->'">
+                                                <!-- src="http://placehold.it/320x150" -->
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -314,25 +317,25 @@ include_once('incluciones/verificacionUsuario.php');
                 </div>
             </div>
         </footer> -->
-        <?php //include_once('incluciones/footer.php') ?>
+        <?php include_once('incluciones/footer.php') ?>
     </div>
     <!-- /.container -->
 
   
 
     <!-- jQuery -->
-    <script src="librerias/template/js/jquery.js"></script>
+    <script src="librerias/template/js/jquery.js?<?= $versionJs ?>"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="librerias/template/js/bootstrap.min.js"></script>
+    <script src="librerias/template/js/bootstrap.min.js?<?= $versionJs ?>"></script>
     
     <!-- Bootbox js -->
-    <script type="text/javascript" src="librerias/bootbox/bootbox.min.js"></script>
+    <script type="text/javascript" src="librerias/bootbox/bootbox.min.js?<?= $versionJs ?>"></script>
     
       <!-- modal de contacto -->
     <?php include_once('incluciones/formularioContacto.php'); ?>
-    <script src="librerias/formulario_contacto/jqBootstrapValidation.js"></script>
-    <script src="librerias/formulario_contacto/contact_me_index.js"></script>
+    <script src="librerias/formulario_contacto/jqBootstrapValidation.js?<?= $versionJs ?>"></script>
+    <script src="librerias/formulario_contacto/contact_me_index.js?<?= $versionJs ?>"></script>
 
 </body>
 

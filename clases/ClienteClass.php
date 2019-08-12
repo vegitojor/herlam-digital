@@ -14,6 +14,7 @@ Class Cliente{
 	private $domicilio;
 	private $admin;
 	private $localidad;
+	private $existe;
 
 	function __construct($id, 
 						$nombre, 
@@ -39,6 +40,7 @@ Class Cliente{
 		$this->domicilio = $domicilio;
 		$this->admin = $admin;
 		$this->localidad = $localidad;
+		$this->existe = 1;
 
 	}
 
@@ -142,15 +144,16 @@ Class Cliente{
 					domicilio,
 					admin,
 					fecha_nacimiento,
-					id_localidad) VALUES 
-					(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					id_localidad,
+					existe) VALUES 
+					(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 					//RETURNING id  //<---- solo para postgres
 
 		//============== MySQL =======================
 		$stmt = mysqli_prepare($conexion, $consulta);
 		//ssssssisidi
-		mysqli_stmt_bind_param($stmt, "ssssssisisi", 
+		mysqli_stmt_bind_param($stmt, "ssssssisisii", 
 								$this->usuario,
 								$this->email,
 								$this->pass,
@@ -161,14 +164,15 @@ Class Cliente{
 								$this->domicilio,
 								$this->admin,
 								$this->fechaNacimiento, 
-								$this->localidad);
+								$this->localidad,
+								$this->existe);
 		mysqli_stmt_execute($stmt);
 		//para obtener el ultimo id autogenerado
 		$id = mysqli_insert_id($conexion);
 
 		//=============== POSTGRES ===================
 		// $params = array($this->usuario, $this->email, $this->pass, $this->telefono, $this->nombre, $this->apellido, $this->codPostal, $this->domicilio,
-		// $this->admin, $this->fechaNacimiento, $this->localidad);
+		// $this->admin, $this->fechaNacimiento, $this->localidad, $this->existe);
 		// $retorno = pg_query_params($conexion, $consulta, $params);
 		// $respuesta = pg_fetch_array($retorno);
 		// $id = $respuesta[0];
@@ -189,7 +193,7 @@ Class Cliente{
 						fecha_nacimiento fechaNacimiento,
 						id_localidad idLocalidad
 				FROM cliente
-				WHERE id = ?";
+				WHERE id = ? AND existe = 1";
 
 		//=================== MySQL =====================
 		$resultado = mysqli_prepare($conexion, $sql);
@@ -217,7 +221,7 @@ Class Cliente{
 							fecha_nacimiento fechaNacimiento,
 							id_localidad idLocalidad
 					FROM cliente
-					WHERE email = ? and pass = ?";
+					WHERE email = ? and pass = ? AND existe = 1";
 
 		//==================== MySQL ==================
 		$stmt = mysqli_prepare($conexion, $consulta);
@@ -242,7 +246,8 @@ Class Cliente{
 							email,
 							nombre,
 							apellido,
-							admin
+							admin,
+							activo
 					FROM cliente
 					WHERE email = ? and pass = ?";
 		//================ MySQL =======================
@@ -268,10 +273,11 @@ Class Cliente{
 							C.domicilio,
 							C.admin,
 							C.fecha_nacimiento fechanacimiento,
+							C.activo,
 							L.localidad
 					FROM cliente C
 					LEFT JOIN localidad L ON C.id_localidad = L.id
-					WHERE C.admin = ?
+					WHERE C.admin = ? AND C.existe = 1
 					LIMIT ?, ?";
 
 
@@ -302,6 +308,40 @@ Class Cliente{
 		//================== MySQL =====================
 		$stmt = mysqli_prepare($conexion, $consulta);
 		mysqli_stmt_bind_param($stmt, 'ii', $permiso, $idUsuario);
+		mysqli_stmt_execute($stmt);
+		$output = mysqli_stmt_affected_rows($stmt);
+		
+		//================== Postgres =====================
+		// $result = pg_query_params($conexion, $consulta, array($permiso, $idUsuario));
+		// $output = pg_affected_rows($result);
+        return $output;
+	}
+
+	public static function eliminarcliente($conexion, $idUsuario){
+		$consulta = "UPDATE cliente
+					SET existe = 0
+					WHERE id = ?";
+
+		//================== MySQL =====================
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'i', $idUsuario);
+		mysqli_stmt_execute($stmt);
+		$output = mysqli_stmt_affected_rows($stmt);
+		
+		//================== Postgres =====================
+		// $result = pg_query_params($conexion, $consulta, array($permiso, $idUsuario));
+		// $output = pg_affected_rows($result);
+        return $output;
+	}
+
+	public static function activarCliente($conexion, $idUsuario, $activo){
+		$consulta = "UPDATE cliente
+					SET activo = ?
+					WHERE id = ?";
+
+		//================== MySQL =====================
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'ii', $activo, $idUsuario);
 		mysqli_stmt_execute($stmt);
 		$output = mysqli_stmt_affected_rows($stmt);
 		

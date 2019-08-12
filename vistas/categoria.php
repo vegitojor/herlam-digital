@@ -39,7 +39,7 @@ $idCategoria = $_GET['id'];
 <!-- Page Content -->
 <div class="container">
 
-    <div class="row" ng-init="obtenerCategoria(<?= $idCategoria; ?>)">
+    <div class="row" ng-init=' obtenerCategoria(<?= $idCategoria; ?>); obtenerUsuario(<?= json_encode($usuarioArray); ?>)'  '>
 
         <div class="col-md-3" ng-init="cargarMoneda()">
             <div class="col-md-12">
@@ -230,7 +230,7 @@ $idCategoria = $_GET['id'];
                 </div>
 
                 <!-- SECCION DE FILTROS GENERALES -->
-                <div class=form-check">
+                <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="destacados" name="destacados" ng-model="destacados" ng-change="filtrarDestacados()"></input>
                     <label class="form-check-label" for="destacados">Destacados</label>
 
@@ -253,7 +253,8 @@ $idCategoria = $_GET['id'];
                         <!-- ng-click="callShareSocial(producto.id, producto.imagen)" -->
                         <a href="" data-toggle="modal" data-target="#id{{producto.id}}" >  
                             <img src="../resourses/imagen_producto/{{producto.imagen}}" class="foto320x150" alt="imagen-{{producto.modelo}}" ng-hide="producto.imagen == '<--NoFoto-->'" >
-                            <img src="http://placehold.it/320x150" alt="" class="foto320x150" ng-show="producto.imagen == '<--NoFoto-->'">
+                            <img src="../img/empty.jpeg" alt="" class="foto320x150" ng-show="producto.imagen == '<--NoFoto-->'">
+                            <!-- src="http://placehold.it/320x150" -->
                         </a>
                         <div class="caption">
                             <h4 class="pull-right">{{producto.precio * moneda.valor | currency}}</h4>
@@ -278,7 +279,7 @@ $idCategoria = $_GET['id'];
                             <div class="col-sm-4 col-md-2 text-center">
                                 <a href="" data-toggle="modal" data-target="#id{{producto.id}}">
                                     <img src="../resourses/imagen_producto/{{producto.imagen}}" class="foto-linea" alt="imagen-{{producto.modelo}}" ng-hide="producto.imagen == '<--NoFoto-->'" >
-                                    <img src="http://placehold.it/320x150" alt="" class="foto-linea" ng-show="producto.imagen == '<--NoFoto-->'">
+                                    <img src="../img/empty.jpeg" alt="" class="foto-linea" ng-show="producto.imagen == '<--NoFoto-->'">
                                 </a>
                             </div>
                             <div class="col-sm-4 col-md-8">
@@ -322,7 +323,7 @@ $idCategoria = $_GET['id'];
                                             <div id="share-{{producto.id}}"></div>
                                             <div class="thumbnail">
                                                 <img src="../resourses/imagen_producto/{{producto.imagen}}" alt="{{producto.modelo}}" class="img-responsive foto640x300" ng-hide="producto.imagen == '<--NoFoto-->'">
-                                                <img src="http://placehold.it/320x150" alt="{{producto.imagen}}" ng-show="producto.imagen == '<--NoFoto-->'">
+                                                <img src="../img/empty.jpeg" alt="{{producto.imagen}}" ng-show="producto.imagen == '<--NoFoto-->'">
                                             </div>
                                         </div>
                                         <div class="col-md-4">

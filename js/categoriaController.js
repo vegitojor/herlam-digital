@@ -1,30 +1,30 @@
 app.controller("categoriaController", function ($scope, $http, $sce, $filter, $window) {
    
 
-   $scope.mostrarLinea = false;
-   $scope.mostrarCuadrado = true;
+   $scope.mostrarLinea = true;
+   $scope.mostrarCuadrado = false;
    $scope.ordenamiento = 0;
 
    $scope.preguntas;
    $scope.cantidad = 1;
 
-   $scope.obtenerCategoria = function($id){
-      $scope.idCategoriaModel = $id;
-   }
+	$scope.obtenerCategoria = function($id){
+		$scope.idCategoriaModel = $id;
+	}
 
-   $scope.listarCategorias = function () {
-       $http.post('../controladores/usuario/listarCategoriasController.php')
-           .success(function (response) {
-               $scope.categorias = response;
-           })
-   }
+	$scope.listarCategorias = function () {
+		$http.post('../controladores/usuario/listarCategoriasController.php')
+			.success(function (response) {
+				$scope.categorias = response;
+			})
+	}
 
-   $scope.listarMarcas = function () {
-       $http.post('../controladores/usuario/listarMarcasController.php')
-           .success(function (response) {
-               $scope.marcas = response;
-           })
-   }
+	$scope.listarMarcas = function () {
+		$http.post('../controladores/usuario/listarMarcasController.php')
+			.success(function (response) {
+				$scope.marcas = response;
+			})
+	}
 
    
 
@@ -491,5 +491,13 @@ app.controller("categoriaController", function ($scope, $http, $sce, $filter, $w
       $scope.listarproductosPorCategoria(categoria);
    }
    /****************** FIN PAGINACION */
+
+
+   $scope.obtenerUsuario = function(array){
+      // console.log(array);
+   }
+
+
+
 });
 
