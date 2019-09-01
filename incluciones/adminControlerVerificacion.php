@@ -8,7 +8,7 @@
 
 session_start();
 if(isset($_SESSION['usuario'])){
-    if($_SESSION['usuario']['admin'] == 'f'){
+    if($_SESSION['usuario']['admin'] == 0){
         header('location: ../index.php');
     }
 }else{
