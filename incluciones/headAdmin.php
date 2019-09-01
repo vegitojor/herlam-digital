@@ -13,7 +13,7 @@
     <!-- W3 core CSS -->
     <link rel="stylesheet" href="../css/w3.css">
 
-    <link rel="shortcut icon" href="http://www.herlam.com.ar/favicon.ico?v=2" type="image/x-icon">
+    <link rel="shortcut icon" href="https://www.herlam.com.ar/favicon.ico?v=2" type="image/x-icon">
     
     <!-- w3 javascript -->
     <script type="text/javascript" src="../js/w3.js?<?= $versionJs ?>"></script>

@@ -14,7 +14,7 @@ include_once('incluciones/verificacionUsuario.php');
     <meta name="author" content="">
 
     <title>herlam-digital</title>
-    <link rel="shortcut icon" href="http://www.herlam.com.ar/favicon.ico?v=2" type="image/x-icon">
+    <link rel="shortcut icon" href="https://www.herlam.com.ar/favicon.ico?v=2" type="image/x-icon">
 
     <!-- Bootstrap Core CSS -->
     <link href="librerias/template/css/bootstrap.min.css" rel="stylesheet">
