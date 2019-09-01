@@ -1,5 +1,15 @@
 app.controller("formularioRegistro", function($scope, $http, $window, $filter){
 	$scope.preloader = true;
+	$scope.condicionIva = "";
+	$scope.condicionesIva = [
+		{"id":1, "name":"Consumidor final"},
+		{"id":2, "name":"Monotributista"},
+		{"id":3, "name":"Exento"},
+		{"id":4, "name":"Responsable inscripto"},
+		{"id":'', "name":"Seleccione su condicion de IVA"},
+	];
+
+
 //		*****este metodo quedo obsoleto al empezar a utilizar EnvioPack
 	$scope.cargarProvincias = function(){
 		$http.get("../controladores/cargarProvinciasController.php")
@@ -58,6 +68,9 @@ app.controller("formularioRegistro", function($scope, $http, $window, $filter){
 					'codPostal': $scope.codPostal,
 					'provincia': $scope.provincia,
 					'localidad': $scope.localidad,
+					'usuario': $scope.nombreUsuario,
+					'cuitCuil': $scope.cuil,
+					'condicionIva': $scope.condicionIva,
 					'pass': $scope.passValid})
 				.success(function(response){
 					$scope.data = response;

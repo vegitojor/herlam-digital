@@ -36,16 +36,17 @@ app.controller('adminCliente', function ($scope, $http, $window) {
         $scope.divDatosClienteModal = false;
     }
 
-    $scope.verDetalleCliente = function($cliente){
-        $scope.idClienteModal = $cliente.cliente.id;
-        $scope.usuarioClienteModal = $cliente.cliente.usuario;
-        $scope.emailClienteModal = $cliente.cliente.email;
-        $scope.nombreClienteModal = $cliente.cliente.nombre;
-        $scope.apellidoClienteModal = $cliente.cliente.apellido;
-        $scope.adminClienteModal = $cliente.cliente.admin;
-        $scope.fechaNacimientoClienteModal = $cliente.cliente.fechaNacimiento;
-        $scope.domicilioClienteModal = $cliente.cliente.domicilio;
-        $scope.localidadClienteModal = $cliente.cliente.localidad;
+    $scope.verDetalleCliente = function(cliente){
+        // $scope.idClienteModal = $cliente.id;
+        // $scope.usuarioClienteModal = $cliente.usuario;
+        // $scope.emailClienteModal = $cliente.email;
+        // $scope.nombreClienteModal = $cliente.nombre;
+        // $scope.apellidoClienteModal = $cliente.apellido;
+        // $scope.adminClienteModal = $cliente.admin;
+        // $scope.fechaNacimientoClienteModal = $cliente.fechanacimiento;
+        // $scope.domicilioClienteModal = $cliente.domicilio;
+        // $scope.localidadClienteModal = $cliente.localidad;
+        $scope.clienteModal = cliente;
 
         $scope.divDatosClienteModal = true;
     }

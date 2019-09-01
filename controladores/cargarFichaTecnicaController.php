@@ -6,7 +6,7 @@
  * Time: 0:50
  */
 
-include_once('../incluciones/verificacionUsuario.php');
+include_once('../incluciones/adminControlerVerificacion.php');
 include_once('../clases/ConexionBDClass.php');
 include_once('../clases/ProductoClass.php');
 

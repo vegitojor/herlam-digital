@@ -19,5 +19,5 @@ $conexion = $conn->getConexion();
 
 //LISTAR CATEGORIAS
 $cantidad = Producto::contarCantidadProductosAdmin($conexion);
-
+$conn->cerrarConexion();
 echo json_encode($cantidad);

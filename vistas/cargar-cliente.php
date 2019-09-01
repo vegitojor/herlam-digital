@@ -39,28 +39,54 @@ include_once ('../incluciones/verificacionAdmin.php');
             <table class="w3-table-all">
                 <tr>
                     <th>Id</th>
-                    <td>{{idClienteModal}}</td>
+                    <td>{{clienteModal.id}}</td>
                     <th>Usuario</th>
-                    <td>{{usuarioClienteModal}}</td>
+                    <td>{{clienteModal.usuario}}</td>
                     <th>Email</th>
-                    <td>{{emailClienteModal}}</td>
+                    <td>{{clienteModal.email}}</td>
                 </tr>
                 <tr>
                     <th>Nombre</th>
-                    <td>{{nombreClienteModal}}</td>
+                    <td>{{clienteModal.nombre}}</td>
                     <th>Apellido</th>
-                    <td>{{apellidoClienteModal}}</td>
+                    <td>{{clienteModal.apellido}}</td>
                     <th>Rol</th>
-                    <td ng-show="adminClienteModal == 1">Administrador</td>
-                    <td ng-show="adminClienteModal == 0">Cliente</td>
+                    <td >{{clienteModal.admin == 1 ? 'Administrador' : 'Cliente'}}</td>
+                    <!-- <td ng-show="adminClienteModal == 0">Cliente</td> -->
                 </tr>
                 <tr>
                     <th>Fecha de nacimiento</th>
-                    <td>{{fechaNacimientoClienteModal}}</td>
+                    <td>{{clienteModal.fechanacimiento}}</td>
                     <th>Domicilio</th>
-                    <td>{{domicilioClienteModal}}</td>
+                    <td>{{clienteModal.domicilio}}</td>
                     <th>Localidad</th>
-                    <td>{{localidadClienteModal}}</td>
+                    <td>{{clienteModal.localidad}}</td>
+                </tr>
+                <tr>
+                    <th>Tel&eacute;fono</th>
+                    <td>{{clienteModal.telefono}}</td>
+                    <th>C&oacute;digo postal</th>
+                    <td>{{clienteModal.codigo_postal}}</td>
+                    <th>Provincia</th>
+                    <td>{{clienteModal.provincia}}</td>
+                </tr>
+                <tr>
+                    <th>Condici&oacute;n IVA</th>
+                    <td>{{ (clienteModal.id_condicion_iva == 1 
+                        ? 'Consumidor Final' 
+                        : (clienteModal.id_condicion_iva == 2 
+                            ? 'Monotributista' 
+                            : (clienteModal.id_condicion_iva == 3 
+                                ? 'Exento'
+                                : 'Responsable inscripto')))}}</td>
+                    <th>Depto.</th>
+                    <td>{{clienteModal.depto}}</td>
+                    <th>Piso</th>
+                    <td>{{clienteModal.piso}}</td>
+                </tr>
+                <tr>
+                    <th>Cuit/Cuil</th>
+                    <td>{{clienteModal.cuit_cuil}}</td>
                 </tr>
             </table>
         </div>

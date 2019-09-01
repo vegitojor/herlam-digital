@@ -36,9 +36,21 @@ if( isset($data->localidad) ){
 	$localidad = (int)strip_tags($data->localidad);
 }
 
+$condicionIva = Null;
+if( isset($data->condicionIva) ){
+	$condicionIva = (int)strip_tags($data->condicionIva);
+}
+
+$cuitCuil = Null;
+if( isset($data->cuil) ){
+	$cuitCuil = (int)strip_tags($data->cuil);
+}
+
 
 $admin = 0;
 $usuario = Null;
+if( isset($data->direccion) )
+	$usuario = strip_tags($data->usuario);
 
 
 //inicializacion de conexion BD

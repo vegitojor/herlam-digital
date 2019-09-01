@@ -31,8 +31,6 @@
 
 <body ng-app="registroUsuario" ng-controller="formularioRegistro">
 <!-- Navigation -->
-<?php // include_once('../incluciones/navbarVistas.php'); ?>
-
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -47,61 +45,17 @@
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <!-- <ul class="nav navbar-nav">
-                <li >
-                    <a href="nosotros.php">Así somos</a>
-                </li>
-                <li >
-                    <a href="institucional.php">Institucional</a>
-                </li>
-                <li >
-                    <a href="#" data-toggle="modal" data-target="#contactModal">Contacto</a>
-                </li>
-            </ul> -->
-            <!-- <ul class="nav navbar-nav pull-right " ng-hide="">
-
-                <li >
-                    <a href="registro-usuario.php">registrarse</a>
-                </li>
-                <li>
-                    <a href="login.php">Ingresar</a>
-                </li>
-            </ul> -->
-            <!-- <ul class="nav navbar-nav pull-right " ng-show="">
-                <li>
-                    <a href="carrito.php" data-toggle="tooltip" data-placement="bottom" title="Mis compras"><span class="glyphicon glyphicon-shopping-cart"></span></a>
-                </li>
-                <li class="dropdown">
-                    <a href="" id="usuario" data-toggle="dropdown"><span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="usuario">
-                        <li role="presentation"><a href="../controladores/cerrarSesionController.php">Salir</a></li>
-                    </ul>
-                </li>
-            </ul> -->
+           
         </div>
     </div>
     <!-- /.container -->
 </nav>
-
 <!-- FIN DEL NAV   -->
 
 <!-- Page Content -->
 <div class="container">
 
     <div class="row">
-        <!-- ASIDE - COLUMNA LATERAL -->
-        <!-- <div class="col-md-3"  >
-            <div class="col-md-12" >
-                <p class="lead">Categorias:</p>
-                <div class="list-group" ng-init="listarCategorias()" >
-                    <a ng-repeat="categoria in categorias" href="categoria.php?id={{categoria.id}}" class="list-group-item" >{{categoria.descripcion}}</a>
-
-                </div>
-            </div>
-            
-        </div> -->
-        <!-- fin ASIDE -->
-        
         <!--SECTION -->
         <div class="col-md-9">
 
@@ -155,6 +109,13 @@
                                 <span class="text-danger" ng-show="registroUsuario.apellido.$error.required">El campo es obligatorio.</span>
                             </div>
                         </div>
+                        <div>
+                            <label for="usuario">Raz&oacute;n social</label>
+                            <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" placeholder="Introduzca su usuario" ng-model="nombreUsuario" ng-model-options="{ updateOn: 'blur' }" required>
+                            <div  ng-show="registroUsuario.nombreUsuario.$touched || registroUsuario.$submitted">
+                                <span class="text-danger" ng-show="registroUsuario.nombreUsuario.$error.required">El campo es obligatorio.</span>
+                            </div>
+                        </div> 
                         <div class="form-group">
                             <label for="email">Ingrese su e-mail</label>
                             <input type="email" class="form-control" id="emailForm" name="email" placeholder="Introduzca su e-mail" ng-model="email" ng-model-option="{updateOn: 'blur'} " required>
@@ -199,6 +160,12 @@
                             <div  ng-show="registroUsuario.$submitted || registroUsuario.cuil.$touched">
                                 <span class="text-danger" ng-show="registroUsuario.cuil.$error.required">El campo es obligatorio.</span>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="provincia">Seleccione su condicion de IVA</label>
+                            <select class="form-control" name="condicionIva" ng-model="condicionIva" required
+                            ng-options="item.id as item.name for item in condicionesIva">
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="domicilio">Ingrese su domicilio</label>

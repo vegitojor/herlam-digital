@@ -4,7 +4,7 @@
 Class Cliente{
 	private $id;
 	private $nombre;
-	private $usuario;//obsoleto
+	private $usuario;//Mostrado como RAZON SOCIAL	
 	private $apellido;
 	private $telefono;
 	private $email;
@@ -15,6 +15,10 @@ Class Cliente{
 	private $admin;
 	private $localidad;
 	private $existe;
+	private $depto;
+	private $piso;
+	private $cuitCuil;
+	private $condicionIva;
 
 	function __construct($id, 
 						$nombre, 
@@ -27,7 +31,11 @@ Class Cliente{
 						$codPostal,
 						$domicilio,
 						$admin,
-						$localidad){
+						$localidad,
+						$depto,
+						$piso,
+						$cuitCuil,
+						$condicionIva){
 		$this->id = $id;
 		$this->nombre = $nombre;
 		$this->usuario = $usuario;
@@ -41,6 +49,10 @@ Class Cliente{
 		$this->admin = $admin;
 		$this->localidad = $localidad;
 		$this->existe = 1;
+		$this->depto = $depto;
+		$this->piso = $piso;
+		$this->cuitCuil = $cuitCuil;
+		$this->condicionIva = $condicionIva;
 
 	}
 
@@ -145,8 +157,12 @@ Class Cliente{
 					admin,
 					fecha_nacimiento,
 					id_localidad,
-					existe) VALUES 
-					(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					existe,
+					depto,
+					piso,
+					cuit_cuil,
+					id_condicion_iva) VALUES 
+					(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 					//RETURNING id  //<---- solo para postgres
 
@@ -165,7 +181,11 @@ Class Cliente{
 								$this->admin,
 								$this->fechaNacimiento, 
 								$this->localidad,
-								$this->existe);
+								$this->existe,
+								$this->depto,
+								$this->piso,
+								$this->cuitCuil,
+								$this->condicionIva);
 		mysqli_stmt_execute($stmt);
 		//para obtener el ultimo id autogenerado
 		$id = mysqli_insert_id($conexion);
@@ -183,15 +203,18 @@ Class Cliente{
 		$sql = "SELECT id,
 						usuario,
 						email,
-						pass,
 						telefono,
 						nombre,
 						apellido,
-						codigo_postal codPostal,
+						codigo_postal codigo_postal,
 						domicilio,
-						admin,
-						fecha_nacimiento fechaNacimiento,
-						id_localidad idLocalidad
+						admin as admin_,
+						fecha_nacimiento fecha_nacimiento,
+						piso,
+						depto,
+						cuit_cuil,
+						id_condicion_iva,
+						id_localidad id_localidad
 				FROM cliente
 				WHERE id = ? AND existe = 1";
 
@@ -247,7 +270,14 @@ Class Cliente{
 							nombre,
 							apellido,
 							admin,
-							activo
+							activo,
+							id_localidad,
+							domicilio,
+							piso,
+							depto,
+							cuit_cuil,
+							id_condicion_iva,
+							codigo_postal
 					FROM cliente
 					WHERE email = ? and pass = ?";
 		//================ MySQL =======================
@@ -268,15 +298,23 @@ Class Cliente{
 		$consulta = "SELECT C.id,
 							C.usuario,
 							C.email,
+							C.telefono,
 							C.nombre,
 							C.apellido,
+							C.codigo_postal,
 							C.domicilio,
 							C.admin,
 							C.fecha_nacimiento fechanacimiento,
 							C.activo,
-							L.localidad
+							C.depto,
+							C.piso,
+							C.cuit_cuil,
+							C.id_condicion_iva,
+							L.localidad,
+							p.provincia
 					FROM cliente C
 					LEFT JOIN localidad L ON C.id_localidad = L.id
+					LEFT JOIN provincia p ON p.id = L.id_provincia
 					WHERE C.admin = ? AND C.existe = 1
 					LIMIT ?, ?";
 

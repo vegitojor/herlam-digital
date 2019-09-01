@@ -15,10 +15,6 @@ $idCategoria = $_GET['id'];
 
 <head>
     <?php include_once ('../incluciones/head.php'); ?>
-    
-    
-
-
     <script type="text/javascript" src="../js/indexModulo.js"></script>
     <script type="text/javascript" src="../js/categoriaController.js"></script>
     
@@ -27,7 +23,7 @@ $idCategoria = $_GET['id'];
     <script type="text/javascript" src="../librerias/angular-video/controller.js"></script>
 
 
-    <title>Categorias - MODPC</title>
+    <title>Categorias - Herlam</title>
 
 </head>
 

@@ -37,8 +37,9 @@
                     <a href="carrito.php" data-toggle="tooltip" data-placement="bottom" title="Carrito"><span class="glyphicon glyphicon-shopping-cart"></span></a>
                 </li>
                 <li class="dropdown">
-                    <a href="" id="usuario" data-toggle="dropdown"><?= $nombre ?><span class="caret"></span></a>
+                    <a href="javascript:void();" id="usuario" data-toggle="dropdown"><?= $nombre ?><span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="usuario">
+                        <li role="presentation"><a href="./pedido.php">Mis pedidos</a></li>
                         <li role="presentation"><a href="../controladores/cerrarSesionController.php">Salir</a></li>
                     </ul>
                 </li>

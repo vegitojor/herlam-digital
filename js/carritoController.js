@@ -1,15 +1,21 @@
-app.controller("carritoController", function ($scope, $http, $sce, $filter) {
+app.controller("carritoController", function ($scope, $http, $sce, $filter, $window) {
+	$scope.totalDelCarrito = 0;
 
+	$scope.preloader = false;
 
-	/*$scope.productosDelCarrito = [];*/
-  $scope.totalDelCarrito = 0;
+	$scope.tab1 = true;
+	$scope.tab2 = false;
+	$scope.tab3 = false;
 
-  $scope.preloader = false;
-  // $scope.tabPaso1 = true;
+	$scope.usuarioSesion;
 
-  $scope.tab1 = true;
-  $scope.tab2 = false;
-  $scope.tab3 = false;
+	$scope.condicionesIva = [
+		{"id":1, "name":"Consumidor final"},
+		{"id":2, "name":"Monotributista"},
+		{"id":3, "name":"Exento"},
+		{"id":4, "name":"Responsable inscripto"},
+		{"id":'', "name":"Seleccione su condicion de IVA"},
+	];
 
 	$scope.listarCategorias = function () {
        $http.post('../controladores/usuario/listarCategoriasController.php')
@@ -17,8 +23,6 @@ app.controller("carritoController", function ($scope, $http, $sce, $filter) {
                $scope.categorias = response;
            })
    }
-
-
 
    $scope.cargarMoneda = function () {
        $http.post('../controladores/usuario/cargarMonedaController.php')
@@ -49,13 +53,6 @@ app.controller("carritoController", function ($scope, $http, $sce, $filter) {
 
 			//generarCheckoutBasicoMP($scope.usuario);
 			});
-	}
-
-	$scope.generarCheckoutBasicoMP = function($idUsuario){
-		// $http.post('../controladores/usuario/generarCheckoutBasicoMPController.php', {'usuario': $idUsuario})
-		// .success(function(response){
-		// 	$scope.linkPagoMercadoPago = response;
-		// });
 	}
 
    $scope.quitarDelCarrito = function($idUsuario, $idProducto, cantidad){
@@ -112,10 +109,6 @@ app.controller("carritoController", function ($scope, $http, $sce, $filter) {
         $scope.tab1 = false;
         $scope.tab2 = true;
         $scope.tab3 = false;
-      }else if( tab == 3 ){
-        $scope.tab1 = false;
-        $scope.tab2 = false;
-        $scope.tab3 = true;
       }else if( tab == 1 ){
         $scope.tab1 = true;
         $scope.tab2 = false;
@@ -128,91 +121,163 @@ app.controller("carritoController", function ($scope, $http, $sce, $filter) {
 //   ***funciones para el envio de la compra
 //========================================================================================
    $scope.envioVendedorDiv = false;
-   $scope.envioDomicilioDiv = true;
-   $scope.envioProvinciaLocalidad = true;
-   $scope.costoEnvio = null;
-   $scope.tipoServicioEntrega = "N";
-   $scope.costoSucursalATotalizar = null;
+   $scope.envioDomicilioDiv = false;
+
+   $scope.envioNoSeleccionado = false;
+   $scope.tipoEnvioDiv = true;
+
+   	$scope.datosFacturacionDiv = false;
+	$scope.envioDiv = true;
    
-   $scope.determinarTipoDeEnvio = function( tipo ){
-      if (tipo == "domicilio") {
-        $scope.envioDomicilioDiv = true;
-        $scope.envioProvinciaLocalidad = true;
-        $scope.envioVendedorDiv = false;
+	$scope.determinarTipoDeEnvio = function( tipo ){
+		if (tipo == "domicilio") {
+			$scope.datosFacturacionDiv = false;
+			$scope.envioDiv = true;
+		}else if( tipo == "sucursal" ){
+			$scope.datosFacturacionDiv = true;
+      $scope.envioDiv = false;
+      
+		}
+	}
 
-       $scope.correo = "";
-      }else if( tipo == "sucursal" ){
-        $scope.envioProvinciaLocalidad = true;
-        $scope.envioDomicilioDiv = false;
-        $scope.envioVendedorDiv = false;
-
-        $scope.calleDomicilio = "";
-      }else if( tipo == "vendedor" ){
-        $scope.envioVendedorDiv = true;
-        $scope.envioProvinciaLocalidad = false;
-        $scope.envioDomicilioDiv = false;
+	$scope.mostrarFormEnvio = function(){
+    $scope.envioNoSeleccionado = true;
+		if($scope.tipoEnvio == 1){
+      $scope.envioDomicilioDiv = true;
+      $scope.envioVendedorDiv = false;
+		}	else{
+      $scope.envioDomicilioDiv = false;
+      $scope.envioVendedorDiv = true;
+    }
+  }
+  
+  $scope.validarFormEnvio = function(){
+		if($scope.envioNoSeleccionado){
+      if($scope.tipoEnvio == 1 ){
+        if(!$scope.envioDomiciolioForm.$valid){
+          bootbox.alert("Debe completar los campos requeridos.");
+          return false;
+        }
       }
-   }
+      $scope.determinarTipoDeEnvio("sucursal");
+		}	else{
+      bootbox.alert("Debe elegir una forma de envio y completar los datos requeridos para continuar.");
+    }
+	}
 
-   $scope.cargarProvincias = function(){
-    $http.get("../controladores/cargarProvinciaEnvioPackController.php", {'idProvincia': null})
-      .success(function(data){
-        $scope.preloader = false;
-        $scope.provincias =  data;
-      })
+  $scope.cargarProvincias = function(){
+		$http.get("../controladores/cargarProvinciasController.php")
+			.success(function(data){
+				$scope.provincias =  data;
+				$scope.preloader = false;
+			})
   }
-
+  
   $scope.cargarLocalidades = function(){
-    $scope.preloader = true;
-    $http.post("../controladores/cargarProvinciaEnvioPackController.php", {'idProvincia': $scope.provincia})
-      .success(function(data){
-        $scope.localidades = data;
-        $scope.preloader = false;
-      })
-  }
+		$http.post("../controladores/cargarLocalidadesController.php", {'idProvincia': $scope.provincia})
+			.success(function(data){
+				$scope.preloader = false;
+				$scope.localidades = data;
+			})
+	}
+
+  // $scope.cargarLocalidades = function(){
+  //   $scope.preloader = true;
+  //   $http.post("../controladores/cargarProvinciaEnvioPackController.php", {'idProvincia': $scope.provincia})
+  //     .success(function(data){
+  //       $scope.localidades = data;
+  //       $scope.preloader = false;
+  //     })
+  // }
 
 
   $scope.calcularCostoEnvio = function( domicilio, sucursal ){
-    $scope.preloader = true;
-    if(domicilio){
-      if( $scope.envioDomicilioDiv ){
-          $scope.calcularCostoEnvioDomicilio();
-      }
-    }else if(sucursal){
-      if( !$scope.envioDomicilioDiv )
-          $scope.costoSucursalATotalizar = null;
-          $scope.calcularCostoenvioSucursal()
-    }else{
-      bootbox.alert("El formulario no es valido.");
-    }
+    // $scope.preloader = true;
+    // if(domicilio){
+    //   if( $scope.envioDomicilioDiv ){
+    //       $scope.calcularCostoEnvioDomicilio();
+    //   }
+    // }else if(sucursal){
+    //   if( !$scope.envioDomicilioDiv )
+    //       $scope.costoSucursalATotalizar = null;
+    //       $scope.calcularCostoenvioSucursal()
+    // }else{
+    //   bootbox.alert("El formulario no es valido.");
+    // }
   }
 
   $scope.calcularCostoEnvioDomicilio = function(){
-    $http.post("../controladores/calcularCostoEnvioDomicilioController.php", {'provincia': $scope.provincia, 'codigoPostal': $scope.codigoPostal, 
-                    'peso': $scope.pesoTotal, 'paquetes': $scope.paquetes, 'servicio': $scope.tipoServicioEntrega})
-    .success( function(response){
-        $scope.costoEnvio = response[0];
-        $scope.preloader = false;
-    } );
+    // $http.post("../controladores/calcularCostoEnvioDomicilioController.php", {'provincia': $scope.provincia, 'codigoPostal': $scope.codigoPostal, 
+    //                 'peso': $scope.pesoTotal, 'paquetes': $scope.paquetes, 'servicio': $scope.tipoServicioEntrega})
+    // .success( function(response){
+    //     $scope.costoEnvio = response[0];
+    //     $scope.preloader = false;
+    // } );
   }
 
   $scope.cargarCorreos = function(){
-    $http.post("../controladores/obtenerCorreosController.php", {'filtrarActivos': 1})
-    .success( function(response){
-      $scope.correos = response;
-    } );
+    // $http.post("../controladores/obtenerCorreosController.php", {'filtrarActivos': 1})
+    // .success( function(response){
+    //   $scope.correos = response;
+    // } );
   }
 
   $scope.calcularCostoenvioSucursal = function(){
-    $http.post("../controladores/calcularCostoEnvioSucursalController.php", {'provincia': $scope.provincia, 'localidad': $scope.localidad, 'correo': $scope.correo,
-                'peso': $scope.pesoTotal, 'paquetes': $scope.paquetes})
-    .success(function(response){
-      $scope.costoEnvioSucursal = response;
-      $scope.preloader = false;
-    });
+    // $http.post("../controladores/calcularCostoEnvioSucursalController.php", {'provincia': $scope.provincia, 'localidad': $scope.localidad, 'correo': $scope.correo,
+    //             'peso': $scope.pesoTotal, 'paquetes': $scope.paquetes})
+    // .success(function(response){
+    //   $scope.costoEnvioSucursal = response;
+    //   $scope.preloader = false;
+    // });
   }
 
   $scope.confirmarValorDeEnviosucursal = function( index ){
       $scope.costoSucursalATotalizar = $scope.costoEnvioSucursal[index];
   }
+
+
+  $scope.obtenerUsuario = function(array){
+    // console.log(array);
+    $scope.usuarioSesion = array;
+
+    $scope.localidad = $scope.usuarioSesion.id_localidad;
+    $scope.calleDomicilio = $scope.usuarioSesion.domicilio;
+    $scope.pisoDomicilio = $scope.usuarioSesion.piso;
+    $scope.deptoDomicilio = $scope.usuarioSesion.depto;
+    $scope.codigoPostal = $scope.usuarioSesion.codigo_postal;
+    $scope.nombreApellido = $scope.usuarioSesion.nombre + " " + $scope.usuarioSesion.apellido;
+    $scope.razonSocial = $scope.usuarioSesion.usuario;
+    $scope.cuitCuil = $scope.usuarioSesion.cuit_cuil;
+    $scope.condicionIva = $scope.usuarioSesion.id_condicion_iva
+ }
+
+	$scope.generarPedido = function(){
+		$scope.preloader = true;
+		$scope.fechaActual = new Date();
+			$scope.fechaActual = $filter('date')($scope.fechaActual, 'yyyy-MM-dd HH:mm:ss');
+		$http.post('../controladores/usuario/generarPedidoController.php', {
+			"localidad": $scope.localidad,
+			"domicilio": $scope.calleDomicilio,
+			"piso": $scope.pisoDomicilio,
+			"codigoPostal": $scope.codigoPostal,
+			"cuitCuil": $scope.cuitCuil,
+			"depto": $scope.deptoDomicilio,
+			"condicionIva": $scope.condicionIva,
+			"idUsuario": $scope.usuarioSesion.id,
+			"fechaActual": $scope.fechaActual,
+			"tipoEnvio": $scope.tipoEnvio
+		})
+		.success(function(response){
+			if(response.respuesta == 1){
+				$window.location.href='./pedido.php';
+			}
+			else if(response.respuesta == 2){
+				bootbox.alert('No fue posible generar el pedido. Por favor vuelva a intentarlo en unos momentos');
+			}
+			else if (response.respuesta == 3) 
+				bootbox.alert('Se introducieron valores erroneos!');
+			else
+				bootbox.alert('Ocurrio un error con la conexción. Vuelva a intentarlo en unos momentos.');
+		});
+	}
 });

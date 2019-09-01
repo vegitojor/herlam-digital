@@ -63,7 +63,8 @@ footer {
 .foto320x100 {
     min-height: 90px;
     max-height: 100px;
-    width: auto !important;
+    /* width: auto !important; */
+    max-width: 100%;
 }
 
 .foto640x300 {

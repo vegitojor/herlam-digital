@@ -1094,7 +1094,8 @@ Class Producto{
 	public static function verificarExistenciaDeProductoEnCarrito($conexion, $idProducto, $idUsuario){
 		$consulta = "SELECT COUNT(*) AS existe FROM carrito_compra
 					WHERE id_producto = ?
-					AND id_cliente = ?";
+					AND id_cliente = ?
+					AND id_pedido is null";
 
 		$stmt = mysqli_prepare($conexion, $consulta);
 		mysqli_stmt_bind_param($stmt, 'ii', $idProducto, $idUsuario);
@@ -1134,7 +1135,8 @@ Class Producto{
                             P.peso_caja peso
                     FROM carrito_compra CC
                     JOIN producto P ON CC.id_producto = P.id
-                    WHERE CC.id_cliente = ?";
+					WHERE CC.id_cliente = ?
+					AND CC.id_pedido is null";
 
         $stmt = mysqli_prepare($conexion, $consulta);
         mysqli_stmt_bind_param($stmt, 'i', $idUsuario);
@@ -1296,7 +1298,7 @@ Class Producto{
 		// $result = pg_query($conexion, $consulta);
 		// $output = pg_fetch_assoc($result);
 		return $output;
-	}
+	} 
 
 	public static function obtenerOpcionesFiltrosPorCampo($conexion, $idCategoria, $campo){
 		$select = '';
