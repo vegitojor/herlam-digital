@@ -10,7 +10,7 @@
       <meta http-equiv="Pragma" content="no-cache">
 
     <!-- favicon -->
-    <link rel="shortcut icon" href="http://www.herlam.com.ar/favicon.ico?v=2" type="image/x-icon">
+    <link rel="shortcut icon" href="https://www.herlam.com.ar/favicon.ico?v=2" type="image/x-icon">
 
     <!-- W3 core CSS -->
     <link rel="stylesheet" href="../css/w3.css">
