@@ -62,7 +62,7 @@
 			</div>
 			<div id="footer" class="row heigth-20">
 				<div class="row">
-					<div class=" heigth-70 bg-white text-center padding-10" >
+					<div class="  bg-white text-center padding-10" >
 						 <p>Si aun no tienes usuario ingresa aqu&iacute;:</p>
 						 <a class="btn btn-primary" href="vistas/registro-usuario.php">REGISTRARME</a>
 					</div>

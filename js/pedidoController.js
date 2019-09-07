@@ -49,89 +49,11 @@ app.controller("pedidoController", function ($scope, $http, $sce, $filter, $wind
 		});
 	}
 
-
-
-//========================================================================================
-//   ***funciones para el envio de la compra
-//========================================================================================
-  
-  
-	// $scope.validarFormEnvio = function(){
-	// 	if($scope.envioNoSeleccionado){
-	// 		if($scope.tipoEnvio == 1 ){
-	// 			if(!$scope.envioDomiciolioForm.$valid){
-	// 			bootbox.alert("Debe completar los campos requeridos.");
-	// 			return false;
-	// 			}
-	// 		}
-	// 		$scope.determinarTipoDeEnvio("sucursal");
-	// 	}else{
-	// 		bootbox.alert("Debe elegir una forma de envio y completar los datos requeridos para continuar.");
-	// 	}
-	// }
-
-	// $scope.cargarProvincias = function(){
-	// 		$http.get("../controladores/cargarProvinciasController.php")
-	// 			.success(function(data){
-	// 				$scope.provincias =  data;
-	// 				$scope.preloader = false;
-	// 			})
-	// }
-  
-	// $scope.cargarLocalidades = function(){
-	// 		$http.post("../controladores/cargarLocalidadesController.php", {'idProvincia': $scope.provincia})
-	// 			.success(function(data){
-	// 				$scope.preloader = false;
-	// 				$scope.localidades = data;
-	// 			})
-	// 	}
-
-  // $scope.cargarLocalidades = function(){
-  //   $scope.preloader = true;
-  //   $http.post("../controladores/cargarProvinciaEnvioPackController.php", {'idProvincia': $scope.provincia})
-  //     .success(function(data){
-  //       $scope.localidades = data;
-  //       $scope.preloader = false;
-  //     })
-  // }
-
-
-  
-
-
 	$scope.obtenerUsuario = function(array){
 		// console.log(array);
 		$scope.usuarioSesion = array;
 	}
 
-	// $scope.generarPedido = function(){
-	// 	$scope.preloader = true;
-	// 	$scope.fechaActual = new Date();
-	// 		$scope.fechaActual = $filter('date')($scope.fechaActual, 'yyyy-MM-dd HH:mm:ss');
-	// 	$http.post('../controladores/usuario/generarPedidoController.php', {
-	// 		"localidad": $scope.localidad,
-	// 		"domicilio": $scope.calleDomicilio,
-	// 		"piso": $scope.pisoDomicilio,
-	// 		"codigoPostal": $scope.codigoPostal,
-	// 		"cuitCuil": $scope.cuitCuil,
-	// 		"depto": $scope.deptoDomicilio,
-	// 		"condicionIva": $scope.condicionIva,
-	// 		"idUsuario": $scope.usuarioSesion.id,
-	// 		"fechaActual": $scope.fechaActual
-	// 	})
-	// 	.success(function(response){
-	// 		if(response.respuesta == 1){
-	// 			$window.location.href='./pedido.php';
-	// 		}
-	// 		else if(response.respuesta == 2){
-	// 			bootbox.alert('No fue posible generar el pedido. Por favor vuelva a intentarlo en unos momentos');
-	// 		}
-	// 		else if (response.respuesta == 3) 
-	// 			bootbox.alert('Se introducieron valores erroneos!');
-	// 		else
-	// 			bootbox.alert('Ocurrio un error con la conexción. Vuelva a intentarlo en unos momentos.');
-	// 	});
-	// }
 	$scope.mostrarEnvio = function(pedido){
 		//este valor esta clavado hasta que se agregue el campo tipo envio ala tabla pedido
 		$scope.tipoEnvioId = pedido.envio_domicilio;

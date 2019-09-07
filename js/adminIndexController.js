@@ -33,18 +33,22 @@ app.controller("adminIndexController", function ($scope, $http) {
 
     $scope.mostrarProductos = function(pedido){
         // $scope.validarModal = true;
-        $scope.pedidoModal = pedido;
-        $scope.permitirValidar = true;
-        $http.post('../controladores/traerProductosPedido.php', {'idPedido': pedido.id})
-        .success(function(response){
-            $scope.productos = response;
-            angular.forEach($scope.productos, function(item, index){
-                if(item.disponible == 0 )
-                    $scope.permitirValidar = false;
+        if(pedido.id_estado_pedido == 1){
+            $scope.pedidoModal = pedido;
+            $scope.permitirValidar = true;
+            $http.post('../controladores/traerProductosPedido.php', {'idPedido': pedido.id})
+            .success(function(response){
+                $scope.productos = response;
+                angular.forEach($scope.productos, function(item, index){
+                    if(item.disponible == 0 )
+                        $scope.permitirValidar = false;
+                })
+                document.getElementById('validarModal').style.display='block';
             })
-            document.getElementById('validarModal').style.display='block';
-        })
-        // document.getElementById('validarModal').style.display='block';
+            // document.getElementById('validarModal').style.display='block';
+        } else{
+            $scope.validarPedido(pedido);
+        }
     }
 
     $scope.cerrarModal = function(pedido){
@@ -80,16 +84,6 @@ app.controller("adminIndexController", function ($scope, $http) {
     }
 
     $scope.buscarPedidosFiltro = function(){
-        // $http.post('../controladores/listarPedidosController.php', {
-        //     'estado': $scope.estadoFiltro, 
-        //     'cliente': $scope.buscarPorCliente, 
-        //     'pedido': $scope.buscarPorPedido,
-        //     'desde': $scope.desde, 
-        //     'limite': $scope.limite})
-        // .success(function(response){
-        //     $scope.pedidos = response;
-        //     $scope.cantidadDePaginacion();
-        // });
         $scope.desde = 0;
         $scope.buscarPedidos();
 

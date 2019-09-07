@@ -52,11 +52,12 @@ app.controller("adminProducto", function ($scope, $http) {
     $scope.cargaProducto = false;
     $scope.mostrarCargaProducto = function () {
         $scope.cargaProducto = true;
+        document.getElementById('cargarProductoModal').style.display='block';
     }
 
     $scope.cerrarCargaProducto = function () {
         $scope.cargaProducto = false;
-        
+        document.getElementById('cargarProductoModal').style.display='none';
     }
 
     $scope.listarProductos = function () {
@@ -112,11 +113,13 @@ app.controller("adminProducto", function ($scope, $http) {
         $scope.campoProducto20Editar = $producto.campo20;
 
         $scope.editarProductoModal = true;
+        document.getElementById('editarProductoModal').style.display='block';
 
     }
 
     $scope.cerrarEditarProductoModal = function(){
         $scope.editarProductoModal = false;
+        document.getElementById('editarProductoModal').style.display='none';
     }
 
     $scope.guardarEditarProducto =function(){
@@ -266,11 +269,14 @@ app.controller("adminProducto", function ($scope, $http) {
     $scope.cargaMasivaProductoDiv = false;
 
     $scope.mostrarCargaMasiva = function(){
-        $scope.cargaMasivaProductoDiv = true;        
+        $scope.cargaMasivaProductoDiv = true; 
+        document.getElementById('cargaMasivaProductoModal').style.display='block';   
+        document.getElementById('cargarProductoModal').style.display='none';       
     }
 
     $scope.cerrarCargaMasiva = function(){
         $scope.cargaMasivaProductoDiv = false;
+        document.getElementById('cargaMasivaProductoModal').style.display='none';
     }
 
     $scope.enviarArchivoCargaMasiva = function(){

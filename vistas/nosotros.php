@@ -53,29 +53,29 @@ include_once ('../incluciones/verificacionUsuario.php');
 
             <div class="row" >
                 <div class="jumbotron" ng-init="cargarProductosCarrito(<?= $id ?>)">
-                    <h1 >Sobre nosotros, ModPc</h1>
+                    <h1 >Sobre herlam DIGITAL:</h1>
                 </div>
                 
                 <div class="col-lg-10 col-lg-offset-1">
                     <dl>
-                        <dt>Sobre herlam DIGITAL:</dt>
-                        <dd><strong>Herlam DIGITAL</strong> te permite conocer nuestras ofertas, beneficios, servicios y precios est&eacute;s donde est&eacute;s para 
+                        <!-- <dt>Sobre herlam DIGITAL:</dt> -->
+                        <dd class="text-justify"><strong>Herlam DIGITAL</strong> te permite conocer nuestras ofertas, beneficios, servicios y precios est&eacute;s donde est&eacute;s para 
                             planificar mejor tus compras. Adem&aacute;s, podes armar tu solicitud de perdido y coordinar con los  vendedores la disponibilidad, 
                             la elecci&oacute;n de tu medio de pago y el env&iacute;o.</dd>
 
-                        <dd>La plataforma <strong>Herlam DIGITAL</strong> es una aplicaci&oacute;n pensada para nuestros Clientes Profesionales Veterinarios.
+                        <dd class="text-justify">La plataforma <strong>Herlam DIGITAL</strong> es una aplicaci&oacute;n pensada para nuestros Clientes Profesionales Veterinarios.
                          A trav&eacute;s de la misma, el usuario accede a las ofertas, servicios, beneficios, informaci&oacute;n, y toda la Propuesta de Valor que ofrece 
                          <strong>Herlam Argentina</strong>.</dd>
 
-                        <dd>Herlam ha generado diferentes acuerdos comerciales con Empresas, Droguer&iacute;as y Farmacias. Los mismos tienen como objetivo fundamental 
+                        <dd class="text-justify">Herlam ha generado diferentes acuerdos comerciales con Empresas, Droguer&iacute;as y Farmacias. Los mismos tienen como objetivo fundamental 
                             brindar un beneficio econ&oacute;mico a todos los clientes de nuestra firma. Los productos listados en estas categor&iacute;as <strong>No</strong> son 
                             comercializados por GRUPO HERLAM SRL. Por lo que las solicitudes generadas son procesadas para la obtenci&oacute;n de los beneficios y 
                             completadas con los datos requeridos (Matr&iacute;cula profesional, Habilitaciones, Recetas etc.) en el momento de contacto con el asesor 
                             comercial que vincular&aacute; la solicitud con la farmacia o droguer&iacute;a seg&uacute;n corresponda.</dd>
                                 
-                        <dt>Los pasos a realizarse en esta plataforma son:</dt>
+                        <dt class="text-justify">Los pasos a realizarse en esta plataforma son:</dt>
                         <dd>
-                            <ol>
+                            <ol class="text-justify">
                                 <li>La b&uacute;squeda de productos necesarios de nuestros clientes.</li>
                                 <li>La Selecci&oacute;n de los mismos. Teniendo tambi&eacute;n la posibilidad el cliente de hacer consultas sobre sus caracter&iacute;sticas 
                                     t&eacute;cnicas o presentaci&oacute;n de lo mismos.</li>
@@ -83,12 +83,12 @@ include_once ('../incluciones/verificacionUsuario.php');
                             </ol>
                         </dd>
 
-                        <dd><strong>Posteriormente un vendedor se contactar&aacute; con el cliente para finalizar la gesti&oacute;n. No requiriendo el sistema el 
+                        <dd class="text-justify"><strong>Posteriormente un vendedor se contactar&aacute; con el cliente para finalizar la gesti&oacute;n. No requiriendo el sistema el 
                             acceso de medios de pago de ning&uacute;n tipo.</strong></dd>
-
+                        <br>
                         <dt>T&eacute;rminos y condiciones de uso:</dt>
                         <dd>
-                            <ol>
+                            <ol class="text-justify">
                                 <li>Estos t&eacute;rminos y condiciones (en adelante, los “T&eacute;rminos y Condiciones”) regulan el uso de la 
                                     aplicaci&oacute;n <strong>Herlam DIGITAL</strong> de GRUPO HERLAM SRL (en adelante, “HERLAM”).</li>
                                 <li>La actividad de los usuarios (en adelante, los “Usuarios”) dentro de la aplicaci&oacute;n <strong>Herlam DIGITAL</strong> 
@@ -176,8 +176,9 @@ include_once ('../incluciones/verificacionUsuario.php');
                                 <li>Ante cualquier consulta, queja o comentario pude contactarse con nosotros ingresando a <a href="https://www.herlam.com.ar">www.herlam.com.ar</a>  
                                 y completar en  la secci&oacute;n contacto.</li>
                                 <li>Para cualquier cuesti&oacute;n judicial que pudiere derivarse del uso de la Aplicaci&oacute;n, los Usuarios, y <strong>HERLAM</strong> 
-                                se someter&aacute;n a la legislaci&oacute;n argentina. Las partes se someten, a su elecci&oacute;n, para la resoluci&oacute;n de los 
-                                conflictos y con renuncia de cualquier otro fuero, a los juzgados y tribunales del domicilio del usuario.<li>																	
+                                se someter&aacute;n a la jurisdicci&oacute;n de la provincia de Buenos Aires, partido de la matanza. La partes se someten a su jurisdicci&oacute;n, 
+                                haciendo renuncia expresa a cualquier otra que pudiese corresponder, para la resoluci&oacute;n de los conflictos y con renuncia de cualquier otro 
+                                fuero, a los juzgados y tribunales del domicilio del usuario.</li>																	
                             </ol>
                         </dd>
                     </dl>

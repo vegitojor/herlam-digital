@@ -1,5 +1,6 @@
-<div class="w3-content" ng-show="cargaMasivaProductoDiv">
-	<div class="w3-card-4 w3-lime" >
+<!-- w3-content -->
+<div class="w3-modal" ng-show="cargaMasivaProductoDiv" id="cargaMasivaProductoModal">
+	<div class="w3-card-4 w3-lime w3-modal-content w3-animate-bottom" >
         <header>
             <a href="" class="w3-button w3-right w3-margin" ng-click="cerrarCargaMasiva()"><span class="fa fa-remove"></span> </a>
             

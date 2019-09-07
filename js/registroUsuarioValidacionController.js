@@ -71,6 +71,8 @@ app.controller("formularioRegistro", function($scope, $http, $window, $filter){
 					'usuario': $scope.nombreUsuario,
 					'cuitCuil': $scope.cuil,
 					'condicionIva': $scope.condicionIva,
+					'piso': $scope.piso,
+					'depto': $scope.depto,
 					'pass': $scope.passValid})
 				.success(function(response){
 					$scope.data = response;

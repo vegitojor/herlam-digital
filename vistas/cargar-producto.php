@@ -32,8 +32,8 @@ include_once ("../incluciones/verificacionAdmin.php");
         <?php include_once('../incluciones/cargaMasivaProductoModal.php'); ?>
 
         <!-- CARGA DE PRODUCTO -->
-        <div class="w3-content  w3-gray" ng-show="cargaProducto">
-            <div class="w3-card-4 w3-blue-gray " >
+        <div class=" w3-modal" ng-show="cargaProducto" id="cargarProductoModal"> 
+            <div class="w3-card-4 w3-blue-gray w3-modal-content w3-animate-bottom " >
                 <header>
                     <a href="" class="w3-button w3-right w3-margin" ng-click="cerrarCargaProducto()"><span class="fa fa-remove"></span> </a>
                     <a  class="w3-btn w3-orange w3-right w3-margin" ng-click="mostrarCargaMasiva()" ><span class="fa fa-upload" ></span> Cargar desde archivo</a>
@@ -277,7 +277,7 @@ include_once ("../incluciones/verificacionAdmin.php");
         </div><!-- fin de carga de producto -->
         
         <!-- EDITAR PRODUCTO-->
-        <div ng-show="editarProductoModal">
+        <div ng-show="editarProductoModal" >
             <?php include_once('../incluciones/editarProductoAdminModal.php'); ?>
         </div>
         <!-- FIN EDITAR PRODUCTO-->

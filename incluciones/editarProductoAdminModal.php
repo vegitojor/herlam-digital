@@ -1,6 +1,7 @@
 <!-- EDITAR PRODUCTO MODAL -->
-<div class="w3-content  w3-gray" >
-    <div class="w3-card-4 w3-blue" >
+<!-- w3-content  w3-gray  -->
+<div class="w3-modal " id="editarProductoModal">
+    <div class="w3-card-4 w3-blue w3-modal-content w3-animate-bottom" >
         <header>
             <a href="" class="w3-button w3-right w3-margin" ng-click="cerrarEditarProductoModal()"><span class="fa fa-remove"></span> </a>
             <h1 class="w3-margin-left">Editar el producto</h1>

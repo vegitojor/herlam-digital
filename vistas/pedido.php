@@ -73,7 +73,7 @@
                                 <p>A&uacute;n no se genero ningun pedido.</p>
                             </div> 
 
-                            <div id="tablePedido" ng-if="pedidos.length > 0">
+                            <div id="tablePedido" ng-if="pedidos.length > 0" class="table-responsive">
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
@@ -161,28 +161,30 @@
                 </div>
                 <div class="modal-body">
                     <p>Tipo de env&iacute;o: {{tipoEnvioNombre}}</p>
-                    <table ng-if="tipoEnvioId == 1" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Provincia</th>
-                                <th>Localidad</th>
-                                <th>Domicilio</th>
-                                <th>Piso</th>
-                                <th>Depto.</th>
-                                <th>C&oacute;digo postal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{tipoEnvioProvincia}}</td>
-                                <td>{{tipoEnvioLocalidad}}</td>
-                                <td>{{tipoEnvioDomicilio}}</td>
-                                <td>{{tipoEnvioPiso}}</td>
-                                <td>{{tipoEnvioDepto}}</td>
-                                <td>{{tipoEnvioCodigoPostal}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table ng-if="tipoEnvioId == 1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Provincia</th>
+                                    <th>Localidad</th>
+                                    <th>Domicilio</th>
+                                    <th>Piso</th>
+                                    <th>Depto.</th>
+                                    <th>C&oacute;digo postal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{tipoEnvioProvincia}}</td>
+                                    <td>{{tipoEnvioLocalidad}}</td>
+                                    <td>{{tipoEnvioDomicilio}}</td>
+                                    <td>{{tipoEnvioPiso}}</td>
+                                    <td>{{tipoEnvioDepto}}</td>
+                                    <td>{{tipoEnvioCodigoPostal}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -203,7 +205,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Productos del pedido N&deg;: {{detalleProducto.numeroPedido}}</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body table-responsive">
                     <table  class="table table-striped">
                         <thead>
                             <tr>

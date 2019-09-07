@@ -11,6 +11,7 @@
     // if(!isset($_SESSION['usuario'])){
     //     header('location: ../index.php');
     // }
+    $versionJs = rand();
 
     ?>
   <!DOCTYPE html>
@@ -18,11 +19,11 @@
 
   <head>
       <?php include_once('../incluciones/head.php'); ?>
-      <script type="text/javascript" src="../js/indexModulo.js"></script>
-      <script type="text/javascript" src="../js/carritoController.js"></script>
+      <script type="text/javascript" src="../js/indexModulo.js?<?= $versionJs ?>"></script>
+      <script type="text/javascript" src="../js/carritoController.js?<?= $versionJs ?>"></script>
       <!-- AngularVideo directive -->
-      <script type="text/javascript" src="../librerias/angular-video/anguvideo.js"></script>
-      <script type="text/javascript" src="../librerias/angular-video/controller.js"></script>
+      <script type="text/javascript" src="../librerias/angular-video/anguvideo.js?<?= $versionJs ?>"></script>
+      <script type="text/javascript" src="../librerias/angular-video/controller.js?<?= $versionJs ?>"></script>
 
       <title>Carrito - Herlam</title>
 
@@ -71,14 +72,15 @@
                       </div>
 
                       <div class="content">
-                          <ul class="nav nav-tabs dtabs-justified">
-                              <ul class="nav nav-tabs nav-justified">
+                          <!-- <ul class="nav nav-tabs dtabs-justified"> -->
+                              <!-- <ul class="nav nav-tabs nav-justified">
                                   <li ng-class="{'active' : tab1}"><a data-toggle="tab" href="#paso1">Generacion de pedido</a></li>
                                   <li ng-class="{'active' : tab2}"><a data-toggle="tab" href="#paso2">Datos de envio y facturaci&oacute;n</a></li>
-                                  <!-- <li ng-class="{'active' : tab3}"><a data-toggle="tab" href="#paso3" >Confirmaci&oacute;n de compra</a></li> -->
-                              </ul>
-                              <div class="tab-content">
-                                  <div class="tab-pane fade in active" id="paso1">
+                                   <li ng-class="{'active' : tab3}"><a data-toggle="tab" href="#paso3" >Confirmaci&oacute;n de compra</a></li> 
+                              </ul> -->
+                              <!-- <div class="tab-content"> -->
+                                <div>
+                                  <div class="" id="paso1" ng-show="paso1Div">
                                       <br>
                                       <!-- CADA UNO DE LOS PRODUCTOS EN EL CARRITO -->
                                       <div class="col-sm-12 col-lg-12 col-md-12 panel-group" ng-show="productosDelCarrito.length > 0">
@@ -126,14 +128,15 @@
                                           </div>
                                           <div class="col-md-4">
                                               <!-- {{linkPagoMercadoPago}} -->
-                                              <a data-toggle="tab" href="#paso2" class="btn btn-warning" ng-disabled="totalDelCarrito == 0" ng-click="pasarAlSiguente(2)">Siguiente</a>
+                                              <!-- data-toggle="tab" href="#paso2" -->
+                                              <a href="javascript:void(0);" class="btn btn-warning" ng-disabled="totalDelCarrito == 0" ng-click="pasarAlSiguente(2)">Siguiente</a>
                                           </div>
                                       </div>
                                       <!-- FIN TOTAL -->
                                   </div>
 
                                   <!-- paso 2  -->
-                                  <div class="tab-pane fade" id="paso2">
+                                  <div class="" id="paso2" ng-hide="paso1Div">
                                       <div>
 
                                           <div>
@@ -328,8 +331,8 @@
                                   <!-- <div class="tab-pane fade" id="paso3">
                                   
                               </div> -->
-                              </div>
-                          </ul>
+                              <!-- </div> -->
+                          <!-- </ul> -->
                       </div>
 
 

@@ -175,6 +175,20 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="domicilio">Ingrese Piso</label>
+                            <input type="text" class="form-control" id="piso" name="piso" placeholder="Introduzca su piso" ng-model="piso" ng-model-option="{updateOn: 'blur'} " >
+                            <div  ng-show="registroUsuario.$submitted || registroUsuario.piso.$touched">
+                                <span class="text-danger" ng-show="registroUsuario.piso.$error.required">El campo es obligatorio.</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="domicilio">Ingrese departamento</label>
+                            <input type="text" class="form-control" id="depto" name="depto" placeholder="Introduzca su domicilio (calle y altura)" ng-model="depto" ng-model-option="{updateOn: 'blur'} " >
+                            <div  ng-show="registroUsuario.$submitted || registroUsuario.depto.$touched">
+                                <span class="text-danger" ng-show="registroUsuario.depto.$error.required">El campo es obligatorio.</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="codPostal">Ingrese su código postal</label>
                             <input type="number" class="form-control" id="codPostal" name="codPostal" placeholder="Introduzca su código postal" ng-model="codPostal" ng-model-option="{updateOn: 'blur'} " required>
                             <div  ng-show="registroUsuario.$submitted || registroUsuario.codPostal.$touched">

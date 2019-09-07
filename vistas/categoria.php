@@ -15,12 +15,12 @@ $idCategoria = $_GET['id'];
 
 <head>
     <?php include_once ('../incluciones/head.php'); ?>
-    <script type="text/javascript" src="../js/indexModulo.js"></script>
-    <script type="text/javascript" src="../js/categoriaController.js"></script>
+    <script type="text/javascript" src="../js/indexModulo.js?<?= $versionJs ?>"></script>
+    <script type="text/javascript" src="../js/categoriaController.js?<?= $versionJs ?>"></script>
     
     <!-- AngularVideo directive -->
-    <script type="text/javascript" src="../librerias/angular-video/anguvideo.js"></script>
-    <script type="text/javascript" src="../librerias/angular-video/controller.js"></script>
+    <script type="text/javascript" src="../librerias/angular-video/anguvideo.js?<?= $versionJs ?>"></script>
+    <script type="text/javascript" src="../librerias/angular-video/controller.js?<?= $versionJs ?>"></script>
 
 
     <title>Categorias - Herlam</title>
@@ -531,7 +531,7 @@ $idCategoria = $_GET['id'];
 <link rel="stylesheet" type="text/css" href="../librerias/jsSocial/jssocials.css" />
 <link rel="stylesheet" type="text/css" href="../librerias/jsSocial/jssocials-theme-flat.css" />
 <script src="../librerias/jsSocial/jssocials.js"></script>
-<script src="../js/socialNetwork.js"></script>
+<script src="../js/socialNetwork.js?<?= $versionJs ?>"></script>
 
 <!-- modal de contacto -->
 <?php include_once('../incluciones/formularioContacto.php'); ?>

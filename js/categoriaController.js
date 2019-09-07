@@ -70,6 +70,9 @@ app.controller("categoriaController", function ($scope, $http, $sce, $filter, $w
        $http.post('../controladores/usuario/cargarMonedaController.php')
            .success(function (response) {
                $scope.moneda = response;
+               if($scope.moneda.valor == 0 ){
+                  bootbox.alert("Nos encontramos en proceso de inventario. A la brevedad encontrara el listado actualizado de productos y precios");
+               }
            })
    }
 

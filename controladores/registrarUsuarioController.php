@@ -42,8 +42,18 @@ if( isset($data->condicionIva) ){
 }
 
 $cuitCuil = Null;
-if( isset($data->cuil) ){
-	$cuitCuil = (int)strip_tags($data->cuil);
+if( isset($data->cuitCuil) ){
+	$cuitCuil = strip_tags($data->cuitCuil);
+}
+
+$piso = Null;
+if( isset($data->piso) ){
+	$piso = strip_tags($data->piso);
+}
+
+$depto = Null;
+if( isset($data->depto) ){
+	$depto = strip_tags($data->depto);
 }
 
 
@@ -69,7 +79,11 @@ $usuario = new Cliente($id,
 						$codPostal,
 						$domicilio,
 						$admin,
-						$localidad);
+						$localidad,
+						$depto,
+						$piso,
+						$cuitCuil,
+						$condicionIva); 	
 
 //comprobacion de que no existe el email en la BD
 $listaEmail = Cliente::listarEmail($conexion);

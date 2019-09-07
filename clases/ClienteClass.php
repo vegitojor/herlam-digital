@@ -169,7 +169,7 @@ Class Cliente{
 		//============== MySQL =======================
 		$stmt = mysqli_prepare($conexion, $consulta);
 		//ssssssisidi
-		mysqli_stmt_bind_param($stmt, "ssssssisisii", 
+		mysqli_stmt_bind_param($stmt, "ssssssisisiisssi", 
 								$this->usuario,
 								$this->email,
 								$this->pass,
