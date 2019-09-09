@@ -17,8 +17,9 @@ app.controller("adminIndexController", function ($scope, $http) {
             .success(function(response){
                 if (response.respuesta == 1) {
                     alert('La eliminación se realizó exitosamente.');
-                    $scope.listarPedidos();
+                    // $scope.listarPedidos();
                     // $scope.listarAdministradores();
+                    $scope.buscarPedidosFiltro();
                 }
                 else if (response.respuesta.respuesta == 2)
                     alert('Falló el intento de eliminar el usuario. Por favor vuelva a intentarlo mas tarde.');
@@ -33,7 +34,7 @@ app.controller("adminIndexController", function ($scope, $http) {
 
     $scope.mostrarProductos = function(pedido){
         // $scope.validarModal = true;
-        if(pedido.id_estado_pedido == 1){
+        // if(pedido.id_estado_pedido == 1){
             $scope.pedidoModal = pedido;
             $scope.permitirValidar = true;
             $http.post('../controladores/traerProductosPedido.php', {'idPedido': pedido.id})
@@ -46,9 +47,9 @@ app.controller("adminIndexController", function ($scope, $http) {
                 document.getElementById('validarModal').style.display='block';
             })
             // document.getElementById('validarModal').style.display='block';
-        } else{
-            $scope.validarPedido(pedido);
-        }
+        // } else{
+        //     $scope.validarPedido(pedido);
+        // }
     }
 
     $scope.cerrarModal = function(pedido){
@@ -109,15 +110,22 @@ app.controller("adminIndexController", function ($scope, $http) {
     }
 
     $scope.validarPedido = function(pedido){
-        $http.post('../controladores/validarPedidoController.php',{'idPedido': pedido.id, 'idEstadoPedido': pedido.id_estado_pedido})
-        .success(function(response){
-            if(response.respuesta == 1)
-                alert('El estado del pedido se modifico correctamente.');
-                $scope.buscarPedidosFiltro();
-                document.getElementById('validarModal').style.display='none';
-        })
+        if((!$scope.permitirValidar || $scope.productos.length == 0)){
+            alert('Este pedido no puede ser validado.');
+        }else{
+            $http.post('../controladores/validarPedidoController.php',{'idPedido': pedido.id, 'idEstadoPedido': pedido.id_estado_pedido})
+            .success(function(response){
+                if(response.respuesta == 1)
+                    alert('El estado del pedido se modifico correctamente.');
+                    $scope.buscarPedidosFiltro();
+                    document.getElementById('validarModal').style.display='none';
+            })
+        }
     }
 
+    $scope.generarExel = function(pedido){
+        window.open('./generarExel.php?p=' + pedido.id);
+    }
 
     /**************** PAGINACION ***********************/
     $scope.desde = 0;

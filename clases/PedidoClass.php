@@ -353,4 +353,78 @@ class Pedido
 
         return $output;
     }
+
+    public static function buscarPedidoPorIdParaExel($conexion, $idPedido){
+        $consulta = "SELECT pd.id as id_pedido,
+                            pd.fecha,
+                            pd.id_estado_pedido,
+                            ep.descripcion as estado,
+                            l.localidad,
+                            pr.provincia,
+                            pd.calle,
+                            pd.codigo_postal,
+                            pd.piso,
+                            pd.depto,
+                            CASE 
+                            WHEN pd.envio_domicilio = 1 THEN 'Envio domicilio'
+                            ELSE 'Retiro acordado con vendedor'
+                            END AS envio_domicilio,
+                            cl.id AS id_cliente,
+                            cl.usuario AS razon_social,
+                            cl.email,
+                            cl.telefono,
+                            cl.nombre,
+                            cl.apellido,
+                            cl.cuit_cuil,
+                            CASE
+                            WHEN cl.id_condicion_iva = 1 THEN 'Consumidor final'
+                            WHEN cl.id_condicion_iva = 2 THEN 'Monotributista'
+                            WHEN cl.id_condicion_iva = 3 THEN 'Exento'
+                            ELSE 'Responsable inscripto'
+                            END AS condicion_iva,
+                            cc.id,
+                            p.descripcion,
+                            p.id id_producto,
+                            p.modelo,
+                            p.cod_fabricante,
+                            p.disponible,
+                            p.id_categoria,
+                            c.nombre categoria,
+                            p.id_marca,
+                            m.descripcion marca,
+                            p.codigo_sku,
+                            cc.cantidad,
+                            cc.precio
+                    FROM carrito_compra cc
+                    LEFT JOIN producto p ON p.id=cc.id_producto
+                    LEFT JOIN categoria c ON c.id=p.id_categoria
+                    LEFT JOIN marca m ON m.id=p.id_marca
+                    LEFT JOIN pedido pd ON pd.id=cc.id_pedido
+                    LEFT JOIN estado_pedido ep ON ep.id=pd.id_estado_pedido
+                    LEFT JOIN cliente cl ON cl.id=cc.id_cliente
+                    LEFT JOIN localidad l ON l.id=pd.id_localidad
+                    LEFT JOIN provincia pr ON pr.id=l.id_provincia
+                    WHERE cc.id_pedido = ?
+                    ORDER BY c.nombre ASC";
+
+        $stmt = mysqli_prepare($conexion, $consulta);
+        mysqli_stmt_bind_param($stmt, 'i', $idPedido);
+        mysqli_stmt_execute($stmt);
+        $respuesta = mysqli_stmt_get_result($stmt);
+        $output = array();
+        // $resultado = mysqli_fetch_assoc($respuesta);
+        while($fila = mysqli_fetch_assoc($respuesta)){
+            $fila['descripcion'] = utf8_encode($fila['descripcion']);
+            $fila['modelo'] = utf8_encode($fila['modelo']);
+            $fila['categoria'] = utf8_encode($fila['categoria']);
+            $fila['marca'] = utf8_encode($fila['marca']);
+            $output[] = $fila;
+        }
+
+        //================ Postgres ===================
+        // $result = pg_query_params($conexion, $consulta, array($id));
+        // $resultado = pg_fetch_assoc($result);
+
+        return $output;
+    }
 }

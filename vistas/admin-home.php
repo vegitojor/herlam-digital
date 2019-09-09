@@ -16,7 +16,7 @@ include_once ("../incluciones/verificacionAdmin.php");
     <!-- Navegador Admin -->
 
     <?php include_once ("../incluciones/navegadorAdmin.php");?> 
-    <!-- <?php include_once ("../incluciones/navbarAdmin.php");?>-->
+    <!-- <?php //include_once ("../incluciones/navbarAdmin.php");?>-->
 
     <!-- seccion de busqueda de producto -->
     <div class="w3-container w3-padding-32 w3-blue-gray">
@@ -131,6 +131,10 @@ include_once ("../incluciones/verificacionAdmin.php");
 					</td>
 					<td>
 						<a href="javascript:void(0);" 
+						class="w3-btn w3-white w3-border w3-border-blue w3-round" 
+						ng-click="generarExel(pedido)"
+						ng-if="pedido.id_estado_pedido > 1">Exel</a>
+						<a href="javascript:void(0);" 
 						class="w3-btn w3-white w3-border w3-border-red w3-round" 
 						ng-click="cancelarPedido(pedido)"
 						ng-if="pedido.id_estado_pedido == 1 || pedido.id_estado_pedido == 2">Cancelar</a>
@@ -188,9 +192,9 @@ include_once ("../incluciones/verificacionAdmin.php");
 								<td>{{producto.cantidad}}</td>
 								<td>{{producto.precio}}</td>
 								<td>
-									<a href="javascript:void(0)" 
+									<button href="javascript:void(0)" 
 									class="w3-btn w3-white w3-border w3-border-red w3-round"
-									ng-click="quitarProductoPedido(producto.id)">Quitar</a>
+									ng-click="quitarProductoPedido(producto.id)">Quitar</button>
 								</td>
 							</tr>
 						</tbody>

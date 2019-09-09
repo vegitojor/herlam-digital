@@ -1,6 +1,7 @@
 <?php 
 
 include_once('incluciones/verificacionUsuario.php');
+include_once('./incluciones/versionRand.php');
 ?>
 <!DOCTYPE html>
 <html lang="es" >

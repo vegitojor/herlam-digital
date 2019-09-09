@@ -26,5 +26,5 @@ $conexion = $conn->getConexion();
 $categorias = Pedido::listarProductosCarritoPorIdPedido($conexion, $idPedido);
 
 //CERRAR CONEXION A BD
-
+$conn->cerrarConexion();
 echo json_encode($categorias);

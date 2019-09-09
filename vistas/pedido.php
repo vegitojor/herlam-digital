@@ -18,8 +18,8 @@
 
   <head>
       <?php include_once('../incluciones/head.php'); ?>
-      <script type="text/javascript" src="../js/indexModulo.js"></script>
-      <script type="text/javascript" src="../js/pedidoController.js"></script>
+      <script type="text/javascript" src="../js/indexModulo.js?<?= $versionJs ?>"></script>
+      <script type="text/javascript" src="../js/pedidoController.js?<?= $versionJs ?>"></script>
       <!-- AngularVideo directive -->
       <script type="text/javascript" src="../librerias/angular-video/anguvideo.js"></script>
       <script type="text/javascript" src="../librerias/angular-video/controller.js"></script>

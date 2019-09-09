@@ -5,11 +5,13 @@
  * Date: 8/12/17
  * Time: 14:08
  */
+
+
 session_start();
 
 if(isset($_SESSION['usuario']) ){
     if($_SESSION['usuario']['activo'] == 1){
-        $versionJs = rand();
+        // $versionJs = rand();
         $id = $_SESSION['usuario']['id'];
         // $username = $_SESSION['usuario']['username'];
         $email = $_SESSION['usuario']['email'];
