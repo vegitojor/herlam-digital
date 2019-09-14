@@ -66,7 +66,8 @@ app.controller("pedidoController", function ($scope, $http, $sce, $filter, $wind
 		$scope.tipoEnvioPiso = pedido.piso;
 		$scope.tipoEnvioDepto = pedido.depto;
 		$scope.tipoEnvioCodigoPostal = pedido.codigo_postal;
-
+		$scope.tipoEnvioDia = pedido.dia_envio;
+		$scope.tipoEnvioHorario = pedido.horario_envio;
 		$('#modalEnvio').modal('show');
 	}
 

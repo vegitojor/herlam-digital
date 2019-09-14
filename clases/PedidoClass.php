@@ -19,8 +19,11 @@ class Pedido
     private $piso;
     private $depto;
     private $envioDomicilio;
+    private $diaEnvio;
+    private $horarioEnvio;
 
-    function __construct($id, $cliente, $fecha, $estadoPedido, $localidad, $calle, $codigoPostal, $piso, $depto, $tipoEnvio)
+    function __construct($id, $cliente, $fecha, $estadoPedido, $localidad,
+                         $calle, $codigoPostal, $piso, $depto, $tipoEnvio, $diaEnvio, $horarioEnvio)
     {
         $this->id = $id;
         $this->cliente = $cliente;
@@ -33,15 +36,18 @@ class Pedido
         $this->depto = $depto;
         $this->numero = null;
         $this->envioDomicilio = $tipoEnvio;
+        $this->diaEnvio = $diaEnvio;
+        $this->horarioEnvio = $horarioEnvio;
     }
 
     public function persistirse($conexcion){
-        $consulta  = "INSERT INTO pedido (id_cliente, fecha, id_estado_pedido, id_localidad, calle, numero, codigo_postal, piso, depto, envio_domicilio) 
-                        VALUEs (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $consulta  = "INSERT INTO pedido (id_cliente, fecha, id_estado_pedido, id_localidad, calle, numero, 
+                        codigo_postal, piso, depto, envio_domicilio, dia_envio, horario_envio) 
+                        VALUEs (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = mysqli_prepare($conexcion, $consulta);
-        mysqli_stmt_bind_param($stmt, 'isiisssssi', $this->cliente, $this->fecha, $this->estadoPedido, $this->localidad, $this->calle, 
-        $this->numero, $this->codigoPostal, $this->piso, $this->depto, $this->envioDomicilio);
+        mysqli_stmt_bind_param($stmt, 'isiisssssiii', $this->cliente, $this->fecha, $this->estadoPedido, $this->localidad, $this->calle, 
+        $this->numero, $this->codigoPostal, $this->piso, $this->depto, $this->envioDomicilio, $this->diaEnvio, $this->horarioEnvio);
         mysqli_stmt_execute($stmt);
 
         //se obtiene el id autogenerado yse retorna el valor
@@ -85,7 +91,9 @@ class Pedido
                             p.codigo_postal,
                             p.piso,
                             p.depto,
-                            p.envio_domicilio tipo_pedido
+                            p.envio_domicilio tipo_pedido,
+                            p.dia_envio,
+                            p.horario_envio
                     FROM pedido p
                     LEFT JOIN cliente c ON c.id=p.id_cliente
                     LEFT JOin estado_pedido ep ON ep.id=p.id_estado_pedido
@@ -194,7 +202,9 @@ class Pedido
                             p.codigo_postal,
                             p.piso,
                             p.depto,
-                            p.envio_domicilio
+                            p.envio_domicilio,
+                            p.dia_envio,
+                            p.horario_envio
                      FROM pedido p
                      LEFT JOIN cliente c ON c.id=p.id_cliente
                      LEFT JOin estado_pedido ep ON ep.id=p.id_estado_pedido
@@ -369,6 +379,19 @@ class Pedido
                             WHEN pd.envio_domicilio = 1 THEN 'Envio domicilio'
                             ELSE 'Retiro acordado con vendedor'
                             END AS envio_domicilio,
+                            CASE 
+                            WHEN pd.dia_envio = 0 THEN 'Lunes'
+                            WHEN pd.dia_envio = 1 THEN 'Martes'
+                            WHEN pd.dia_envio = 2 THEN 'Miercoles'
+                            WHEN pd.dia_envio = 3 THEN 'Jueves'
+                            WHEN pd.dia_envio = 4 THEN 'Viernes'
+                            ELSE '-\-\-'
+                            END AS dia_envio,
+                            CASE 
+                            WHEN pd.horario_envio = 0 THEN 'Mañana'
+                            WHEN pd.horario_envio = 1 THEN 'Tarde'
+                            ELSE '-\-\-'
+                            END AS horario_envio,
                             cl.id AS id_cliente,
                             cl.usuario AS razon_social,
                             cl.email,

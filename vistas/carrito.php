@@ -253,11 +253,39 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-12">
+                                                            <!-- <div class="col-md-12">
                                                                 <p>Dias y horarios de entrega: Lun. a Vier. de 8:30 a 12:30 y 13:30 a 18:00</p>
+                                                            </div> -->
+                                                            <div class=" col-md-12">
+                                                                <div class="col-md-4">
+                                                                    <p>Dia preferencial de entrega: </p>
+                                                                </div>
+                                                                <div class="col-md-8 btn-group ">
+                                                                    <button class="btn btn-default" ng-click="setEnvioDia(0)" ng-class="{'active': envioDia == 0}" >Lunes</button>
+                                                                    <!-- <a class="btn btn-default" ng-class="{'active': envioVendedorDiv}" ng-click="determinarTipoDeEnvio('vendedor')">Retiro acordado con el vendedor</a> -->
+                                                                    <button class="btn btn-default" ng-click="setEnvioDia(1)" ng-class="{'active': envioDia == 1}">Martes</button>
+                                                                    <button class="btn btn-default" ng-click="setEnvioDia(2)" ng-class="{'active': envioDia == 2}">Miercoles</button>
+                                                                    <button class="btn btn-default" ng-click="setEnvioDia(3)" ng-class="{'active': envioDia == 3}">Jueves</button>
+                                                                    <button class="btn btn-default" ng-click="setEnvioDia(4)" ng-class="{'active': envioDia == 4}">Viernes</button>
+                                                                </div>
                                                             </div>
+                                                            <div class=" col-md-12">
+                                                                <div class="col-md-4">
+                                                                    <p>Horario preferencial de entrega: </p>
+                                                                </div>
+                                                                <div class="col-md-8 btn-group ">
+                                                                    <button class="btn btn-default" ng-click="setEnvioDia(0, 1)" ng-class="{'active': envioHorario == 0}" >Ma&ntilde;ana</button>
+                                                                    <button class="btn btn-default" ng-click="setEnvioDia(1, 1)" ng-class="{'active': envioHorario == 1}">Tarde</button>
+                                                                    <!-- <button class="btn btn-default" ng-click="setEnvioDia(2)" ng-class="{'active': envioDia == 2}">Miercoles</button>
+                                                                    <button class="btn btn-default" ng-click="setEnvioDia(3)" ng-class="{'active': envioDia == 3}">Jueves</button>
+                                                                    <button class="btn btn-default" ng-click="setEnvioDia(4)" ng-class="{'active': envioDia == 4}">Viernes</button> -->
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                            <br>
                                                         </form>
                                                     </div>
+
                                                     <div id="envioVendedorDiv" ng-show="envioVendedorDiv">
                                                         <h5>Al finalizar la solicitud de pedido uno de nuestros vendedores le informar&aacute; la direcci&oacute;n de entrega. Tambi&eacute;n puede consultar por horarios en la secci&oacute;n "contacto" o a trav&eacute;s de las "preguntas" de cada producto.</h5>
                                                     </div>

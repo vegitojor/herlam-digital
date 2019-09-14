@@ -56,6 +56,15 @@ if (isset($data->fechaActual)) {
 $tipoEnvio = strip_tags($data->tipoEnvio);
 $tipoEnvio = (int)$tipoEnvio;
 
+$diaEnvio = null;
+if (isset($data->diaEnvio)) {
+	$diaEnvio = (int)strip_tags($data->diaEnvio);
+}
+
+$horarioEnvio = null;
+if (isset($data->horarioEnvio)) {
+	$horarioEnvio = (int)strip_tags($data->horarioEnvio);
+}
 
 
 //Conexion con base de datos
@@ -63,7 +72,7 @@ $conn = new ConexionBD();
 $conexion = $conn->getConexion();
 
 //Guardo inicializo el pedido y lo persisto
-$pedido = new Pedido(null, $idUsuario, $fecha, 1, $localidad, $domicilio, $codigoPostal, $piso, $depto, $tipoEnvio);
+$pedido = new Pedido(null, $idUsuario, $fecha, 1, $localidad, $domicilio, $codigoPostal, $piso, $depto, $tipoEnvio, $diaEnvio, $horarioEnvio);
 $idPedido = $pedido->persistirse($conexion);
 
 //ACTUALIZO LOS PRODUCTOS DEL CARRITO

@@ -29,6 +29,8 @@ if(isset($_GET['p'])){
             "Localidad"=>$resultado[0]['localidad'],
             "Provincia"=>$resultado[0]['provincia'],
             "Codigo postal"=>$resultado[0]['codigo_postal'],
+            "Dia entrega"=>$resultado[0]['dia_envio'],
+            "Horario"=>$resultado[0]['horario_envio'],
         );
         $pedidoArrayKeys=array_keys($pedidoArray);
     
@@ -65,9 +67,15 @@ if(isset($_GET['p'])){
         $productoKeys = array_keys($productos[0]);
        
         //DEFINO EL NOMBRE DEL ARCHIVO
-        $filename = "pedido_".$idPedido. "-".rand(). ".xlsx";
+        $filename = "pedido_".$idPedido. "-".rand(). ".xls";
         header("Content-Type: application/vnd.ms-excel;charset=iso-8859-15");
-        header("Content-Disposition: attachment; filename=".$filename);
+        // header("Content-Disposition: attachment; filename=".$filename);
+
+        // header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        header("Content-Disposition: attachment;filename=\"" . $filename . "\"");
+        header("Cache-Control: max-age=0");
+        header("Pragma: no-cache");
+        header("Expires: 0");
         
     }
 }
@@ -115,3 +123,4 @@ if(isset($_GET['p'])){
     <?php endforeach; ?>
 
 </table>
+

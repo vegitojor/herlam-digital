@@ -162,6 +162,12 @@ include_once ("../incluciones/verificacionAdmin.php");
 				<h2>Pedido N. {{pedidoModal.id}}</h2>
 				<p>Tipo de env&iacute;o: {{pedidoModal.tipo_pedido == 1 ? 'Envío a domicilio' : 'Retiro acordado con vendedor'}}</p>
 				<p>Direccion: {{pedidoModal.calle}} {{pedidoModal.numero}} {{pedidoModal.piso}} {{pedidoModal.depto}}, {{pedidoModal.localidad}}, {{pedidoModal.provincia}}</p>
+				<p>Dia de entrega: {{pedido.dia_envio == 0 ? 'Lunes' :
+					(pedido.dia_envio == 1 ? 'Martes' :
+						(pedido.dia_envio == 2 ? 'Miercoles' :
+							(pedido.dia_envio == 3 ? 'Jueves' : 'Viernes')))}}</p>
+				<p>Horario: {{pedido.horario_envio == 0 ? 'Mañana' : 'Tarde'}}</p>
+				</p>
 				<span ng-click="cerrarModal()" 
 				class="w3-button w3-display-topright">&times;</span>
 				<div>

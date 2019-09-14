@@ -161,6 +161,11 @@
                 </div>
                 <div class="modal-body">
                     <p>Tipo de env&iacute;o: {{tipoEnvioNombre}}</p>
+                    <p ng-if="tipoEnvioId == 1">Dia preferencial de entrega: {{tipoEnvioDia == 0 ? 'Lunes':
+                         (tipoEnvioDia == 1 ? 'Martes': 
+                            (tipoEnvioDia == 2 ? 'Miercoles' :
+                                (tipoEnvioDia == 3 ? 'Jueves' : 'Viernes')))}}</p>
+                    <p ng-if="tipoEnvioId == 1">Horario: {{tipoEnvioDia == 0 ? 'Mañana': 'Tarde'}}</p>
                     <div class="table-responsive">
                         <table ng-if="tipoEnvioId == 1" class="table table-striped">
                             <thead>

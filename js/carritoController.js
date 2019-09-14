@@ -228,26 +228,26 @@ app.controller("carritoController", function ($scope, $http, $sce, $filter, $win
     // });
   }
 
-  $scope.confirmarValorDeEnviosucursal = function( index ){
-      $scope.costoSucursalATotalizar = $scope.costoEnvioSucursal[index];
-  }
+	$scope.confirmarValorDeEnviosucursal = function( index ){
+		$scope.costoSucursalATotalizar = $scope.costoEnvioSucursal[index];
+	}
 
 
-  $scope.obtenerUsuario = function(array){
-	// console.log(array);
-	
-    $scope.usuarioSesion = array;
+	$scope.obtenerUsuario = function(array){
+		// console.log(array);
+		
+		$scope.usuarioSesion = array;
 
-    $scope.localidad = $scope.usuarioSesion.id_localidad;
-    $scope.calleDomicilio = $scope.usuarioSesion.domicilio;
-    $scope.pisoDomicilio = $scope.usuarioSesion.piso;
-    $scope.deptoDomicilio = $scope.usuarioSesion.depto;
-    $scope.codigoPostal = $scope.usuarioSesion.codigo_postal;
-    $scope.nombreApellido = $scope.usuarioSesion.nombre + " " + $scope.usuarioSesion.apellido;
-    $scope.razonSocial = $scope.usuarioSesion.usuario;
-    $scope.cuitCuil = $scope.usuarioSesion.cuit_cuil;
-    $scope.condicionIva = $scope.usuarioSesion.id_condicion_iva
- }
+		$scope.localidad = $scope.usuarioSesion.id_localidad;
+		$scope.calleDomicilio = $scope.usuarioSesion.domicilio;
+		$scope.pisoDomicilio = $scope.usuarioSesion.piso;
+		$scope.deptoDomicilio = $scope.usuarioSesion.depto;
+		$scope.codigoPostal = $scope.usuarioSesion.codigo_postal;
+		$scope.nombreApellido = $scope.usuarioSesion.nombre + " " + $scope.usuarioSesion.apellido;
+		$scope.razonSocial = $scope.usuarioSesion.usuario;
+		$scope.cuitCuil = $scope.usuarioSesion.cuit_cuil;
+		$scope.condicionIva = $scope.usuarioSesion.id_condicion_iva
+	}
 
 	$scope.generarPedido = function(){
 		if($scope.monedaCeroStock){
@@ -267,7 +267,9 @@ app.controller("carritoController", function ($scope, $http, $sce, $filter, $win
 						"condicionIva": $scope.condicionIva,
 						"idUsuario": $scope.usuarioSesion.id,
 						"fechaActual": $scope.fechaActual,
-						"tipoEnvio": $scope.tipoEnvio
+						"tipoEnvio": $scope.tipoEnvio,
+						"diaEnvio": $scope.envioDia,
+						"horarioEnvio": $scope.envioHorario
 					})
 					.success(function(response){
 						if(response.respuesta == 1){
@@ -293,5 +295,12 @@ app.controller("carritoController", function ($scope, $http, $sce, $filter, $win
 		}else{
 			bootbox.alert("Nos encontramos en proceso de inventario. A la brevedad encontrara el listado actualizado de productos y precios");
 		}
+	}
+
+	$scope.setEnvioDia = function(dia, hora){
+		if(hora == 1){
+			$scope.envioHorario = dia;
+		}else
+			$scope.envioDia = dia;
 	}
 });
