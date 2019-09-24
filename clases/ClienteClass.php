@@ -327,6 +327,11 @@ Class Cliente{
 		$output = array();
 		while ($fila=mysqli_fetch_assoc($resultado)) {
 			$fila['localidad'] = utf8_encode($fila['localidad']);
+			$fila['provincia'] = utf8_encode($fila['provincia']);
+			$fila['usuario'] = utf8_encode($fila['usuario']);
+			$fila['nombre'] = utf8_encode($fila['nombre']);
+			$fila['apellido'] = utf8_encode($fila['apellido']);
+			$fila['domicilio'] = utf8_encode($fila['domicilio']);
 			$output[] = $fila;	
 		}
 

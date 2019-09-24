@@ -32,4 +32,6 @@ $conexion = $conn->getConexion();
 //LISTADO DE ClienteClass
 $clientes = Cliente::listarClientes($conexion, $admin, $desde, $limite);
 
+$conn->cerrarConexion();
+
 echo json_encode($clientes);
