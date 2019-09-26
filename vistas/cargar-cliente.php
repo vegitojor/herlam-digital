@@ -132,6 +132,16 @@ include_once ('../incluciones/verificacionAdmin.php');
                         </table>
                     </div>
                 </div>
+                <!-- PAGINACION -->
+                <br>
+                <div class="w3-bar w3-border w3-round w3-center " ng-init="cantidadDePaginacion()">
+                    <a href="" class="w3-button" ng-click="cambiarPagina(0)">&#10094; Previous</a>
+                    
+                    <a href="" class="w3-button " ng-repeat="paginacion in paginaciones track by $index" ng-class="{'w3-green': (desdeCliente==(paginacion * limite - limite))}" ng-click="buscarSegunPagina(paginacion)">{{paginacion}}</a>
+
+                    <a href="" class="w3-button" ng-click="cambiarPagina(1)">Next &#10095;</a>
+                </div>
+                <!-- FIN PAGINACION -->
             </div>
         </div>
         <!-- SE LISTAN LOS ADMINISTRADORES-->
@@ -171,6 +181,16 @@ include_once ('../incluciones/verificacionAdmin.php');
                     </div>
                 </div>
             </div>
+            <!-- PAGINACION -->
+            <br>
+                <div class="w3-bar w3-border w3-round w3-center " ng-init="cantidadDePaginacionAdmin()">
+                    <a href="" class="w3-button" ng-click="cambiarPaginaAdmin(0)">&#10094; Previous</a>
+                    
+                    <a href="" class="w3-button " ng-repeat="paginacion in paginacionesAdmin track by $index" ng-class="{'w3-green': (desdeAdmin==(paginacion * limite - limite))}" ng-click="buscarSegunPaginaAdmin(paginacion)">{{paginacion}}</a>
+
+                    <a href="" class="w3-button" ng-click="cambiarPaginaAdmin(1)">Next &#10095;</a>
+                </div>
+                <!-- FIN PAGINACION -->
         </div>
     </div>
 

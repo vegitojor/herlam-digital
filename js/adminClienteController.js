@@ -1,8 +1,8 @@
 app.controller('adminCliente', function ($scope, $http, $window) {
     
-    var desdeCliente = 0;
-    var desdeAdmin = 0;
-    var limite = 15;
+    // var desdeCliente = 0;
+    // var desdeAdmin = 0;
+    // var limite = 15;
 
     $scope.idClienteModal;
     $scope.usuarioClienteModal;
@@ -15,14 +15,14 @@ app.controller('adminCliente', function ($scope, $http, $window) {
     $scope.localidadClienteModal;
 
     $scope.listarClientes = function () {
-        $http.post('../controladores/listarClientesController.php', {'admin': 0, 'desde': desdeCliente, 'limite': limite})
+        $http.post('../controladores/listarClientesController.php', {'admin': 0, 'desde': $scope.desdeCliente, 'limite': $scope.limite})
             .success(function (response) {
                 $scope.clientes = response;
             })
     }
 
     $scope.listarAdministradores = function () {
-        $http.post('../controladores/listarClientesController.php', {'admin': 1, 'desde': desdeAdmin, 'limite': limite})
+        $http.post('../controladores/listarClientesController.php', {'admin': 1, 'desde': $scope.desdeAdmin, 'limite': $scope.limite})
             .success(function (response) {
                 $scope.administradores = response;
             })
@@ -37,17 +37,7 @@ app.controller('adminCliente', function ($scope, $http, $window) {
     }
 
     $scope.verDetalleCliente = function(cliente){
-        // $scope.idClienteModal = $cliente.id;
-        // $scope.usuarioClienteModal = $cliente.usuario;
-        // $scope.emailClienteModal = $cliente.email;
-        // $scope.nombreClienteModal = $cliente.nombre;
-        // $scope.apellidoClienteModal = $cliente.apellido;
-        // $scope.adminClienteModal = $cliente.admin;
-        // $scope.fechaNacimientoClienteModal = $cliente.fechanacimiento;
-        // $scope.domicilioClienteModal = $cliente.domicilio;
-        // $scope.localidadClienteModal = $cliente.localidad;
         $scope.clienteModal = cliente;
-
         $scope.divDatosClienteModal = true;
     }
 
@@ -129,4 +119,138 @@ app.controller('adminCliente', function ($scope, $http, $window) {
             });
         }
     }
+
+    /**************** PAGINACION ***********************/
+    $scope.desdeCliente = 0;
+    $scope.desdeAdmin = 0;
+    $scope.limite = 8;
+    $scope.claseActive = {'w3-green': true};
+    $scope.amplitud = 5;
+
+    //SE BUSCA EL TOTAL DE PRODUCTOS PARA CALCULAR LA CANTIDAD DE PAGINAS
+    $scope.cantidadDePaginacion = function(){
+        $http.post('../controladores/contarCantidadClientesConsumidorAdminController.php')
+        .success(function(response){
+            $scope.cantidadProductos = response.cantidad;
+            resto = $scope.cantidadProductos % $scope.limite;
+            $scope.numeroDePaginas = ($scope.cantidadProductos - resto) / $scope.limite;
+            if(resto > 0){
+                $scope.numeroDePaginas++;
+            }
+            let array = [];
+            for(var i = 0; i<$scope.numeroDePaginas; i++){
+                // array.push((i+1));
+                if(i == 0)
+                    array.push((i+1));
+                else{
+                    if( (i*$scope.limite >= $scope.desdeCliente - $scope.amplitud * $scope.limite) 
+                    && (i*$scope.limite < $scope.desdeCliente + $scope.amplitud * $scope.limite))
+                        array.push((i+1));
+                    else{
+                        if(i+1==$scope.numeroDePaginas){
+                            if((array[array.length - 1] != "..."))
+                                array.push("...");
+                            array.push((i+1));
+                        }else{
+                            if((array[array.length - 1] != "..."))
+                                array.push("...");
+                                // array.push((i+1));
+                        }
+                    }
+                }
+                
+            }
+            $scope.paginaciones = array;
+        });
+    }
+    
+    //SE BUSCA EL TOTAL DE PRODUCTOS PARA CALCULAR LA CANTIDAD DE PAGINAS Para los administradores
+    $scope.cantidadDePaginacionAdmin = function(){
+        $http.post('../controladores/contarCantidadClientesAdministradorAdminController.php')
+        .success(function(response){
+            $scope.cantidadClienteAdmin = response.cantidad;
+            resto = $scope.cantidadClienteAdmin % $scope.limite;
+            $scope.numeroDePaginasAdmin = ($scope.cantidadClienteAdmin - resto) / $scope.limite;
+            if(resto > 0){
+                $scope.numeroDePaginasAdmin++;
+            }
+            let arrayAdmin = [];
+            for(var i = 0; i<$scope.numeroDePaginasAdmin; i++){
+                // array.push((i+1));
+                if(i == 0)
+                arrayAdmin.push((i+1));
+                else{
+                    if( (i*$scope.limite >= $scope.desdeAdmin - $scope.amplitud * $scope.limite) 
+                    && (i*$scope.limite < $scope.desdeAdmin + $scope.amplitud * $scope.limite))
+                        arrayAdmin.push((i+1));
+                    else{
+                        if(i+1==$scope.numeroDePaginas){
+                            if((arrayAdmin[arrayAdmin.length - 1] != "..."))
+                                arrayAdmin.push("...");
+                                arrayAdmin.push((i+1));
+                        }else{
+                            if((arrayAdmin[arrayAdmin.length - 1] != "..."))
+                                arrayAdmin.push("...");
+                                // array.push((i+1));
+                        }
+                    }
+                }
+                
+            }
+            $scope.paginacionesAdmin = arrayAdmin;
+        });
+    }
+     
+
+
+
+    //BUSCA EL RESULTADO DE PRODUCTOS SEGUN LA PAGINA SELECCIONADA
+    $scope.buscarSegunPagina = function( desdePaginacion){
+        if(desdePaginacion != "..."){
+            $scope.desdeCliente = desdePaginacion*$scope.limite - $scope.limite;
+            $scope.cantidadDePaginacion();
+            $scope.listarClientes();
+        }
+    }
+
+    //BUSCA EL RESULTADO DE PRODUCTOS SEGUN LA PAGINA SELECCIONADA Para los administradores
+    $scope.buscarSegunPaginaAdmin = function( desdePaginacion){
+        if(desdePaginacion != "..."){
+            $scope.desdeAdmin = desdePaginacion*$scope.limite - $scope.limite;
+            $scope.cantidadDePaginacionAdmin();
+            $scope.listarAdministradores();
+        }
+    } 
+
+    //BUSCA EL RESULTADO DE PRODUCTOS SEGUN LAS FLACHAS PULSADAS (ADELANTE O ATRAS)
+    $scope.cambiarPagina = function(direccion, categoria){
+        if(direccion == 0){
+            if($scope.desdeCliente > 0)
+                $scope.desdeCliente = $scope.desdeCliente - $scope.limite;
+        }else{
+            cantidadMaxima = $scope.numeroDePaginas * $scope.limite - $scope.limite;
+            if($scope.desdeCliente < cantidadMaxima)
+                $scope.desdeCliente = $scope.desdeCliente + $scope.limite;
+        }
+        // $scope.buscarPedidos();
+        $scope.cantidadDePaginacion();
+        $scope.listarClientes();
+    }
+
+    //BUSCA EL RESULTADO DE PRODUCTOS SEGUN LAS FLACHAS PULSADAS (ADELANTE O ATRAS)
+    $scope.cambiarPaginaAdmin = function(direccion, categoria){
+        if(direccion == 0){
+            if($scope.desdeAdmin > 0)
+                $scope.desdeAdmin = $scope.desdeAdmin - $scope.limite;
+        }else{
+            cantidadMaximaAdmin = $scope.numeroDePaginasAdmin * $scope.limite - $scope.limite;
+            if($scope.desdeAdmin < cantidadMaximaAdmin)
+                $scope.desdeAdmin = $scope.desdeAdmin + $scope.limite;
+        }
+        // $scope.buscarPedidos();
+        $scope.cantidadDePaginacionAdmin();
+        $scope.listarAdministradores();
+    }
+    /****************** FIN PAGINACION */
+
 })

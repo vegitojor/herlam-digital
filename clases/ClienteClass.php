@@ -393,6 +393,48 @@ Class Cliente{
 		// $output = pg_affected_rows($result);
         return $output;
 	}
+
+	public static function contarCantidadClietes($conexion){
+        $consulta = "SELECT count(*) AS cantidad
+                    FROM cliente c
+                    WHERE c.existe = 1 AND c.admin = 0";
+
+        //================== MySQL =======================
+        $resultado = mysqli_query($conexion, $consulta);
+        // mysqli_stmt_bind_param($resultado, 'iii', $estado, $cliente, $pedido);
+        // mysqli_stmt_execute($resultado);
+        $output = mysqli_fetch_assoc($resultado);
+        // var_dump($estado);
+        // die('query');
+        //================== Postgres =======================
+        // $result = pg_query($conexion, $consulta);
+        // $output = array();
+        // while($fila = pg_fetch_assoc($result))
+        //     $output[] = $fila;
+
+        return $output;
+	}
+	
+	public static function contarCantidadAdministradores($conexion){
+        $consulta = "SELECT count(*) AS cantidad
+                    FROM cliente c
+                    WHERE c.existe = 1 AND c.admin = 1";
+
+        //================== MySQL =======================
+        $resultado = mysqli_query($conexion, $consulta);
+        // mysqli_stmt_bind_param($resultado, 'iii', $estado, $cliente, $pedido);
+        // mysqli_stmt_execute($resultado);
+        $output = mysqli_fetch_assoc($resultado);
+        // var_dump($estado);
+        // die('query');
+        //================== Postgres =======================
+        // $result = pg_query($conexion, $consulta);
+        // $output = array();
+        // while($fila = pg_fetch_assoc($result))
+        //     $output[] = $fila;
+
+        return $output;
+    }
 }
 
 
