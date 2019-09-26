@@ -11,7 +11,7 @@
     // if(!isset($_SESSION['usuario'])){
     //     header('location: ../index.php');
     // }
-    $versionJs = rand();
+    // $versionJs = rand();
 
     ?>
   <!DOCTYPE html>

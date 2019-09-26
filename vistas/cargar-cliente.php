@@ -12,10 +12,11 @@ include_once ('../incluciones/verificacionAdmin.php');
 <!DOCTYPE html>
 <html>
 <head>
+    <?php include_once('../incluciones/head.php'); ?>
     <?php include_once ('../incluciones/headAdmin.php'); ?>
     <script type="text/javascript" src="../js/adminModule.js"></script>
     <!-- Controlador angular -->
-    <script type="text/javascript" src="../js/adminClienteController.js"></script>
+    <script type="text/javascript" src="../js/adminClienteController.js?<?= $versionJs ?>"></script>
     <title>Clientes</title>
 </head>
 
