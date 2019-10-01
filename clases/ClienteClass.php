@@ -121,7 +121,8 @@ Class Cliente{
 
 	public static function listarEmail($conexion){
 		$consulta = "SELECT email
-					FROM cliente";
+					FROM cliente
+					WHERE existe = 1";
 
 		//================ MySQL ================
 		$resultado = mysqli_query($conexion, $consulta);
@@ -223,6 +224,12 @@ Class Cliente{
 		mysqli_stmt_bind_param($resultado, 'i', $id);
 		mysqli_stmt_execute($resultado);
 		$fila = mysqli_fetch_assoc(mysqli_stmt_get_result($resultado));
+		$fila['usuario'] = utf8_encode($fila['usuario']);
+		$fila['nombre'] = utf8_encode($fila['nombre']);
+		$fila['apellido'] = utf8_encode($fila['apellido']);
+		$fila['domicilio'] = utf8_encode($fila['domicilio']);
+		$fila['piso'] = utf8_encode($fila['piso']);
+		$fila['depto'] = utf8_encode($fila['depto']);
 
 		//=================== POSTGRES ==================
 		// $resultado = pg_query_params($sql, array($id));
@@ -288,6 +295,13 @@ Class Cliente{
 		$resultado = mysqli_stmt_get_result($stmt);
 		$respuesta = mysqli_fetch_assoc($resultado);
 
+		$respuesta['usuario'] = utf8_encode($respuesta['usuario']);
+		$respuesta['nombre'] = utf8_encode($respuesta['nombre']);
+		$respuesta['apellido'] = utf8_encode($respuesta['apellido']);
+		$respuesta['domicilio'] = utf8_encode($respuesta['domicilio']);
+		$respuesta['piso'] = utf8_encode($respuesta['piso']);
+		$respuesta['depto'] = utf8_encode($respuesta['depto']);
+
 		//================ POSTGRES =======================
 		// $respuesta = pg_query_params($conexion, $consulta, array($email, $pass));
 		// $fila = pg_fetch_assoc($respuesta);
@@ -332,6 +346,8 @@ Class Cliente{
 			$fila['nombre'] = utf8_encode($fila['nombre']);
 			$fila['apellido'] = utf8_encode($fila['apellido']);
 			$fila['domicilio'] = utf8_encode($fila['domicilio']);
+			$fila['depto'] = utf8_encode($fila['depto']);
+			$fila['piso'] = utf8_encode($fila['piso']);
 			$output[] = $fila;	
 		}
 
