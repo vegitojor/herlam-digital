@@ -68,6 +68,8 @@ include_once('./incluciones/versionRand.php');
 					<div class="  bg-white text-center padding-10" >
 						 <p>Si aun no tienes usuario ingresa aqu&iacute;:</p>
 						 <a class="btn btn-primary" href="vistas/registro-usuario.php">REGISTRARME</a>
+						 <br>
+						 <a href="https://youtu.be/5fpVoCvBqe0" target="blank" style="font-size: 0.8rem;">ver tutorial</a>
 					</div>
 
 				</div>
