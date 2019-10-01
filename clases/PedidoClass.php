@@ -120,6 +120,10 @@ class Pedido
             $fila['localidad'] = utf8_encode($fila['localidad']);
             $fila['provincia'] = utf8_encode($fila['provincia']);
             $fila['calle'] = utf8_encode($fila['calle']);
+            $fila['estado_descripcion'] = utf8_encode($fila['estado_descripcion']);
+            $fila['calle'] = utf8_encode($fila['calle']);
+            $fila['piso'] = utf8_encode($fila['piso']);
+            $fila['deptp'] = utf8_encode($fila['depto']);
             $output[] = $fila;
         }
 
@@ -132,44 +136,44 @@ class Pedido
         return $output;
     }
 
-    public static function buscarPedidoPorId($conexion, $id){
-        $consulta = "SELECT p.id,
-                            p.id_cliente,
-                            c.nombre nombre_cliente,
-                            c.apellido apellido_cliente,
-                            p.fecha,
-                            p.id_estado_pedido,
-                            ep.descripcion estado_descripcion,
-                            p.id_localidad,
-                            l.localidad,
-                            pr.provincia,
-                            p.calle,
-                            p.numero,
-                            p.codigo_postal,
-                            p.piso,
-                            p.depto
-                     FROM pedido p
-                     LEFT JOIN cliente c ON c.id=p.id_cliente
-                     LEFT JOin estado_pedido ep ON ep.id=p.id_estado_pedido
-                    LEFT JOIN localidad l ON l.id=p.id_localidad
-                    LEFT JOin provincia pr ON pr.id=l.id_provincia
-                     WHERE c.existe = 1 AND c.activo = 1
-                     AND  p.id = ?";
+    // public static function buscarPedidoPorId($conexion, $id){
+    //     $consulta = "SELECT p.id,
+    //                         p.id_cliente,
+    //                         c.nombre nombre_cliente,
+    //                         c.apellido apellido_cliente,
+    //                         p.fecha,
+    //                         p.id_estado_pedido,
+    //                         ep.descripcion estado_descripcion,
+    //                         p.id_localidad,
+    //                         l.localidad,
+    //                         pr.provincia,
+    //                         p.calle,
+    //                         p.numero,
+    //                         p.codigo_postal,
+    //                         p.piso,
+    //                         p.depto
+    //                  FROM pedido p
+    //                  LEFT JOIN cliente c ON c.id=p.id_cliente
+    //                  LEFT JOin estado_pedido ep ON ep.id=p.id_estado_pedido
+    //                 LEFT JOIN localidad l ON l.id=p.id_localidad
+    //                 LEFT JOin provincia pr ON pr.id=l.id_provincia
+    //                  WHERE c.existe = 1 AND c.activo = 1
+    //                  AND  p.id = ?";
 
-        $stmt = mysqli_prepare($conexion, $consulta);
-        mysqli_stmt_bind_param($stmt, 'i', $id);
-        mysqli_stmt_execute($stmt);
-        $respuesta = mysqli_stmt_get_result($stmt);
-        $resultado = mysqli_fetch_assoc($respuesta);
+    //     $stmt = mysqli_prepare($conexion, $consulta);
+    //     mysqli_stmt_bind_param($stmt, 'i', $id);
+    //     mysqli_stmt_execute($stmt);
+    //     $respuesta = mysqli_stmt_get_result($stmt);
+    //     $resultado = mysqli_fetch_assoc($respuesta);
 
-        //================ Postgres ===================
-        // $result = pg_query_params($conexion, $consulta, array($id));
-        // $resultado = pg_fetch_assoc($result);
+    //     //================ Postgres ===================
+    //     // $result = pg_query_params($conexion, $consulta, array($id));
+    //     // $resultado = pg_fetch_assoc($result);
 
-        return $resultado;
+    //     return $resultado;
 
 
-    }
+    // }
 
     public function updateCarrito($conexion, $idPedido){
         $consulta = "UPDATE carrito_compra cc 
@@ -223,6 +227,11 @@ class Pedido
         while($fila = mysqli_fetch_assoc($respuesta)){
             $fila['localidad'] = utf8_encode($fila['localidad']);
             $fila['provincia'] = utf8_encode($fila['provincia']);
+            $fila['nombre_cliente'] = utf8_encode($fila['nombre_cliente']);
+            $fila['apellido_cliente'] = utf8_encode($fila['apellido_cliente']);
+            $fila['calle'] = utf8_encode($fila['calle']);
+            $fila['piso'] = utf8_encode($fila['piso']);
+            $fila['depto'] = utf8_encode($fila['depto']);
             $output[] = $fila;
         }
 
