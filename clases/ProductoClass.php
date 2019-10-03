@@ -1030,12 +1030,12 @@ Class Producto{
 
 	public static function listarPreguntasSinRespuestas($conexion, $sinRespuesta, $desde, $limite){
 		
-		$consulta = "SELECT P.id idPregunta,
+		$consulta = "SELECT P.id idpregunta,
 							P.pregunta,
-							C.nombre,
-							P.id_producto idProducto,
-							P.fecha fechaPregunta,
-							R.fecha_respuesta fechaRespuesta,
+							C.nombre usuario,
+							P.id_producto idproducto,
+							P.fecha fechapregunta,
+							R.fecha_respuesta fecharespuesta,
 							R.respuesta
 					FROM pregunta P 
 					LEFT JOIN respuesta R ON P.id = R.id_pregunta
