@@ -6,9 +6,11 @@ function enviarMail($destinatario, $subject, $mensaje){
     $email_subject = $subject;
 
     $email_body = '<html><body>';
-    $email_body .= '<div style="width:100%; padding:10px 10px;"><img src="../img/logo.png" style="height:20px; width:auto;" /></div>';
+    $email_body .= '<div style="width:100%; padding:10px 10px 3px 10px;"><img src="https://digital.herlam.com.ar/img/logo.png" style="height:20px; width:auto;" /></div><hr>';
     $email_body .= '<div style="padding:10px 10px">';
     $email_body .= $mensaje;
+    $email_body .= '<hr><div><p>Herlam Digital</p><p><a href="https://herlam.com.ar" target="_blank">herlam.com.ar</a></p>';
+    $email_body .= '<p></p><img src="https://digital.herlam.com.ar/img/empty.jpeg" style="height:60px; width: auto;" /> </div>';
     $email_body .= '</div>';
     $email_body .= '</body></html>';
 
