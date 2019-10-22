@@ -29,6 +29,8 @@ $respuesta = Cliente::activarCliente($conexion, $idUsuario, $activo);
 //SE CIRERRA CONEXION A BASE DE DATOS
 $conn->cerrarConexion();
 
+//
+
 //SE DEVUELVE RESPUESTA SEGUN EL VALOR RESULTADO DE LA BASE DE DATOS
 if($respuesta > 0) {
     $mensaje = ['respuesta' => 1,];
