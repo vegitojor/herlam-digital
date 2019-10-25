@@ -28,9 +28,6 @@ $conexion = $conn->getConexion();
 //LISTADO DE ClienteClass
 $respuesta = Cliente::activarCliente($conexion, $idUsuario, $activo);
 
-//SE CIRERRA CONEXION A BASE DE DATOS
-$conn->cerrarConexion();
-
 //SE ENVIA MAIL DE ACTIVACION AL USUARIO
 if($activo == 1){
 
@@ -47,6 +44,9 @@ if($activo == 1){
 
     enviarMail($to, $subject, $mensaje);
 }
+
+//SE CIRERRA CONEXION A BASE DE DATOS
+$conn->cerrarConexion();
 
 //SE DEVUELVE RESPUESTA SEGUN EL VALOR RESULTADO DE LA BASE DE DATOS
 if($respuesta > 0) {
