@@ -450,7 +450,23 @@ Class Cliente{
         //     $output[] = $fila;
 
         return $output;
-    }
+	}
+	
+	public static function obtenerMailUsuarioById($conexion, $idUsuario){
+		$consulta = "SELECT email
+					FROM cliente
+					WHERE id = ?";
+		//================ MySQL =======================
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, "i", $idUsuario);
+		mysqli_stmt_execute($stmt);
+		$resultado = mysqli_stmt_get_result($stmt);
+		$respuesta = mysqli_fetch_assoc($resultado);
+		//================ POSTGRES =======================
+		// $respuesta = pg_query_params($conexion, $consulta, array($email, $pass));
+		// $fila = pg_fetch_assoc($respuesta);
+		return $respuesta;
+	}
 }
 
 

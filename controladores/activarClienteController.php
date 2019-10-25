@@ -35,9 +35,8 @@ $conn->cerrarConexion();
 if($activo == 1){
 
     //BUSCAMOS EL MAIL DEL USUARIO
-
-    $to = Cliente::obtenerMailUsuarioById($conexion, $idUsuario);
-
+    $mailArray = Cliente::obtenerMailUsuarioById($conexion, $idUsuario);
+    $to = $mailArray['email'];
     $subject = 'Herlam Digital - Su cuenta de usuario fue activada';
 
     $mensaje = '<h1>¡Bienvenido!</h1>';
