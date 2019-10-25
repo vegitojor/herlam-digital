@@ -8,6 +8,8 @@
 include_once('../incluciones/adminControlerVerificacion.php');
 include_once('../clases/ConexionBDClass.php');
 include_once('../clases/ClienteClass.php');
+include_once('./mailService.php');
+
 //OBTENEMOS LOS DATOS DEL AJAX
 $data = json_decode(file_get_contents('php://input'));
 $idUsuario = strip_tags($data->usuario);
@@ -29,7 +31,23 @@ $respuesta = Cliente::activarCliente($conexion, $idUsuario, $activo);
 //SE CIRERRA CONEXION A BASE DE DATOS
 $conn->cerrarConexion();
 
-//
+//SE ENVIA MAIL DE ACTIVACION AL USUARIO
+if($activo == 1){
+
+    //BUSCAMOS EL MAIL DEL USUARIO
+
+    $to = Cliente::obtenerMailUsuarioById($conexion, $idUsuario);
+
+    $subject = 'Herlam Digital - Su cuenta de usuario fue activada';
+
+    $mensaje = '<h1>¡Bienvenido!</h1>';
+
+    $mensaje .= '<p>Gracias por registrarte en el sistema de Herlam Digital.</p>';
+    $mensaje .= '<p>A partir de este momento, tu usuario esta activo. Ya puedes ingresar al sitio desde <a href="https://digital.herlam.com.ar" target="_blank">Aqu&iacute;</a>. ¡Descubre las novedades que tenemos para t&iacute;!</p>';
+    $mensaje .= '<br><p>Muchas gracias</p>';
+
+    enviarMail($to, $subject, $mensaje);
+}
 
 //SE DEVUELVE RESPUESTA SEGUN EL VALOR RESULTADO DE LA BASE DE DATOS
 if($respuesta > 0) {
