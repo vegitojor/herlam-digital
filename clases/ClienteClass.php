@@ -277,6 +277,7 @@ Class Cliente{
 							nombre,
 							apellido,
 							admin,
+							supervisor,
 							activo,
 							id_localidad,
 							domicilio,
@@ -308,7 +309,7 @@ Class Cliente{
 		return $respuesta;
 	}
 
-	public static function listarClientes($conexion, $admin, $desde, $limite){
+	public static function listarClientes($conexion, $admin, $desde, $limite, $supervisor){
 		$consulta = "SELECT C.id,
 							C.usuario,
 							C.email,
@@ -330,12 +331,13 @@ Class Cliente{
 					LEFT JOIN localidad L ON C.id_localidad = L.id
 					LEFT JOIN provincia p ON p.id = L.id_provincia
 					WHERE C.admin = ? AND C.existe = 1
+					AND C.supervisor = ?
 					LIMIT ?, ?";
 
 
 		//================= MySQL ==========================
 		$stmt = mysqli_prepare($conexion, $consulta);
-		mysqli_stmt_bind_param($stmt, 'iii', $admin, $desde, $limite);
+		mysqli_stmt_bind_param($stmt, 'iiii', $admin, $supervisor, $desde, $limite);
 		mysqli_stmt_execute($stmt);
 		$resultado = mysqli_stmt_get_result($stmt);
 		$output = array();
@@ -362,6 +364,23 @@ Class Cliente{
 	public static function darPermisoDeAdministrador($conexion, $idUsuario, $permiso){
 		$consulta = "UPDATE cliente
 					SET admin = ?
+					WHERE id = ?";
+
+		//================== MySQL =====================
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'ii', $permiso, $idUsuario);
+		mysqli_stmt_execute($stmt);
+		$output = mysqli_stmt_affected_rows($stmt);
+		
+		//================== Postgres =====================
+		// $result = pg_query_params($conexion, $consulta, array($permiso, $idUsuario));
+		// $output = pg_affected_rows($result);
+        return $output;
+	}
+
+	public static function darPermisoDeSupervisor($conexion, $idUsuario, $permiso){
+		$consulta = "UPDATE cliente
+					SET supervisor = ?
 					WHERE id = ?";
 
 		//================== MySQL =====================

@@ -159,7 +159,8 @@ include_once ("../incluciones/verificacionAdmin.php");
 	<div id="validarModal" class="w3-modal"> 
 		<div class="w3-modal-content w3-animate-bottom" style="width: 90vw;">
 			<div class="w3-container">
-				<h2>Pedido N. {{pedidoModal.id}}</h2>
+				<h2>Pedido Nro. {{pedidoModal.id}}</h2>
+				<h4 class="w3-text-amber">Pedido supervisor Nro: {{pedidoModal.id_pedido_supervisor == null ? '---' : (pedidoModal.id_pedido_supervisor + " - " + pedidoModal.nombre_estado_pedido_supervisor)}}</h4>
 				<p>Tipo de env&iacute;o: {{pedidoModal.tipo_pedido == 1 ? 'Envío a domicilio' : 'Retiro acordado con vendedor'}}</p>
 				<p>Direccion: {{pedidoModal.calle}} {{pedidoModal.numero}} {{pedidoModal.piso}} {{pedidoModal.depto}}, {{pedidoModal.localidad}}, {{pedidoModal.provincia}}</p>
 				<p>Dia de entrega: {{pedido.dia_envio == 0 ? 'Lunes' :
@@ -183,11 +184,12 @@ include_once ("../incluciones/verificacionAdmin.php");
 								<th>SKU</th>
 								<th>Cantidad</th>
 								<th>Precio</th>
-								<th></th>
+								<th ng-if="pedidoModal.id_estado_pedido == estadoPedidoGenerarPedidoSupervisor">Para supervisor</th>
+								<th ng-if="pedidoModal.id_estado_pedido == 1"></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="producto in productos" ng-class="{'w3-red': producto.disponible == 0}">
+							<tr ng-repeat="producto in productos" ng-class="{'w3-red': producto.disponible == 0, 'w3-amber': (pedidoModal.id_estado_pedido != 1 && producto.id_pedido_supervisor != null )}">
 								<td>{{producto.id}}</td>
 								<td>{{producto.descripcion}}</td>
 								<td>{{producto.modelo}}</td>
@@ -197,7 +199,14 @@ include_once ("../incluciones/verificacionAdmin.php");
 								<td>{{producto.codigo_sku}}</td>
 								<td>{{producto.cantidad}}</td>
 								<td>{{producto.precio}}</td>
-								<td>
+								<td ng-if="pedidoModal.id_estado_pedido == estadoPedidoGenerarPedidoSupervisor">
+									<input type="checkbox" class="w3-check" ng-click="agregarArrayPedidoSupervisor(1, producto)"  ng-if="pedidoModal.id_pedido_supervisor == null && producto.id_pedido_supervisor == null">
+								</td>
+								<td ng-if="pedidoModal.id_estado_pedido == estadoPedidoGenerarPedidoSupervisor">
+									<!-- <input type="checkbox" class="w3-check" ng-click="agregarArrayPedidoSupervisor(0, producto)"  ng-if="pedidoModal.id_pedido_supervisor != null && producto.id_pedido_supervisor == null"> -->
+									<span class="w3-button " ng-click="agregarArrayPedidoSupervisor(0, producto)"  ng-if="pedidoModal.id_pedido_supervisor == null && producto.id_pedido_supervisor != null">&times;</span>
+								</td>
+								<td ng-if="pedidoModal.id_estado_pedido == 1">
 									<button href="javascript:void(0)" 
 									class="w3-btn w3-white w3-border w3-border-red w3-round"
 									ng-click="quitarProductoPedido(producto.id)">Quitar</button>
@@ -208,7 +217,10 @@ include_once ("../incluciones/verificacionAdmin.php");
 				</div>
 				<div class="w3-content">
 					<footer class="w3-container  w3-display-container w3-padding" style="height: 8vh">
-						<button class="w3-btn w3-white w3-border w3-border-green w3-round w3-margins w3-display-right" 
+						<button class="w3-btn w3-white w3-border w3-border-blue w3-round w3-margins w3-right" 
+						ng-click ="generarPedidoSupervisor()"
+						ng-show="pedidoModal.id_pedido_supervisor == null && pedidoModal.id_estado_pedido == estadoPedidoGenerarPedidoSupervisor && productosPedidoSupervisor.length >= 1">Generar Pedido Supervisor</button>
+						<button class="w3-btn w3-white w3-border w3-border-green w3-round w3-margins w3-right" 
 						ng-class="{'w3-disabled': (!permitirValidar || productos.length == 0)}"
 						ng-click ="validarPedido(pedidoModal)">Confirmar</button>
 					</footer>

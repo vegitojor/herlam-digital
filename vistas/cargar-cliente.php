@@ -12,7 +12,7 @@ include_once ('../incluciones/verificacionAdmin.php');
 <!DOCTYPE html>
 <html>
 <head>
-    <?php include_once('../incluciones/head.php'); ?>
+    
     <?php include_once ('../incluciones/headAdmin.php'); ?>
     <script type="text/javascript" src="../js/adminModule.js"></script>
     <!-- Controlador angular -->
@@ -25,10 +25,8 @@ include_once ('../incluciones/verificacionAdmin.php');
         <?php include_once('../incluciones/navegadorAdmin.php');  ?>
     </div>
     <div class="w3-row">
-        <div class=" w3-padding-32 w3-blue-gray">
-
+        <div class=" w3-padding-16 w3-blue-gray">
             <h1 class="w3-jumbo w3-margin-left">Administrar Clientes</h1>
-            
         </div>
     </div>
     <!-- CONTENIDO DE LA PAGINA -->
@@ -91,12 +89,19 @@ include_once ('../incluciones/verificacionAdmin.php');
                 </tr>
             </table>
         </div>
+        <br>
     </div>
-    <br>
+    <!-- <br> -->
     <!-- SE LISTAN LOS CLIENTES-->
+    <div class="w3-bar w3-black">
+        <button class="w3-bar-item w3-button" ng-click="mostrarUsuario(1)">Clientes</button>
+        <button class="w3-bar-item w3-button" ng-click="mostrarUsuario(2)">Supervisores</button>
+        <button class="w3-bar-item w3-button" ng-click="mostrarUsuario(3)">Administradores</button>
+    </div>
+    
     <div class="w3-row-padding">
-        <div class="w3-col l6">
-            <div class="w3-content w3-white">
+        <div class="" ng-show="mostrarCliente">
+            <div class="w3-container w3-white">
                 <div class="w3-card-4 " ng-init="listarClientes()">
                     <header class="w3-container w3-orange">
                         <h2>Clientes</h2>
@@ -124,6 +129,7 @@ include_once ('../incluciones/verificacionAdmin.php');
                                     <td>
                                         <a href="" ng-click="verDetalleCliente(cliente)" class="w3-btn w3-blue">Ver detalles</a>
                                         <a href="" ng-click="activarAdmin(cliente.id, 1)" class="w3-btn w3-orange">Dar permiso Admin</a>
+                                        <a href="" ng-click="activarSupervisor(cliente.id, 1)" class="w3-btn w3-deep-purple">Dar permiso Supervisor</a>
                                         <a href="" ng-click="activarCliente(cliente)" class="w3-btn "  ng-class="{'w3-blue': cliente.activo ==1, 'w3-green': cliente.activo != 1}" >
                                             <span ng-if="cliente.activo != 1" >Activar</span><span ng-if="cliente.activo == 1" >Desactivar</span></a>
                                         <a href="" ng-click="eliminarCliente(cliente)" class="w3-btn w3-red">Eliminar</a>
@@ -146,8 +152,8 @@ include_once ('../incluciones/verificacionAdmin.php');
             </div>
         </div>
         <!-- SE LISTAN LOS ADMINISTRADORES-->
-        <div class="w3-col l6">
-            <div class="w3-content w3-white">
+        <div class="" ng-show="mostrarAdministrador">
+            <div class="w3-container w3-white">
                 <div class="w3-card-4 " ng-init="listarAdministradores()">
                     <header class="w3-container w3-orange">
                         <h2>Administradores</h2>
@@ -173,7 +179,7 @@ include_once ('../incluciones/verificacionAdmin.php');
                                     <td>{{cliente.nombre}}</td>
                                     <td>{{cliente.apellido}}</td>
                                     <td>
-                                        <a href="" ng-click="verDetalleCliente({cliente})" class="w3-btn w3-blue">Ver detalles</a>
+                                        <a href="" ng-click="verDetalleCliente(cliente)" class="w3-btn w3-blue">Ver detalles</a>
                                         <a href="" ng-click="activarAdmin(cliente.id, 0)" class="w3-btn w3-red">Quitar permiso Admin</a>
                                     </td>
                                 </tr>
@@ -181,17 +187,65 @@ include_once ('../incluciones/verificacionAdmin.php');
                         </table>
                     </div>
                 </div>
+                <!-- PAGINACION -->
+                <br>
+                    <div class="w3-bar w3-border w3-round w3-center " ng-init="cantidadDePaginacionAdmin()">
+                        <a href="" class="w3-button" ng-click="cambiarPaginaAdmin(0)">&#10094; Previous</a>
+                        
+                        <a href="" class="w3-button " ng-repeat="paginacion in paginacionesAdmin track by $index" ng-class="{'w3-green': (desdeAdmin==(paginacion * limite - limite))}" ng-click="buscarSegunPaginaAdmin(paginacion)">{{paginacion}}</a>
+    
+                        <a href="" class="w3-button" ng-click="cambiarPaginaAdmin(1)">Next &#10095;</a>
+                    </div>
+                    <!-- FIN PAGINACION -->
             </div>
-            <!-- PAGINACION -->
-            <br>
-                <div class="w3-bar w3-border w3-round w3-center " ng-init="cantidadDePaginacionAdmin()">
-                    <a href="" class="w3-button" ng-click="cambiarPaginaAdmin(0)">&#10094; Previous</a>
+        </div>
+        <!-- SE LISTAN LOS SUPERVISORES-->
+        <div class="" ng-show="mostrarSupervisor">
+            <div class="w3-container w3-white">
+                <div class="w3-card-4 " ng-init="listarSupervisores()">
+                    <header class="w3-container w3-orange">
+                        <h2>Supervisores</h2>
+                    </header>
+                    <div ng-show="supervisores.length > 0">
+                        <!-- TABLA QUE LISTA LOS SUPERVISORES -->
+                        <table class="w3-table w3-striped w3-bordered w3-hoverable">
+                            <thead>
+                                <tr class="w3-green">
+                                    <th>Id</th>
+                                    <th>Usuario</th>
+                                    
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="cliente in supervisores">
+                                    <td>{{cliente.id}}</td>
+                                    <td>{{cliente.usuario}}</td>
+                                    
+                                    <td>{{cliente.nombre}}</td>
+                                    <td>{{cliente.apellido}}</td>
+                                    <td>
+                                        <a href="" ng-click="verDetalleCliente(cliente)" class="w3-btn w3-blue">Ver detalles</a>
+                                        <a href="" ng-click="activarSupervisor(cliente.id, 0)" class="w3-btn w3-red">Quitar permiso Supervisor</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- PAGINACION -->
+                <br>
+                <div class="w3-bar w3-border w3-round w3-center " ng-init="cantidadDePaginacionSupervisor()">
+                    <a href="" class="w3-button" ng-click="cambiarPaginaSupervisor(0)">&#10094; Previous</a>
                     
-                    <a href="" class="w3-button " ng-repeat="paginacion in paginacionesAdmin track by $index" ng-class="{'w3-green': (desdeAdmin==(paginacion * limite - limite))}" ng-click="buscarSegunPaginaAdmin(paginacion)">{{paginacion}}</a>
+                    <a href="" class="w3-button " ng-repeat="paginacion in paginacionesSupervisor track by $index" ng-class="{'w3-green': (desdeSupervisor==(paginacion * limite - limite))}" ng-click="buscarSegunPaginaSupervisor(paginacion)">{{paginacion}}</a>
 
-                    <a href="" class="w3-button" ng-click="cambiarPaginaAdmin(1)">Next &#10095;</a>
+                    <a href="" class="w3-button" ng-click="cambiarPaginaSupervisor(1)">Next &#10095;</a>
                 </div>
                 <!-- FIN PAGINACION -->
+            </div>
         </div>
     </div>
 

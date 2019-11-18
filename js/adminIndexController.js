@@ -1,6 +1,9 @@
-app.controller("adminIndexController", function ($scope, $http) {
+app.controller("adminIndexController", function ($scope, $http, $filter) {
     
     $scope.validarModal = false;
+    $scope.estadoPedidoGenerarPedidoSupervisor = 2;
+    $scope.productosPedidoSupervisor = [];
+
 
     //SE BUSCAN LAS CATEGORIAS PARA LISTARLAS EN LA TABLA
     $scope.listarPedidos = function(){
@@ -35,6 +38,7 @@ app.controller("adminIndexController", function ($scope, $http) {
     $scope.mostrarProductos = function(pedido){
         // $scope.validarModal = true;
         // if(pedido.id_estado_pedido == 1){
+            $scope.productosPedidoSupervisor = [];
             $scope.pedidoModal = pedido;
             $scope.permitirValidar = true;
             $http.post('../controladores/traerProductosPedido.php', {'idPedido': pedido.id})
@@ -125,6 +129,42 @@ app.controller("adminIndexController", function ($scope, $http) {
 
     $scope.generarExel = function(pedido){
         window.open('./generarExel.php?p=' + pedido.id);
+    }
+
+    $scope.prueba = function(){
+        alert('hola');
+    }
+
+    $scope.agregarArrayPedidoSupervisor = function(action, producto){
+        let indice = $scope.productos.indexOf(producto);
+        //ESTABLECEMOS EN EL PRODUCTO ELEGIDO NULL EL ID PEDIDO SUOERVISOR
+        //SI LA ACTION ES AGREGARLO, ENTON RECIEN SE ESTABLECE EN UN VALOR DISTINTO DE NULL
+        $scope.productos[indice].id_pedido_supervisor = null;
+        if(action == 1){
+            $scope.productos[indice].id_pedido_supervisor = action;
+            //SE AGREGA EL PRODUCTO AL ARRAY DE PRODUCTOS QUE SE ENVIARA AL BACK PARA ESTABLECER EL PEDIDO SUERVISOR
+            $scope.productosPedidoSupervisor.push(producto)
+        }else{
+            let index = $scope.productosPedidoSupervisor.indexOf(producto);
+            if( index > -1 ){
+                $scope.productosPedidoSupervisor.splice(index, 1);
+            }
+        }
+
+    }
+
+    $scope.generarPedidoSupervisor = function(){
+        let index = $scope.pedidos.indexOf($scope.pedidoModal);
+        $scope.pedidos[index].id_pedido_supervisor = true;
+        $scope.pedidoModal.id_pedido_supervisor = true;
+        $scope.fecha = new Date();
+        $scope.fecha = $filter('date')($scope.fecha, 'yyyy-MM-dd HH:mm:ss');
+        $http.post("../controladores/generarPedidoSupervisorController.php", {'pedido': $scope.pedidoModal.id, 'productos': $scope.productosPedidoSupervisor, 'fecha': $scope.fecha})
+        .success(function(response){
+            if(response,respuesta == 1){
+
+            }
+        })
     }
 
     /**************** PAGINACION ***********************/

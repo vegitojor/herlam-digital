@@ -16,6 +16,10 @@ $admin = (int)$admin;
 //     $admin = (bool)$admin;
 
 // var_dump($admin);
+$supervisor = 0;
+if($admin == 0){
+    $supervisor = (int) strip_tags($data->supervisor);
+}
 
 
 $desde = strip_tags($data->desde);
@@ -30,7 +34,7 @@ $conexion = $conn->getConexion();
 // var_dump($desde);
 // var_dump($limite);
 //LISTADO DE ClienteClass
-$clientes = Cliente::listarClientes($conexion, $admin, $desde, $limite);
+$clientes = Cliente::listarClientes($conexion, $admin, $desde, $limite, $supervisor);
 
 $conn->cerrarConexion();
 

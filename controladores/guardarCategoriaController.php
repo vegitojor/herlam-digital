@@ -29,6 +29,9 @@ $categoria = new Categoria($id, $descripcion, $fichaTecnica);
 //guardado de la catgoria
 $categoria->guardarCategoria($conexion);
 
+//cerramos conexion con BD
+$conn->cerrarConexion();
+
 $mensaje = ['mensaje'=>1,];
 
 echo json_encode($mensaje);

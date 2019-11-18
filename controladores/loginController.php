@@ -39,14 +39,15 @@ if($emailRegistrado){
 	$cliente = Cliente::ObtenerCliente($conexion, $email, $pass);
 	// var_dump($cliente['admin']);
 	// die();
-	if($cliente['admin'] == 1 ){
+	if($cliente['admin'] == 1 || $cliente['supervisor'] ){
 		session_destroy();
 		ini_set('session.cookie_lifetime', '0');
 		ini_set('session.hash_bits_per_character','4');
 		ini_set('session.hash_function', 'sha256');
 		session_start();
 	}
-	$_SESSION['usuario'] = Cliente::ObtenerCliente($conexion, $email, $pass);
+	// $_SESSION['usuario'] = Cliente::ObtenerCliente($conexion, $email, $pass);
+	$_SESSION['usuario'] = $cliente;
 	$mensaje = ['respuesta'=> 1,];
 	$mensaje['admin'] = $_SESSION['usuario']['admin'];
 	echo json_encode($mensaje);

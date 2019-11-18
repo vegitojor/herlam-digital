@@ -8,11 +8,12 @@ app.controller("formularioLogin", function($scope, $http, $window){
 			$scope.data = data;
 			//se redirige al home si el mail se encuentra en la BD o se envia mensaje de alerta en caso contrario
 			if($scope.data.respuesta == 1){
-				if($scope.data.admin == 't'){
-					$window.location.href = "../vistas/admin-home.php";
-				}else {
-					$window.location.href = "../home.php";	
-				}
+				$window.location.href = "../home.php";	
+				// if($scope.data.admin == 't'){
+				// 	$window.location.href = "../vistas/admin-home.php";
+				// }else {
+				// 	$window.location.href = "../home.php";	
+				// }
 				
 			}else if($scope.data.respuesta == 0){
 				alert("El email o la contraseña son incorrectos.");

@@ -13,6 +13,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
+            <?php if($_SESSION['usuario']['supervisor']==0){ ?>
                 <li >
                     <a href="nosotros.php">T&eacute;rminos y condiciones</a>
                 </li>
@@ -22,6 +23,7 @@
                 <li >
                     <a href="#" data-toggle="modal" data-target="#contactModal">Contacto</a>
                 </li>
+            <?php } ?>
             </ul>
             <ul class="nav navbar-nav pull-right " ng-hide="<?= $id ?>">
 
@@ -33,13 +35,17 @@
                 </li> -->
             </ul>
             <ul class="nav navbar-nav pull-right " ng-show="<?= $id ?>">
-                <li>
-                    <a href="carrito.php" data-toggle="tooltip" data-placement="bottom" title="Carrito"><span class="glyphicon glyphicon-shopping-cart"></span></a>
-                </li>
+                <?php if($_SESSION['usuario']['supervisor']==0){ ?>
+                    <li>
+                        <a href="carrito.php" data-toggle="tooltip" data-placement="bottom" title="Carrito"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+                    </li>
+                <?php } ?>
                 <li class="dropdown">
                     <a href="javascript:void();" id="usuario" data-toggle="dropdown"><?= $nombre ?><span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="usuario">
-                        <li role="presentation"><a href="./pedido.php">Mis pedidos</a></li>
+                        <?php if($_SESSION['usuario']['supervisor']==0){ ?>
+                            <li role="presentation"><a href="./pedido.php">Mis pedidos</a></li>
+                        <?php } ?>
                         <li role="presentation"><a href="../controladores/cerrarSesionController.php">Salir</a></li>
                     </ul>
                 </li>

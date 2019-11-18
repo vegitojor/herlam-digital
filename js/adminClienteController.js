@@ -14,21 +14,30 @@ app.controller('adminCliente', function ($scope, $http, $window) {
     $scope.fechaNacimientoClienteModal;
     $scope.localidadClienteModal;
 
+    $scope.mostrarCliente = true;
+    $scope.mostrarAdministrador = false;
+    $scope.mostrarSupervisor = false;
+
     $scope.listarClientes = function () {
-        $http.post('../controladores/listarClientesController.php', {'admin': 0, 'desde': $scope.desdeCliente, 'limite': $scope.limite})
+        $http.post('../controladores/listarClientesController.php', {'admin': 0, 'supervisor': 0, 'desde': $scope.desdeCliente, 'limite': $scope.limite})
             .success(function (response) {
                 $scope.clientes = response;
             })
     }
 
     $scope.listarAdministradores = function () {
-        $http.post('../controladores/listarClientesController.php', {'admin': 1, 'desde': $scope.desdeAdmin, 'limite': $scope.limite})
+        $http.post('../controladores/listarClientesController.php', {'admin': 1, 'supervisor': 0, 'desde': $scope.desdeAdmin, 'limite': $scope.limite})
             .success(function (response) {
                 $scope.administradores = response;
             })
     }
 
-    
+    $scope.listarSupervisores = function () {
+        $http.post('../controladores/listarClientesController.php', {'admin': 0, 'supervisor': 1, 'desde': $scope.desdeSupervisor, 'limite': $scope.limite})
+            .success(function (response) {
+                $scope.supervisores = response;
+            })
+    }
 
     $scope.divDatosClienteModal = false;
 
@@ -54,6 +63,30 @@ app.controller('adminCliente', function ($scope, $http, $window) {
                     alert('El cambio se realizó exitosamente.');
                     $scope.listarClientes();
                     $scope.listarAdministradores();
+                }
+                else if (response.respuesta.respuesta == 2)
+                    alert('Falló el intento de conceder permisos de administrador. Por favor vuelva a intentarlo mas tarde.');
+                else if (response.respuesta.respuesta == 3)
+                    alert('Se introducieron valores erroneos!');
+                else
+                    alert('Ocurrio un error con la conexción. Vuelva a intentarlo en unos momentos.');
+            });
+        }
+    }
+
+    $scope.activarSupervisor = function($id, $permiso){
+        var option;
+        if($permiso == 1)
+            opcion = confirm('Esta a punto de conceder permisos de supervisor a un cliente. ¿Desea continuar?');
+        else
+            opcion = confirm('Esta a punto de quitar permisos de supervisor a un supervisor. ¿Desea continuar?');
+        if(opcion){
+            $http.post('../controladores/darPermisoDeSupervisorController.php', {'usuario': $id, 'permiso': $permiso})
+            .success(function(response){
+                if (response.respuesta == 1) {
+                    alert('El cambio se realizó exitosamente.');
+                    $scope.listarClientes();
+                    $scope.listarSupervisores();
                 }
                 else if (response.respuesta.respuesta == 2)
                     alert('Falló el intento de conceder permisos de administrador. Por favor vuelva a intentarlo mas tarde.');
@@ -120,9 +153,30 @@ app.controller('adminCliente', function ($scope, $http, $window) {
         }
     }
 
+    $scope.mostrarUsuario = function(tipo){
+        switch(tipo){
+            case 1:
+                $scope.mostrarCliente = true;
+                $scope.mostrarAdministrador = false;
+                $scope.mostrarSupervisor = false;
+                break;
+            case 2:
+                $scope.mostrarCliente = false;
+                $scope.mostrarAdministrador = false;
+                $scope.mostrarSupervisor = true;
+                break;
+            case 3:
+                $scope.mostrarCliente = false;
+                $scope.mostrarAdministrador = true;
+                $scope.mostrarSupervisor = false;
+                break;
+        }
+    }
+
     /**************** PAGINACION ***********************/
     $scope.desdeCliente = 0;
     $scope.desdeAdmin = 0;
+    $scope.desdeSupervisor = 0;
     $scope.limite = 8;
     $scope.claseActive = {'w3-green': true};
     $scope.amplitud = 5;

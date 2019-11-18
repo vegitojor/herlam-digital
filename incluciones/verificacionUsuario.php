@@ -19,6 +19,22 @@ if(isset($_SESSION['usuario']) ){
         $apellido = $_SESSION['usuario']['apellido'];
         $admin = $_SESSION['usuario']['admin'];
         $usuarioArray = $_SESSION['usuario'];
+
+        if($_SESSION['usuario']['admin'] == 1){
+            $url= $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . '/';
+            if($_SERVER['SERVER_NAME'] == 'localhost'){
+                $url = $url . 'herlam-digital/';
+            }
+            $url .= 'vistas/admin-home.php';
+            header('location: ' . $url);
+        }else if($_SESSION['usuario']['supervisor']==1){
+            // $url= $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . '/';
+            // if($_SERVER['SERVER_NAME'] == 'localhost'){
+            //     $url = $url . 'herlam-digital/';
+            // }
+            $url = 'vistas/supervisor-home.php';
+            header('location: ' . $url);
+        }
     }else{
         session_destroy();
         $url= $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . '/';
@@ -45,11 +61,4 @@ if(isset($_SESSION['usuario']) ){
 
     header('location: ' . $url);
 
-
-    // $id = 0;
-    // $username = null;
-    // $email = null;
-    // $nombre = null;
-    // $apellido = null;
-    // $admin = null;
 }
