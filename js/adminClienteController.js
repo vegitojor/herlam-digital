@@ -18,8 +18,19 @@ app.controller('adminCliente', function ($scope, $http, $window) {
     $scope.mostrarAdministrador = false;
     $scope.mostrarSupervisor = false;
 
+    $scope.mostrarFiltro = false;
+
     $scope.listarClientes = function () {
-        $http.post('../controladores/listarClientesController.php', {'admin': 0, 'supervisor': 0, 'desde': $scope.desdeCliente, 'limite': $scope.limite})
+        $http.post('../controladores/listarClientesController.php', {
+            'admin': 0, 
+            'supervisor': 0, 
+            'desde': $scope.desdeCliente, 
+            'limite': $scope.limite,
+            'nombre': $scope.nombreFiltro,
+            'apellido': $scope.apellidoFiltro,
+            'cuil': $scope.cuilFiltro,
+            'razonSocial': $scope.razonSocialFiltro
+        })
             .success(function (response) {
                 $scope.clientes = response;
             })
@@ -173,6 +184,10 @@ app.controller('adminCliente', function ($scope, $http, $window) {
         }
     }
 
+    $scope.mostraFiltrosBusqueda = function(){
+        $scope.mostrarFiltro = !$scope.mostrarFiltro;
+    }
+
     /**************** PAGINACION ***********************/
     $scope.desdeCliente = 0;
     $scope.desdeAdmin = 0;
@@ -183,7 +198,12 @@ app.controller('adminCliente', function ($scope, $http, $window) {
 
     //SE BUSCA EL TOTAL DE PRODUCTOS PARA CALCULAR LA CANTIDAD DE PAGINAS
     $scope.cantidadDePaginacion = function(){
-        $http.post('../controladores/contarCantidadClientesConsumidorAdminController.php')
+        $http.post('../controladores/contarCantidadClientesConsumidorAdminController.php', {
+            'nombre': $scope.nombreFiltro,
+            'apellido': $scope.apellidoFiltro,
+            'cuil': $scope.cuilFiltro,
+            'razonsocial': $scope.razonSocialFiltro
+        })
         .success(function(response){
             $scope.cantidadProductos = response.cantidad;
             resto = $scope.cantidadProductos % $scope.limite;

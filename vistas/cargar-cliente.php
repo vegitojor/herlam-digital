@@ -104,7 +104,40 @@ include_once ('../incluciones/verificacionAdmin.php');
             <div class="w3-container w3-white">
                 <div class="w3-card-4 " ng-init="listarClientes()">
                     <header class="w3-container w3-orange">
+                        <a href="" class="w3-btn w3-orange w3-right" ng-click="mostraFiltrosBusqueda()">
+                            <span class="fa fa-filter " ng-if="!mostrarFiltro"></span>
+                            <span class="fa fa-close " ng-if="mostrarFiltro"></span>
+                        </a>
                         <h2>Clientes</h2>
+                        <div ng-show="mostrarFiltro">
+                            <form action="" name="filtroClienteForm" class="w3-container">
+                                <div class="w3-quarter">
+                                    <label>Nombre</label>
+                                    <input class="w3-input w3-border w3-round" type="text" name="nombreFiltro" ng-model="nombreFiltro">
+                                </div>
+                                <div class="w3-quarter">
+                                    <label>Apellido</label>
+                                    <input class="w3-input w3-border w3-round" type="text" name="apellidoFiltro" ng-model="apellidoFiltro">
+                                </div>
+                                <div class="w3-quarter">
+                                    <label>Cuil-cuit</label>
+                                    <input class="w3-input w3-border w3-round" type="text" name="ciulFiltro" ng-model="cuilFiltro">
+                                </div>
+                                <div class="w3-quarter">
+                                    <label>Raz&oacute;n social</label>
+                                    <input class="w3-input w3-border w3-round" type="text" name="razonSocialFiltro" ng-model="razonSocialFiltro">
+                                </div>   
+                                
+                            </form>
+                        </div>
+                        <div ng-show="mostrarFiltro" class="w3-margin"> 
+                            <!-- <button class="w3-btn w3-blue w3-round w3-right" 
+                            ng-click="listarClientes()" >Filtrar</button> -->
+                            <input type="submit" class="w3-btn w3-blue w3-round w3-right" 
+                            ng-click="listarClientes();cantidadDePaginacion()" value="Filtrar" />
+                            <br><br>
+                        </div>
+
                     </header>
                     <div ng-show="clientes">
                         <!-- TABLA QUE LISTA LOS CLIENTES -->

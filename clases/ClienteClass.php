@@ -309,7 +309,28 @@ Class Cliente{
 		return $respuesta;
 	}
 
-	public static function listarClientes($conexion, $admin, $desde, $limite, $supervisor){
+	public static function listarClientes($conexion, $admin, $desde, $limite, $supervisor, $nombre, $apellido, $cuil, $razonSocial){
+
+		if($nombre == null){
+			$nombre = '%%';
+		}
+		if($apellido == null){
+			$apellido = '%%';
+		}
+		if($cuil == null){
+			$cuil = '%%';
+		}
+		if($razonSocial == null){
+			$razonSocial = '%%';
+		}	
+		
+		$filtros = 'AND C.nombre like CONCAT("%",?,"%")  
+					AND C.apellido like CONCAT("%",?,"%")  
+					AND C.cuit_cuil like CONCAT("%",?,"%")  
+					AND C.usuario like CONCAT("%",?,"%")  ';
+		if($admin == 1 || $supervisor == 1)
+			$filtros = '';
+
 		$consulta = "SELECT C.id,
 							C.usuario,
 							C.email,
@@ -331,13 +352,19 @@ Class Cliente{
 					LEFT JOIN localidad L ON C.id_localidad = L.id
 					LEFT JOIN provincia p ON p.id = L.id_provincia
 					WHERE C.admin = ? AND C.existe = 1
-					AND C.supervisor = ?
-					LIMIT ?, ?";
+					AND C.supervisor = ? ";
+					
+		$limiteQuery = " LIMIT ?, ?";
 
-
+		$consulta = $consulta . $filtros . $limiteQuery;
+		
 		//================= MySQL ==========================
 		$stmt = mysqli_prepare($conexion, $consulta);
-		mysqli_stmt_bind_param($stmt, 'iiii', $admin, $supervisor, $desde, $limite);
+		if($admin ==1 || $supervisor == 1){
+			mysqli_stmt_bind_param($stmt, 'iiii', $admin, $supervisor, $desde, $limite);
+		}else{
+			mysqli_stmt_bind_param($stmt, 'iissssii', $admin, $supervisor, $nombre, $apellido, $cuil, $razonSocial, $desde, $limite);
+		}
 		mysqli_stmt_execute($stmt);
 		$resultado = mysqli_stmt_get_result($stmt);
 		$output = array();
@@ -429,15 +456,36 @@ Class Cliente{
         return $output;
 	}
 
-	public static function contarCantidadClietes($conexion){
+	public static function contarCantidadClientes($conexion, $nombre, $apellido, $cuil, $razonSocial){
+		if($nombre == null){
+			$nombre = '%%';
+		}
+		if($apellido == null){
+			$apellido = '%%';
+		}
+		if($cuil == null){
+			$cuil = '%%';
+		}
+		if($razonSocial == null){
+			$razonSocial = '%%';
+		}	
+		
+		$filtros = ' AND c.nombre like CONCAT("%",?,"%")  
+					AND c.apellido like CONCAT("%",?,"%")  
+					AND c.cuit_cuil like CONCAT("%",?,"%")  
+					AND c.usuario like CONCAT("%",?,"%")  ';
+
         $consulta = "SELECT count(*) AS cantidad
                     FROM cliente c
-                    WHERE c.existe = 1 AND c.admin = 0";
+					WHERE c.existe = 1 AND c.admin = 0 
+					AND c.supervisor = 0 ";
+		$consulta = $consulta . $filtros;
 
         //================== MySQL =======================
-        $resultado = mysqli_query($conexion, $consulta);
-        // mysqli_stmt_bind_param($resultado, 'iii', $estado, $cliente, $pedido);
-        // mysqli_stmt_execute($resultado);
+		$stmt = mysqli_prepare($conexion, $consulta);
+        mysqli_stmt_bind_param($stmt, 'ssss', $nombre, $apellido, $cuil, $razonSocial);
+		mysqli_stmt_execute($stmt);
+		$resultado = mysqli_stmt_get_result($stmt);
         $output = mysqli_fetch_assoc($resultado);
         // var_dump($estado);
         // die('query');
