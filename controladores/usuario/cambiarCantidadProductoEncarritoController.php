@@ -24,22 +24,11 @@ if ( $usuario == 0 ){
 	//se guardan los datos en la sesion de la conexion
 	$carrito = $_SESSION['carrito'];
 	$key = array_search(['producto'=> $producto, 'cantidad'=> $viejaCantidad,], $carrito);
-	// var_dump($key);
-	// die();
-
-
+	
 	$_SESSION['carrito'][$key]['cantidad'] = $cantidad;
 
-	// if( $key || $key == 0 ){
-	// 	// var_dump($_SESSION['carrito']);
-	// 	array_splice($_SESSION['carrito'], $key, 1);
-	// 	// var_dump("aca ya se spliteo");
-	// 	// var_dump($_SESSION['carrito']);
-	// 	// die();
-		
-	// }
 	$mensaje = ['respuesta' => 1,];
-	    echo json_encode($mensaje);
+	echo json_encode($mensaje);
 
 }else{
 	//Aqui existe un susuario logueado
