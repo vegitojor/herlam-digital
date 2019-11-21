@@ -9,10 +9,10 @@ Class ConexionBD {
 	private $port = '5432';
 
 	//Confif Prod
-	private $servidor = "localhost";
+	// private $servidor = "localhost";
 	 private $usuario = "daniel33_digital";
 	 private $pass = "MZTrfokHERLAM";
-	//  private $bd = "daniel33_herlamdigital";
+	 private $bd = "daniel33_herlamdigital";
 
 	//Esto es un comentario de prueba===== git deploy problem
 
