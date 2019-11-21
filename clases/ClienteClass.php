@@ -19,6 +19,7 @@ Class Cliente{
 	private $piso;
 	private $cuitCuil;
 	private $condicionIva;
+	private $supervisor;
 
 	function __construct($id, 
 						$nombre, 
@@ -53,6 +54,7 @@ Class Cliente{
 		$this->piso = $piso;
 		$this->cuitCuil = $cuitCuil;
 		$this->condicionIva = $condicionIva;
+		$this->supervisor = 0;
 
 	}
 
@@ -162,15 +164,15 @@ Class Cliente{
 					depto,
 					piso,
 					cuit_cuil,
-					id_condicion_iva) VALUES 
-					(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					id_condicion_iva, supervisor) VALUES 
+					(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 					//RETURNING id  //<---- solo para postgres
 
 		//============== MySQL =======================
 		$stmt = mysqli_prepare($conexion, $consulta);
 		//ssssssisidi
-		mysqli_stmt_bind_param($stmt, "ssssssisisiisssi", 
+		mysqli_stmt_bind_param($stmt, "ssssssisisiisssii", 
 								$this->usuario,
 								$this->email,
 								$this->pass,
@@ -186,7 +188,9 @@ Class Cliente{
 								$this->depto,
 								$this->piso,
 								$this->cuitCuil,
-								$this->condicionIva);
+								$this->condicionIva,
+								$this->supervisor
+							);
 		mysqli_stmt_execute($stmt);
 		//para obtener el ultimo id autogenerado
 		$id = mysqli_insert_id($conexion);
