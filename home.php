@@ -23,6 +23,9 @@ include_once('./incluciones/versionRand.php');
     <!-- Custom CSS -->
     <link href="librerias/template/css/shop-homepage.css" rel="stylesheet">
 
+    <!-- jQuery -->
+    <script type="text/javascript" src="./librerias/jquery/jquery-3.2.1.js"></script>
+
     <!-- Angular JS -->
     <script type="text/javascript" src="librerias/angularjs/angular.min.js?<?= $versionJs ?>"></script>
     <script type="text/javascript" src="js/indexModulo.js?<?= $versionJs ?>"></script>

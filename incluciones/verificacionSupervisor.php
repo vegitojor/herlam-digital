@@ -14,6 +14,7 @@ if(isset($_SESSION['usuario'])){
     if($_SESSION['usuario']['supervisor'] == 1){
         $id = $_SESSION['usuario']['id'];
         $nombre = $_SESSION['usuario']['usuario'];
+        $usuarioArray = $_SESSION['usuario'];
     }else{
         header('location: ../home.php');
     }

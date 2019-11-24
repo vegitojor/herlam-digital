@@ -538,6 +538,39 @@ Class Cliente{
 		// $fila = pg_fetch_assoc($respuesta);
 		return $respuesta;
 	}
+
+	public static function obtenerPassUsuarioById($conexion, $idUsuario){
+		$consulta = "SELECT pass
+					FROM cliente
+					WHERE id = ?";
+		//================ MySQL =======================
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, "i", $idUsuario);
+		mysqli_stmt_execute($stmt);
+		$resultado = mysqli_stmt_get_result($stmt);
+		$respuesta = mysqli_fetch_assoc($resultado);
+		//================ POSTGRES =======================
+		// $respuesta = pg_query_params($conexion, $consulta, array($email, $pass));
+		// $fila = pg_fetch_assoc($respuesta);
+		return $respuesta;
+	}
+
+	public static function cambiarPass($conexion, $id, $newPass){
+		$consulta = "UPDATE cliente
+					SET pass = ?
+					WHERE id = ?";
+
+		//================== MySQL =====================
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'si', $newPass, $id);
+		mysqli_stmt_execute($stmt);
+		$output = mysqli_stmt_affected_rows($stmt);
+		
+		//================== Postgres =====================
+		// $result = pg_query_params($conexion, $consulta, array($permiso, $idUsuario));
+		// $output = pg_affected_rows($result);
+        return $output;
+	}
 }
 
 

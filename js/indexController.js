@@ -119,7 +119,7 @@ app.controller("indexController", function ($scope, $http, $filter, $window) {
    }
 
    //LIBRERIA DE VIDEOS PARA ACEPTAR LOS LINK
-   $scope.cargarVideo = function ($producto) {
+    $scope.cargarVideo = function ($producto) {
        $scope.link = $sce.trustAsResourceUrl($producto.video);
        return $scope.link;
    }

@@ -7,6 +7,6 @@
  */
 
 
-$versionJs = 1.08;
+$versionJs = 1.09;
 
 

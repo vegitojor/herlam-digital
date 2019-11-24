@@ -41,6 +41,7 @@
                         <a href="" id="usuario" data-toggle="dropdown"><?= $nombre ?><span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="usuario">
                             <li role="presentation"><a href="vistas/pedido.php">Mis pedidos</a></li>
+                            <li role="presentation"><a href="#" data-toggle="modal" data-target="#passModal">Cambiar contrase&ntilde;a</a></li>
                             <li role="presentation"><a href="controladores/cerrarSesionController.php">Salir</a></li>
                         </ul>
                     </li>
@@ -49,3 +50,7 @@
         </div>
         <!-- /.container -->
     </nav>
+
+    <?php 
+    include_once('./incluciones/cambioPassModal.php');
+    ?>

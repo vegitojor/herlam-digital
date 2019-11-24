@@ -17,6 +17,7 @@ include_once ('../incluciones/verificacionSupervisor.php');
     <?php include_once ('../incluciones/head.php'); ?>
     <script type="text/javascript" src="../js/adminModule.js"></script>
     <script type="text/javascript" src="../js/supervisorPedidoController.js?<?= $versionJs ?>"></script>
+    
 
     <title>Pedido - Herlam</title>
 
