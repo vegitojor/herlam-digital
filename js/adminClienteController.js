@@ -188,6 +188,23 @@ app.controller('adminCliente', function ($scope, $http, $window) {
         $scope.mostrarFiltro = !$scope.mostrarFiltro;
     }
 
+    $scope.resetPass = function(cliente){
+        let reset = confirm('Esta por reiniciar la cantraseña del usuario ' + cliente.nombre + " " + cliente.apellido + '. ¿Desea continuar?');
+        if(reset){
+            $http.post('../controladores/resetPassClienteController.php', {'id': cliente.id })
+                .success(function(response){
+                    if (response.respuesta == 1) {
+                        
+                        alert('El cambio se realizó exitosamente. Se estableció la contraseña "herlam".');
+                        alert('Se envio un e-mail al usuario informando del cambio');
+                        
+                    }
+                    else
+                        alert('Ocurrio un error con la conexción. Vuelva a intentarlo en unos momentos.');
+                });
+        }
+    }
+
     /**************** PAGINACION ***********************/
     $scope.desdeCliente = 0;
     $scope.desdeAdmin = 0;
