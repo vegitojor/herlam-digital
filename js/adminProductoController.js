@@ -61,7 +61,14 @@ app.controller("adminProducto", function ($scope, $http) {
     }
 
     $scope.listarProductos = function () {
-        $http.post('../controladores/listarProductosController.php', {'desde': $scope.desde, 'limite': $scope.limite})
+        $http.post('../controladores/listarProductosController.php', {
+            'desde': $scope.desde, 
+            'limite': $scope.limite,
+            'id': $scope.idFiltro,
+            'modelo': $scope.modeloFiltro,
+            // 'cuil': $scope.cuilFiltro,
+            // 'razonSocial': $scope.razonSocialFiltro
+        })
             .success(function (response) {
                 $scope.productos = response;
         })
@@ -313,6 +320,10 @@ app.controller("adminProducto", function ($scope, $http) {
         });
     }
 
+    $scope.mostrarFiltro = false;
+    $scope.mostraFiltrosBusqueda = function(){
+        $scope.mostrarFiltro = !$scope.mostrarFiltro;
+    }
 
     /**************** PAGINACION ***********************/
     $scope.desde = 0;
@@ -321,7 +332,10 @@ app.controller("adminProducto", function ($scope, $http) {
 
     //SE BUSCA EL TOTAL DE PRODUCTOS PARA CALCULAR LA CANTIDAD DE PAGINAS
     $scope.cantidadDePaginacion = function(){
-      $http.post('../controladores/contarCantidadProductosAdminController.php', {})
+      $http.post('../controladores/contarCantidadProductosAdminController.php', {
+        'id': $scope.idFiltro,
+        'modelo': $scope.modeloFiltro,
+      })
       .success(function(response){
          $scope.cantidadProductos = response.cantidad;
          resto = $scope.cantidadProductos % $scope.limite;

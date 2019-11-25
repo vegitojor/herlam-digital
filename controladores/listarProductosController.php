@@ -15,11 +15,20 @@ $data = json_decode(file_get_contents('php://input'));
 $desde = strip_tags($data->desde);
 $limite = strip_tags($data->limite);
 
-//CONEXION A BASE DE DATOS
-$conn = new ConexionBD();
-$conexion = $conn->getConexion();
+$id = 0;
+if(isset($data->id)){
+    if(is_int($data->id))
+        $id = $data->id;
+}
 
+$modelo = null;
+if(isset($data->modelo))
+    $modelo = strip_tags($data->modelo);
+
+//CONEXION A BASE DE DATOS
+$conn = new ConexionBD(); 
+$conexion = $conn->getConexion();
 $output = array();
-$output = Producto::cargarProductos($conexion, $desde, $limite);
+$output = Producto::cargarProductos($conexion, $desde, $limite, $id, $modelo);
 
 echo json_encode($output);

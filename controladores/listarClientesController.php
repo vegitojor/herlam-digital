@@ -28,6 +28,7 @@ $limite = strip_tags($data->limite);
 $limite = (int)$limite;
 
 $nombre = null;
+var_dump($data->nombre);
 if(isset($data->nombre))
     $nombre = utf8_decode( strip_tags($data->nombre));
 

@@ -624,7 +624,17 @@ Class Producto{
         // return $id[0];
     }
 
-    public static function cargarProductos($conexion, $desde, $limite){
+    public static function cargarProductos($conexion, $desde, $limite, $id, $modelo){
+		$idFiltro = "p.id > ? ";
+		if($id > 0)
+			$idFiltro = "p.id = ? ";
+
+		
+		if($modelo == null)
+			$modelo = '%%';
+
+		$filtros = 'WHERE ' . $idFiltro . 'AND p.modelo like CONCAT("%",?,"%") ';
+
         $consulta = "SELECT p.id,
                             p.descripcion,
                             p.precio,
@@ -670,18 +680,24 @@ Class Producto{
                             pft.campo19,
                             pft.campo20
                     FROM producto p 
-                    JOIN categoria c ON c.id = p.id_categoria
-                    JOIN proveedor pr ON pr.id = p.id_proveedor
-                    JOIN marca m ON m.id = p.id_marca
-                    LEFT JOIN producto_ficha_tecnica pft ON pft.id = p.id_producto_ficha_tecnica
-					LIMIT ?, ?" ;
+                    left JOIN categoria c ON c.id = p.id_categoria
+                    LEFT JOIN proveedor pr ON pr.id = p.id_proveedor
+                    LEFT JOIN marca m ON m.id = p.id_marca
+					LEFT JOIN producto_ficha_tecnica pft ON pft.id = p.id_producto_ficha_tecnica ";
+		$limiteFiltro =  "LIMIT ?, ?" ;
                     /* LIMIT  $1 offset $2"; */  //<------------ CONDIDICON LIMIT PARA POSTGRES
 
-		$resultado = mysqli_query($conexion,$consulta);
+		$consulta .= $filtros . $limiteFiltro;
+
+		// $resultado = mysqli_query($conexion,$consulta);
+		// var_dump($consulta);
+		// die();
 		$stmt = mysqli_prepare($conexion, $consulta);
-		mysqli_stmt_bind_param($stmt, 'ii', $desde, $limite);
+		
+		mysqli_stmt_bind_param($stmt, 'isii', $id, $modelo, $desde, $limite);
 		mysqli_stmt_execute($stmt);
 		$resultado = mysqli_stmt_get_result($stmt);
+		
 		$output = array();
 		while ($fila = mysqli_fetch_assoc($resultado)){
 			$output[] = $fila;
@@ -1288,11 +1304,29 @@ Class Producto{
 		// return pg_fetch_assoc($result);
 	}
 
-	public static function contarCantidadProductosAdmin($conexion){
+	public static function contarCantidadProductosAdmin($conexion, $id, $modelo){
+		$idFiltro = "id > ? ";
+		if($id > 0)
+			$idFiltro = "id = ? ";
+
+		
+		if($modelo == null)
+			$modelo = '%%';
+
+		$filtros = 'WHERE ' . $idFiltro . 'AND modelo like CONCAT("%",?,"%") ';
 		$consulta = "SELECT count(*) as cantidad
-					FROM producto";
-		$resultado = mysqli_query($conexion,$consulta);
-		$output = mysqli_fetch_assoc($resultado);
+					FROM producto ";
+
+		$consulta .= $filtros;
+		// $resultado = mysqli_query($conexion,$consulta);
+		// $output = mysqli_fetch_assoc($resultado);
+
+		$stmt = mysqli_prepare($conexion, $consulta);
+		
+		mysqli_stmt_bind_param($stmt, 'is', $id, $modelo);
+		mysqli_stmt_execute($stmt);
+		$result = mysqli_stmt_get_result($stmt);
+		$output = mysqli_fetch_assoc($result);
 
 		//===================== Postgres =================
 		// $result = pg_query($conexion, $consulta);

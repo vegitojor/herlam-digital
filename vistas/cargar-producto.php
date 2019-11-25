@@ -290,9 +290,46 @@ include_once ("../incluciones/verificacionAdmin.php");
         
         <br>
         <div class="w3-container" ng-init="listarProductos()">
+        <header class="w3-container w3-orange">
+                        <a href="" class="w3-btn w3-orange w3-right" ng-click="mostraFiltrosBusqueda()">
+                            <span class="fa fa-filter " ng-if="!mostrarFiltro"></span>
+                            <span class="fa fa-close " ng-if="mostrarFiltro"></span>
+                        </a>
+                        <h2></h2>
+                        <div ng-show="mostrarFiltro">
+                            <form action="" name="filtroClienteForm" class="w3-container">
+                                <div class="w3-quarter">
+                                    <label>Id</label>
+                                    <input class="w3-input w3-border w3-round" type="number" name="idFiltro" ng-model="idFiltro">
+                                </div>
+                                <div class="w3-quarter">
+                                    <label>Modelo</label>
+                                    <input class="w3-input w3-border w3-round" type="text" name="modeloFiltro" ng-model="modeloFiltro">
+                                </div>
+                                <!-- <div class="w3-quarter">
+                                    <label>Cuil-cuit</label>
+                                    <input class="w3-input w3-border w3-round" type="text" name="ciulFiltro" ng-model="cuilFiltro">
+                                </div> -->
+                                <!-- <div class="w3-quarter">
+                                    <label>Raz&oacute;n social</label>
+                                    <input class="w3-input w3-border w3-round" type="text" name="razonSocialFiltro" ng-model="razonSocialFiltro">
+                                </div>    -->
+                                
+                            </form>
+                        </div>
+                        <div ng-show="mostrarFiltro" class="w3-margin"> 
+                            <!-- <button class="w3-btn w3-blue w3-round w3-right" 
+                            ng-click="listarClientes()" >Filtrar</button> -->
+                            <input type="submit" class="w3-btn w3-blue w3-round w3-right" 
+                            ng-click="listarProductos();cantidadDePaginacion()" value="Filtrar" />
+                            <br><br>
+                        </div>
+
+                    </header>
             <table class="w3-table w3-striped w3-bordered w3">
                 <thead>
                     <tr class="w3-green">
+                        <th>Id</th>
                         <th>Modelo</th>
                         <th>Marca</th>
                         <th>Descripción</th>
@@ -308,6 +345,7 @@ include_once ("../incluciones/verificacionAdmin.php");
                 </thead>
                 <tbody>
                     <tr ng-repeat="producto in productos">
+                        <td>{{producto.id}}</td>
                         <td>{{producto.modelo}}</td>
                         <td>{{producto.marca}}</td>
                         <td>{{producto.descripcion}}</td>
