@@ -146,7 +146,7 @@ class Pedido
     public function updateCarrito($conexion, $idPedido){
         $consulta = "UPDATE carrito_compra cc 
                     LEFT JOIN producto p ON p.id=cc.id_producto 
-                    SET cc.precio = p.precio, 
+                    SET cc.precio = (p.precio * (SELECT valor_en_peso FROM moneda WHERE activo = 1)) , 
                         id_pedido = ? 
                     WHERE cc.id_pedido IS null 
                     AND cc.id_cliente = ?";

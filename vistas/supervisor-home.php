@@ -50,10 +50,12 @@ include_once ('../incluciones/verificacionSupervisor.php');
             <table class="table table-striped" ng-init="buscarPedidos()">
                 <thead>
                     <tr>
-                        <th>N&deg; pedido</th>
+                        <th>N&deg;</th>
                         <th>Estado</th>
+                        <th>Fecha</th>
                         <th>Cliente</th>
-                        <th>fecha</th>
+                        <th>Tel.</th>
+                        <th>Email</th>
                         <th>Domicilio</th>
                         <th>C&oacute;digo Postal</th>
                         <th>Localidad</th>
@@ -68,8 +70,10 @@ include_once ('../incluciones/verificacionSupervisor.php');
                     <tr ng-repeat="pedido in pedidos">
                         <td>{{pedido.id_pedido}}</td>
                         <td class="{{pedido.id_estado_pedido_supervisor == 1 ? 'text-primary' : 'text-warning'}}" >{{pedido.estado_pedido_supervisor}}</td>
-                        <td>{{pedido.nombre_cliente}} {{pedido.apellido_cliente}}</td>
                         <td>{{pedido.fecha_pedido}}</td>
+                        <td>{{pedido.nombre_cliente}} {{pedido.apellido_cliente}}</td>
+                        <td>{{pedido.telefono}}</td>
+                        <td>{{pedido.email}}</td>
                         <td>{{pedido.calle}} {{pedido.numero}} {{pedido.piso}} {{pedido.depto}}</td>
                         <td>{{pedido.codigo_postal}}</td>
                         <td>{{pedido.localidad}}</td>
@@ -136,7 +140,7 @@ include_once ('../incluciones/verificacionSupervisor.php');
                             <tr ng-repeat="producto in productos">
                                 <td>{{producto.cantidad}}</td>
                                 <td>{{producto.descripcion}}</td>
-                                <td>{{producto.medelo}}</td>
+                                <td>{{producto.modelo}}</td>
                                 <td>{{producto.categoria_nombre}}</td>
                                 <td>{{producto.marca_descripcion}}</td>
                             </tr>
