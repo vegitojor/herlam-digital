@@ -82,7 +82,7 @@ app.controller("pedidoController", function ($scope, $http, $sce, $filter, $wind
 			$scope.detalleProducto.productos = response;
 			$scope.detalleProducto.sumaTotal = 0;
 			angular.forEach($scope.detalleProducto.productos, function(value, key){
-				$scope.detalleProducto.sumaTotal += value.precio * value.cantidad * $scope.moneda.valor;
+				$scope.detalleProducto.sumaTotal += value.precio * value.cantidad;
 			})
 			$('#modalProductos').modal('show');
 		})
