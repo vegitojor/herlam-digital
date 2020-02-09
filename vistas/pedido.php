@@ -227,8 +227,8 @@
                                 <td>{{producto.modelo}}</td>
                                 <td>{{producto.descripcion}}</td>
                                 <td>{{producto.cantidad}}</td>
-                                <td>{{producto.precio * moneda.valor | currency}}</td>
-                                <td>{{producto.precio * producto.cantidad * moneda.valor | currency}}</td>
+                                <td>{{producto.precio  | currency}}</td>
+                                <td>{{producto.precio * producto.cantidad | currency}}</td>
                                 <!-- <td>{{detalleProducto}}</td> -->
                             </tr>
                         </tbody>

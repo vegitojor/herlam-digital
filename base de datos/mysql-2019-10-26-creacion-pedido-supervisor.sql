@@ -24,5 +24,8 @@ values('Pendiente'),
 
 Alter table cliente add column supervisor tinyint(1) NULL;
 update cliente
-set supervisor = 0
+set supervisor = 0;
+
+
+
 
