@@ -74,14 +74,14 @@ include_once('./incluciones/versionRand.php');
                             </ol>
                             <div class="carousel-inner">
                                 <div class="item active">
-                                    <img class="slide-image" src="img/banner-1.jpeg" alt="">
+                                    <img class="slide-image" src="img/banner-1.jpeg?<?= $versionJs ?>" alt="">
                                     <!-- src="http://placehold.it/800x300" -->
                                 </div>
                                 <div class="item">
-                                    <img class="slide-image" src="img/banner-2.jpeg" alt="">
+                                    <img class="slide-image" src="img/banner-2.jpeg?<?= $versionJs ?>" alt="">
                                 </div>
                                 <div class="item">
-                                    <img class="slide-image" src="img/banner-3.jpeg" alt="">
+                                    <img class="slide-image" src="img/banner-3.jpeg?<?= $versionJs ?>" alt="">
                                 </div>
                             </div>
                             <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
