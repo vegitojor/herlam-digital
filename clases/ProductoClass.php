@@ -633,7 +633,7 @@ Class Producto{
 		if($modelo == null)
 			$modelo = '%%';
 
-		$filtros = 'WHERE ' . $idFiltro . 'AND p.modelo like CONCAT("%",?,"%") ';
+		$filtros = 'WHERE ' . $idFiltro . 'AND p.modelo like CONCAT("%",?,"%") ORDER BY p.id ';
 
         $consulta = "SELECT p.id,
                             p.descripcion,
