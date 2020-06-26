@@ -193,7 +193,7 @@ ALTER TABLE cliente
 
 ALTER TABLE ficha_tecnica CHANGE nombre_ficha nombre VARCHAR(50)  NULL;
 
-ALTER TABLE moneda ADD COLUMN activo decimal(6,2) null
+ALTER TABLE moneda ADD COLUMN activo decimal(6,2) null;
 
 insert into cliente ( nombre, apellido, email, pass, admin)
 VALUE ('admin', 'administrador', 'admin@herlam', '81dc9bdb52d04dc20036dbd8313ed055', 1);

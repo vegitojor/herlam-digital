@@ -62,6 +62,7 @@ app.controller("formularioRegistro", function($scope, $http, $window, $filter){
 					'nombre': $scope.nombre,
 					'apellido': $scope.apellido,
 					'telefono': $scope.telefono,
+					'celular': $scope.celular,
 					'fechaNacimiento': $scope.fechaNacimiento,
 					'email': $scope.email,
 					'direccion': $scope.direccion,

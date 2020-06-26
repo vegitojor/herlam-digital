@@ -20,6 +20,10 @@ $telefono = Null;
 if( isset($data->telefono) )
 	$telefono = strip_tags($data->telefono);
 
+$celular = Null;
+if( isset($data->celular) )
+	$celular = strip_tags($data->celular);
+
 $fechaNacimiento = Null;
 if( isset($data->fechaNacimiento) )
 	$fechaNacimiento = strip_tags($data->fechaNacimiento);
@@ -79,6 +83,7 @@ $usuario = new Cliente($id,
 						$usuario,
 						$apellido,
 						$telefono,
+						$celular,
 						$email,
 						$fechaNacimiento,
 						$pass,

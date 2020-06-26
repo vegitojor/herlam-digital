@@ -7,6 +7,7 @@ Class Cliente{
 	private $usuario;//Mostrado como RAZON SOCIAL	
 	private $apellido;
 	private $telefono;
+	private $celular;
 	private $email;
 	private $fechaNacimiento;
 	private $pass;
@@ -26,6 +27,7 @@ Class Cliente{
 						$usuario, 
 						$apellido, 
 						$telefono, 
+						$celular,
 						$email, 
 						$fechaNacimiento, 
 						$pass, 
@@ -42,6 +44,7 @@ Class Cliente{
 		$this->usuario = $usuario;
 		$this->apellido = $apellido;
 		$this->telefono = $telefono;
+		$this->celular = $celular;
 		$this->email = $email;
 		$this->fechaNacimiento = $fechaNacimiento;
 		$this->pass = $pass;
@@ -164,15 +167,17 @@ Class Cliente{
 					depto,
 					piso,
 					cuit_cuil,
-					id_condicion_iva, supervisor) VALUES 
-					(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					id_condicion_iva, 
+					supervisor,
+					celular) VALUES 
+					(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 					//RETURNING id  //<---- solo para postgres
 
 		//============== MySQL =======================
 		$stmt = mysqli_prepare($conexion, $consulta);
 		//ssssssisidi
-		mysqli_stmt_bind_param($stmt, "ssssssisisiisssii", 
+		mysqli_stmt_bind_param($stmt, "ssssssisisiisssiis", 
 								$this->usuario,
 								$this->email,
 								$this->pass,
@@ -189,7 +194,8 @@ Class Cliente{
 								$this->piso,
 								$this->cuitCuil,
 								$this->condicionIva,
-								$this->supervisor
+								$this->supervisor,
+								$this->celular
 							);
 		mysqli_stmt_execute($stmt);
 		//para obtener el ultimo id autogenerado

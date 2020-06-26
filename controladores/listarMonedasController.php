@@ -13,6 +13,7 @@ include_once ('../clases/MonedaClass.php');
 $conn = new ConexionBD();
 $conexion = $conn->getConexion();
 
+
 //LISTADO DE MONEDAS
 $monedas = Moneda::listarMonedas($conexion);
 

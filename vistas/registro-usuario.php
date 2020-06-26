@@ -148,6 +148,13 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="celular">Ingrese su celular</label>
+                            <input type="text" class="form-control" id="telefono" name="celular" placeholder="Ingrese su celular con codigo de area" ng-model="celular" ng-model-option="{updateOn: 'blur'}" required>
+                            <div  ng-show="registroUsuario.$submitted || registroUsuario.celular.$touched">
+                                <span class="text-danger" ng-show="registroUsuario.celular.$error.required">El campo es obligatorio.</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="fechaNacimiento">Ingrese su fecha de Nacimiento</label>
                             <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" placeholder="Introduzca su fecha de nacimiento" ng-model="fechaNacimiento" ng-model-option="{updateOn: 'blur'}" required>
                             <div  ng-show="registroUsuario.$submitted || registroUsuario.fechaNacimiento.$touched">
