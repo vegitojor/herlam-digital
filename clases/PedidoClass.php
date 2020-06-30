@@ -78,6 +78,7 @@ class Pedido
                             c.usuario razon_social,
                             c.email,
                             c.telefono,
+                            c.celular,
                             c.cuit_cuil,
                             c.id_condicion_iva,
                             p.fecha,

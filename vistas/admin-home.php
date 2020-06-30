@@ -98,6 +98,7 @@ include_once ("../incluciones/verificacionAdmin.php");
 					<th>fecha</th>
 					<th>Estado</th>
 					<th>Tipo de env&iacute;o</th>
+					<th>Contactar</th>
 					<th></th>
 					<th></th>
 				</tr>
@@ -112,6 +113,13 @@ include_once ("../incluciones/verificacionAdmin.php");
 					<td>
 						<span ng-if="!pedido.tipo_pedido">Retiro acordado c/ vendedor</span>
 						<span ng-if="pedido.tipo_pedido">Env&iacute;o a domicilio</span>
+					</td>
+					<td>
+						<a href="https://wa.me/549{{pedido.celular}}" class="w3-btn w3-round w3-green" 
+						ng-if="(pedido.celular != null && pedido.celular != '')" data-toggle="tooltip" data-placement="bottom" 
+						title="Pulsa para enviar un mensaje por Whatsapp" target="_blank" >
+							<span class="fa fa-whatsapp"></span>
+						</a>
 					</td>
 					<td>
 						<a href="javascript:void(0);"
