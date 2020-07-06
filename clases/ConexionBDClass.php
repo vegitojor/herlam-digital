@@ -2,13 +2,13 @@
 
 Class ConexionBD {
 	// Config local
-	// private $servidor = "localhost";
+	private $servidor = "localhost";
 	// private $usuario = "root";
 	// private $pass = "abrh++++";
 	// private $bd = "herlam";
 	private $port = '5432';
 
-	//Confif Prod
+	//Config Prod
 	 private $usuario = "daniel33_digital";
 	 private $pass = "MZTrfokHERLAM";
 	 private $bd = "daniel33_herlamdigital";
