@@ -148,8 +148,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="celular">Ingrese su celular</label>
-                            <input type="text" class="form-control" id="telefono" name="celular" placeholder="Ingrese su celular con codigo de area" ng-model="celular" ng-model-option="{updateOn: 'blur'}" required>
+                            <label for="celular">Ingrese su celular (cod. de &aacute;rea + numero)</label>
+                            <input type="number" class="form-control" id="telefono" name="celular" placeholder="Ej.: 1155555555. **Donde 11 sería el cod de area" ng-model="celular" ng-model-option="{updateOn: 'blur'}" required>
                             <div  ng-show="registroUsuario.$submitted || registroUsuario.celular.$touched">
                                 <span class="text-danger" ng-show="registroUsuario.celular.$error.required">El campo es obligatorio.</span>
                             </div>

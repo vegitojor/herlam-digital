@@ -86,6 +86,8 @@ include_once ('../incluciones/verificacionAdmin.php');
                 <tr>
                     <th>Cuit/Cuil</th>
                     <td>{{clienteModal.cuit_cuil}}</td>
+                    <th>Celular</th>
+                    <td>{{clienteModal.celular == null ? '--' : clienteModal.celular}}</td>
                 </tr>
             </table>
         </div>

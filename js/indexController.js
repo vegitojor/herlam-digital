@@ -11,28 +11,45 @@ app.controller("indexController", function ($scope, $http, $filter, $window) {
     }
 
     $scope.listarproductosDestacados = function () {
-       $http.post('controladores/usuario/listarProductosActivosDestacados.php', {'limite':6})
-           .success(function (response) {
-               $scope.productos = response;
-           })
-   }
+        $http.post('controladores/usuario/listarProductosActivosDestacados.php', {'limite':6})
+            .success(function (response) {
+                $scope.productos = response;
+            })
+    }
 
-   $scope.cargarMoneda = function () {
-       $http.post('controladores/usuario/cargarMonedaController.php')
-           .success(function (response) {
-               $scope.moneda = response;
-               if($scope.moneda.valor == 0 ){
-                bootbox.alert("Nos encontramos en proceso de inventario. A la brevedad encontrara el listado actualizado de productos y precios");
-             }
-           })
-   }
+    $scope.cargarMoneda = function () {
+        $http.post('controladores/usuario/cargarMonedaController.php')
+            .success(function (response) {
+                $scope.moneda = response;
+                if($scope.moneda.valor == 0 ){
+                    bootbox.alert("Nos encontramos en proceso de inventario. A la brevedad encontrara el listado actualizado de productos y precios");
+                }
+            })
+    }
 
-   $scope.cargarFichaTecnica = function ($id) {
-       $http.post('controladores/cargarFichaTecnicaController.php', {idCategoria: $id})
-           .success(function (response) {
-               $scope.ficha = response;
-           })
-   }
+    $scope.cargarFichaTecnica = function ($id) {
+        $http.post('controladores/cargarFichaTecnicaController.php', {idCategoria: $id})
+            .success(function (response) {
+                $scope.ficha = response;
+            })
+    }
+
+    //Verificacion de celular cargado
+    $scope.solicitarCelular = function(idUsuario){
+        $scope.usuarioId = idUsuario
+        bootbox.alert('Ahora disponemos de comunicación vía Whatsapp. Para habilitarlo agreguelo en el siguiente formulario.', function(){$('#cargarCelularModal').modal('show')});
+        
+    }
+
+    $scope.guardarCelular = function(){
+        $http.post('controladores/cargarCelularController.php', {celular: $scope.celular, usuario: $scope.usuarioId})
+            .success(function (response) {
+                $('#cargarCelularModal').modal('hide')
+                bootbox.alert('Gracias por ser parte del equipo Herlam.Es necesario que vuelva a iniciar seción para que se apliquen los cambios.', function(){
+                    window.location.href = 'index.php'
+                })
+            })
+    }
 
    //FUNCIONALIDAD DE AGREGAR AL CARRITO
    $scope.cantidad = 1;
