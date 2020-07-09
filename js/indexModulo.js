@@ -38,6 +38,12 @@ app.controller("indexCambioPass", function ($scope, $http, $filter, $window){
     
     $scope.obtenerUsuarioParaPass = function(array){
         $scope.usuario = array;
+        try{
+            if($scope.usuario.celular == null ||  $scope.usuario.celular == undefined)
+                $scope.solicitarCelular($scope.usuario.id)
+        }catch(e){
+            console.log(e)
+        }
     }
 });
 

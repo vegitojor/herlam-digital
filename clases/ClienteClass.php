@@ -295,7 +295,8 @@ Class Cliente{
 							depto,
 							cuit_cuil,
 							id_condicion_iva,
-							codigo_postal
+							codigo_postal,
+							celular
 					FROM cliente
 					WHERE email = ? and pass = ?";
 		//================ MySQL =======================
@@ -357,7 +358,8 @@ Class Cliente{
 							C.cuit_cuil,
 							C.id_condicion_iva,
 							L.localidad,
-							p.provincia
+							p.provincia,
+							C.celular
 					FROM cliente C
 					LEFT JOIN localidad L ON C.id_localidad = L.id
 					LEFT JOIN provincia p ON p.id = L.id_provincia
@@ -569,6 +571,23 @@ Class Cliente{
 		//================== MySQL =====================
 		$stmt = mysqli_prepare($conexion, $consulta);
 		mysqli_stmt_bind_param($stmt, 'si', $newPass, $id);
+		mysqli_stmt_execute($stmt);
+		$output = mysqli_stmt_affected_rows($stmt);
+		
+		//================== Postgres =====================
+		// $result = pg_query_params($conexion, $consulta, array($permiso, $idUsuario));
+		// $output = pg_affected_rows($result);
+        return $output;
+	}
+
+	public static function cambiarCelular($conexion, $id, $celular){
+		$consulta = "UPDATE cliente
+					SET celular = ?
+					WHERE id = ?";
+
+		//================== MySQL =====================
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'si', $celular, $id);
 		mysqli_stmt_execute($stmt);
 		$output = mysqli_stmt_affected_rows($stmt);
 		
