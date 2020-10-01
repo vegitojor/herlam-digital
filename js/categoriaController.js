@@ -1,6 +1,6 @@
-app.controller("categoriaController", function ($scope, $http, $sce, $filter, $window) {
+app.controller("categoriaController", function ($scope, $http, $sce, $filter, $window, servicio) {
    
-
+   $scope.servicio = servicio;
    $scope.mostrarLinea = true;
    $scope.mostrarCuadrado = false;
    $scope.ordenamiento = 0;

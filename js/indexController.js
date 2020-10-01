@@ -1,7 +1,7 @@
-app.controller("indexController", function ($scope, $http, $filter, $window) {
+app.controller("indexController", function ($scope, $http, $filter, $window, servicio) {
     
     
-    
+    $scope.servicio = servicio
 
     $scope.listarCategorias = function () {
         $http.post('controladores/usuario/listarCategoriasController.php')

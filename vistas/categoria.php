@@ -253,7 +253,7 @@ $idCategoria = $_GET['id'];
                             <!-- src="http://placehold.it/320x150" -->
                         </a>
                         <div class="caption">
-                            <h4 class="pull-right">{{producto.precio * moneda.valor | currency}}</h4>
+                            <h4 class="pull-right">{{servicio.convertirPrecio(producto.precio, moneda.valor)  | currency}}</h4>
                             <p ng-show="producto.nuevo">Nuevo</p>
                             <p ng-hide="producto.nuevo">Usado</p>
                             <h4>
@@ -296,7 +296,7 @@ $idCategoria = $_GET['id'];
                                 </div>
                             </div>
                             <div class="col-sm-4 col-md-2">
-                                <h4 class="pull-right">{{producto.precio * moneda.valor | currency}}</h4> 
+                                <h4 class="pull-right">{{servicio.convertirPrecio(producto.precio, moneda.valor)  | currency}}</h4> 
                             </div>
                         </div>
                         <hr>
@@ -323,7 +323,7 @@ $idCategoria = $_GET['id'];
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <h3 class="">Precio: <strong>{{producto.precio * moneda.valor | currency}}</strong></h3>
+                                            <h3 class="">Precio: <strong>{{servicio.convertirPrecio(producto.precio, moneda.valor) | currency}}</strong></h3>
                                             <p>marca: <strong>{{producto.marca}}</strong></p>
                                             <p ng-show="producto.nuevo"><strong>Nuevo</strong></p>
                                             <p ng-hide="producto.nuevo"><strong>Usado</strong></p>

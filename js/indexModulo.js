@@ -2,6 +2,14 @@ var _urlServer = '';
 
 var app = angular.module("index", []);
 
+app.factory("servicio", function(){
+    var service = function(){}
+    service.convertirPrecio = function(precio, moneda) {
+        return (precio * moneda).toString().split(".")[0]
+    }
+    return service
+})
+
 app.controller("indexCambioPass", function ($scope, $http, $filter, $window){
 	$scope.cambiarPass = function(valid){
         if(valid){
@@ -45,6 +53,8 @@ app.controller("indexCambioPass", function ($scope, $http, $filter, $window){
             console.log(e)
         }
     }
+
+    
 });
 
 app.directive('passChangeCheck', [function () {
