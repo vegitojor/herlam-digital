@@ -20,5 +20,9 @@ function enviarMail($destinatario, $subject, $mensaje){
     $headers .= "Content-type: text/html; charset=ISO-8859-1\n";   
     mail($to,$email_subject,$email_body,$headers);
 }
+
+//armar body
+
+//Construir template - Elegir entre distintos templates
         
 ?>

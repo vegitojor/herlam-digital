@@ -256,7 +256,7 @@ app.controller("carritoController", function ($scope, $http, $sce, $filter, $win
 
 					$scope.preloader = true;
 					$scope.fechaActual = new Date();
-						$scope.fechaActual = $filter('date')($scope.fechaActual, 'yyyy-MM-dd HH:mm:ss');
+					$scope.fechaActual = $filter('date')($scope.fechaActual, 'yyyy-MM-dd HH:mm:ss');
 					$http.post('../controladores/usuario/generarPedidoController.php', {
 						"localidad": $scope.localidad,
 						"domicilio": $scope.calleDomicilio,

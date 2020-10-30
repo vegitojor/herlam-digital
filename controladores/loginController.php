@@ -44,6 +44,7 @@ if($emailRegistrado){
 		ini_set('session.cookie_lifetime', '0');
 		ini_set('session.hash_bits_per_character','4');
 		ini_set('session.hash_function', 'sha256');
+		ini_set('session.cookie_samesite', 'Strict');
 		session_start();
 	}
 	// $_SESSION['usuario'] = Cliente::ObtenerCliente($conexion, $email, $pass);
