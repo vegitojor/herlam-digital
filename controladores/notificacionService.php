@@ -33,3 +33,7 @@ function getConexion(){
     $conn = new ConexionBD();
     return $conn->getConexion();
 }
+
+function listarNotificacionesEnviadas(){
+    return Notificacion::getNotificacionesEnviadas(getConexion());
+}

@@ -1,13 +1,17 @@
 app.controller("adminCategoriaController", function ($scope, $http, $sce, $filter) {
     
 
-    //Carga de Editor
-    $scope.editor
-    $scope.cargarEditor = function(){
-        CKEDITOR.replace(document.querySelector( '#mensajeNotificaciones'), {
-            toolbar: toolbarArray,
-            language: 'es'
-        })
+    $scope.notificacionesEnviadas = []
+
+    $scope.listarNotificacionesEnviadas = function(){
+        $http.post('../controladores/listarNotificacionesEnviadasController.php', {})
+            .success(function (response) {
+                $scope.notificacionesEnviadas = response
+            });
+    }
+
+    $scope.mostrarModal = function(notificacion){
+        $scope.mensaje = $sce.trustAsHtml(notificacion.mensaje)
     }
 
     $scope.enviarMail = function(){
@@ -33,15 +37,21 @@ app.controller("adminCategoriaController", function ($scope, $http, $sce, $filte
                     alert('El mail se envio satisfactoriamente.');
                 else
                     alert('Ocurrio un error al enviar un mensaje.');
-
-                // $scope.cerrarCargaCategoria();
-                // $scope.descripcion = "";
-                // $scope.fichaTecnica = "";
-                // $scope.listarCategorias();
             });
 
+        //Forma de mostrar las notificaciones enviadas
         $scope.mensajeEnviado = $sce.trustAsHtml($scope.notificacionData.mensaje)
         $scope.mensajeControl = "Hola mundo"
+    }
+
+
+    //Carga de Editor
+    $scope.editor
+    $scope.cargarEditor = function(){
+        CKEDITOR.replace(document.querySelector( '#mensajeNotificaciones'), {
+            toolbar: toolbarArray,
+            language: 'es'
+        })
     }
 
 

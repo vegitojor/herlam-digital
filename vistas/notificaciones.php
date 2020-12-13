@@ -57,14 +57,19 @@ include_once ('../incluciones/verificacionAdmin.php');
                     </form>
                 </div>
             </div>
-            <div class="w3-container w3-padding-16 w3-col s12 l6">
+            <div class="w3-container w3-padding-16 w3-col s12 l6" ng-init="listarNotificacionesEnviadas()">
                 <div class="w3-container  w3-white w3-round"  >
-                    <h1>Hola Mundo</h1>
-                    <h1>Hola Mundo</h1>
-                    <h1>Hola Mundo</h1>
-                    <div  ng-bind-html="mensajeEnviado"></div>
-                    <div>{{mensajeControl}}</div>
+                    <div ng-if="notificacionesEnviadas.length != 0 ">
+                        <div ng-bind-html="mensaje"></div>
+                        <div ng-repeat="notificacion in notificacionesEnviadas" >
+                            <h5>{{notificacion.id}}</h5>
+                            <p ng-click="mostrarModal(notificacion)">{{notificacion.asunto}}</p>
+                            <!-- <div ng-bind-html="notificacion.mensaje"></div> -->
+                        </div>
 
+                        <div ng-bind-html="mensajeEnviado"></div>
+                    </div>
+                    <div ng-if="notificacionesEnviadas.length == 0 ">No hay notificaciones enviadas.</div>
                 </div>
             </div>
         </div>

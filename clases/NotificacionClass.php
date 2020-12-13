@@ -48,4 +48,18 @@ class Notificacion
         return $output;
     }
 
+    public static function getNotificacionesEnviadas($conexion){
+        $consulta = "SELECT *
+                    FROM notificaciones_enviadas ne";
+
+
+        $resultado = mysqli_query($conexion, $consulta);
+        $output = array();
+		while ($fila=mysqli_fetch_assoc($resultado)) {
+            $fila["mensaje"] = html_entity_decode($fila["mensaje"]);
+			$output[] =  $fila;	
+		}
+        return $output;
+    }
+
 }
