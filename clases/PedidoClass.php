@@ -331,13 +331,8 @@ class Pedido
         mysqli_stmt_bind_param($resultado, 'iii', $estado, $cliente, $pedido);
         mysqli_stmt_execute($resultado);
         $result = mysqli_stmt_get_result($resultado);
-        // $output = array();
-        // while ($fila = mysqli_fetch_assoc($result)){
-        //     $output[] = $fila;
-        // }
+        
         $output = mysqli_fetch_assoc($result);
-        // var_dump($estado);
-        // die('query');
         //================== Postgres =======================
         // $result = pg_query($conexion, $consulta);
         // $output = array();

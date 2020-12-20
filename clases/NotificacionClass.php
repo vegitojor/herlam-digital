@@ -48,17 +48,41 @@ class Notificacion
         return $output;
     }
 
-    public static function getNotificacionesEnviadas($conexion){
-        $consulta = "SELECT *
-                    FROM notificaciones_enviadas ne";
+    public static function getNotificacionesEnviadas($conexion, $desde, $limite){
+        $consulta = "SELECT ne.id as id,
+                    ne.destinatarios,
+                    ne.cantidad_destinatarios,
+                    ne.asunto,
+                    ne.fecha,
+                    ne.mensaje,
+                    ne.usuario_id,
+                    u.nombre
+                    FROM notificaciones_enviadas ne
+                    left join cliente u on u.id = ne.usuario_id
+                    ORDER BY ne.id DESC 
+                    LIMIT ?, ?";
 
+        $stmt = mysqli_prepare($conexion, $consulta);
+        mysqli_stmt_bind_param($stmt, "ii", $desde, $limite);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_stmt_get_result($stmt);
 
-        $resultado = mysqli_query($conexion, $consulta);
         $output = array();
 		while ($fila=mysqli_fetch_assoc($resultado)) {
             $fila["mensaje"] = html_entity_decode($fila["mensaje"]);
 			$output[] =  $fila;	
 		}
+        return $output;
+    }
+
+    public static function contarCantidadNotificacionesEnviadas($conexion){
+        $consulta = "SELECT count(*) AS cantidad
+                    FROM notificaciones_enviadas ne";
+
+        //================== MySQL =======================
+        $resultado = mysqli_query($conexion, $consulta);
+        
+        $output = mysqli_fetch_assoc($resultado);
         return $output;
     }
 

@@ -1,17 +1,25 @@
-app.controller("adminCategoriaController", function ($scope, $http, $sce, $filter) {
+app.controller("adminCategoriaController", function ($scope, $http, $sce, $filter, $window) {
     
 
     $scope.notificacionesEnviadas = []
 
     $scope.listarNotificacionesEnviadas = function(){
-        $http.post('../controladores/listarNotificacionesEnviadasController.php', {})
+        $http.post('../controladores/listarNotificacionesEnviadasController.php', {'desde': $scope.desde, 'limite': $scope.limite})
             .success(function (response) {
                 $scope.notificacionesEnviadas = response
+                $scope.cantidadDePaginacion();
             });
     }
 
     $scope.mostrarModal = function(notificacion){
         $scope.mensaje = $sce.trustAsHtml(notificacion.mensaje)
+        $scope.notificacionModal = notificacion
+        document.getElementById('mensajeModal').style.display='block';
+    }
+
+    $scope.cerrarModal = function(pedido){
+        $scope.mostrarDestinatarios = false
+        document.getElementById('mensajeModal').style.display='none';
     }
 
     $scope.enviarMail = function(){
@@ -23,26 +31,88 @@ app.controller("adminCategoriaController", function ($scope, $http, $sce, $filte
 		$scope.fechaActual = $filter('date')($scope.fechaActual, 'yyyy-MM-dd HH:mm:ss');
 
         $scope.notificacionData = {
-            destino: null,
+            destino: $scope.destino == undefined ? null : $scope.destino,
             asunto: $scope.asunto,
             mensaje: String($scope.editor.getData()),
             fecha: $scope.fechaActual
         }
 
+        if($scope.notificacionData.mensaje != undefined && $scope.notificacionData.mensaje != null && $scope.notificacionData.mensaje != ""){
+            if($scope.notificacionData.destino == null){
+                if(confirm("Esta por enviar un mensaje a TODOS los contactos. ¿Desea continuar?"))
+                    $scope.postMail()
+            }else{
+                $scope.postMail()
+            }
+        }
+        else
+            alert('Verifique el contenido del mensaje antes de continuar.');
+    }
+
+    $scope.postMail = function(){
         $http.post('../controladores/enviarNotificacionController.php', $scope.notificacionData)
             .success(function (response) {
                 $scope.respuesta = response;
 
-                if($scope.respuesta.mensaje == 1)
+                if($scope.respuesta.mensaje == 1){
                     alert('El mail se envio satisfactoriamente.');
+                    $window.location.reload();
+                }
                 else
                     alert('Ocurrio un error al enviar un mensaje.');
             });
-
-        //Forma de mostrar las notificaciones enviadas
-        $scope.mensajeEnviado = $sce.trustAsHtml($scope.notificacionData.mensaje)
-        $scope.mensajeControl = "Hola mundo"
     }
+
+    $scope.mostrarDestinatarios = false
+    $scope.mostrarOcultarDestinatarios = function(){
+        $scope.mostrarDestinatarios = !$scope.mostrarDestinatarios
+    }
+
+
+      /**************** PAGINACION ***********************/
+      $scope.desde = 0;
+      $scope.limite = 9;
+      $scope.claseActive = {'w3-green': true};
+  
+      //SE BUSCA EL TOTAL DE PRODUCTOS PARA CALCULAR LA CANTIDAD DE PAGINAS
+      $scope.cantidadDePaginacion = function(){
+          $http.post('../controladores/contarNotificacionController.php')
+          .success(function(response){
+              $scope.cantidadProductos = response.cantidad;
+              resto = $scope.cantidadProductos % $scope.limite;
+              $scope.numeroDePaginas = ($scope.cantidadProductos - resto) / $scope.limite;
+              if(resto > 0){
+                  $scope.numeroDePaginas++;
+              }
+              array = [];
+              for(var i = 0; i<$scope.numeroDePaginas; i++){
+                  array.push((i+1));
+              }
+              $scope.paginaciones = array;
+          });
+      } 
+  
+  
+  
+      //BUSCA EL RESULTADO DE PRODUCTOS SEGUN LA PAGINA SELECCIONADA
+      $scope.buscarSegunPagina = function( desdePaginacion){
+          $scope.desde = desdePaginacion*$scope.limite - $scope.limite;
+          $scope.listarNotificacionesEnviadas();
+      }
+  
+      //BUSCA EL RESULTADO DE PRODUCTOS SEGUN LAS FLACHAS PULSADAS (ADELANTE O ATRAS)
+      $scope.cambiarPagina = function(direccion, categoria){
+          if(direccion == 0){
+              if($scope.desde > 0)
+                  $scope.desde = $scope.desde - $scope.limite;
+          }else{
+              cantidadMaxima = $scope.numeroDePaginas * $scope.limite - $scope.limite;
+              if($scope.desde < cantidadMaxima)
+                  $scope.desde = $scope.desde + $scope.limite;
+          }
+          $scope.listarNotificacionesEnviadas();
+      }
+      /****************** FIN PAGINACION */
 
 
     //Carga de Editor

@@ -222,12 +222,16 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 
 .w3-round-right {
     border-radius: 0 8px 8px 0;
-}
+}w3
 
 textarea.w3-input:focus {
     
     outline-color: #CCC;
     /* box-shadow: 0 2px 4px 0; */
+}
+
+.w3-min-height-70-vh {
+    min-height: 70vh;
 }
 
 
