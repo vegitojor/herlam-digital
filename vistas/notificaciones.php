@@ -60,14 +60,7 @@ include_once ('../incluciones/verificacionAdmin.php');
             <div class="w3-container w3-padding-16 w3-col s12 l6" ng-init="listarNotificacionesEnviadas()">
                 <div class="w3-container  w3-white w3-round w3-min-height-70-vh"  >
                     <div class="" ng-if="notificacionesEnviadas.length != 0 " >
-                        <!-- <div ng-bind-html="mensaje"></div> -->
                         <div>
-                        <!-- <div ng-repeat="notificacion in notificacionesEnviadas" >
-                            <h4 class="w3-text-blue"><strong>{{notificacion.asunto}}</strong></h4>
-                            <span class="">fecha de envio: <span class="w3-wide">{{notificacion.fecha}}</span></span>
-                            <p>Cantidad de destinatarios: <span class="w3-badge w3-green">{{notificacion.cantidad_destinatarios}}</span></p>
-                            <a href="" class="w3-button" ng-click="mostrarModal(notificacion)">{{notificacion.asunto}}</a> -->
-                            <!-- <div ng-bind-html="notificacion.mensaje"></div> -->
                             <h3>Bandeja de salida</h3>
                             <table class="w3-hoverable w3-striped" style="width: 100%">
                                 <thead>
