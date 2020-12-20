@@ -3,15 +3,15 @@
 Class ConexionBD {
 	// Config local
 	private $servidor = "localhost";
-	private $usuario = "root";
-	private $pass = "abrh++++";
-	private $bd = "herlam";
+	// private $usuario = "root";
+	// private $pass = "abrh++++";
+	// private $bd = "herlam";
 	private $port = '5432';
 
 	//Config Prod
-	//  private $usuario = "daniel33_digital";
-	//  private $pass = "MZTrfokHERLAM";
-	//  private $bd = "daniel33_herlamdigital";
+	 private $usuario = "daniel33_digital";
+	 private $pass = "MZTrfokHERLAM";
+	 private $bd = "daniel33_herlamdigital";
 
 	//Esto es un comentario de prueba===== git deploy problem
 
