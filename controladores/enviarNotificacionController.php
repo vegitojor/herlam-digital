@@ -10,7 +10,7 @@ if($data->destino != null)
 
 
 $asunto = strip_tags($data->asunto);
-$mensaje = htmlentities($data->mensaje);
+$mensaje = $data->mensaje;
 $fecha = strip_tags($data->fecha);
 
 
@@ -24,7 +24,7 @@ $cantidadDestinatarios = contarDestino($destino);
 //validar existencia de destinatarios
 
 //guardar notificacion
-guardarNotificacion($destinatarios, $asunto, $mensaje, $fecha, $usuario, $cantidadDestinatarios);
+guardarNotificacion($destinatarios, $asunto, htmlentities($mensaje), $fecha, $usuario, $cantidadDestinatarios);
 
 
 
