@@ -1,9 +1,11 @@
 app.controller("formularioLogin", function($scope, $http, $window){
 	$scope.iniciarSesion = function(){
 		//se realiza lamado ajax al controlador de login
+		userAgent = window.navigator.userAgent
 		$http.post('../controladores/loginController.php',
 					{'email': $scope.emailLogin,
-					'pass': $scope.passLogin})
+					'pass': $scope.passLogin,
+					'userAgent': userAgent})
 		.success(function(data){
 			$scope.data = data;
 			//se redirige al home si el mail se encuentra en la BD o se envia mensaje de alerta en caso contrario

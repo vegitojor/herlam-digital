@@ -38,6 +38,7 @@ include_once ('../incluciones/verificacionAdmin.php');
                         <br>
                         <div class="">
                             <label>Destinatario/s</label>
+                            <a href="" class="w3-btn w3-gray  w3-round w3-margin-bottom" ng-click="mostrarModalBusquedaDeGrupos()">buscar grupo</a>
                             <input 	type="text" class="w3-input" name="destino" ng-model="destino" placeholder="TODOS LOS CONTACTOS - o escriba los mail de destino separados por ';'." >
                         </div>
                         <div class="">
@@ -129,22 +130,65 @@ include_once ('../incluciones/verificacionAdmin.php');
                 <div ng-bind-html="mensaje" class="w3-white w3-round" style="padding: 10px;" ></div>
                 <br>
             </div>
-            
-            
+		</div>
+	</div>
 
-			<!-- <div class="w3-container">
-				
-				<span ng-click="cerrarModal()" 
-				class="w3-button w3-display-topright">&times;</span>
-				<div>
-                    <div></div>
-                    <div ng-bind-html="mensaje"></div>
-					<div></div>
-				</div>
-				<div class="w3-content">
-					
-				</div>
-			</div> -->
+    <!-- The Modal -->
+	<div id="busquedaDeGrupos" class="w3-modal"> 
+		<div class="w3-modal-content w3-animate-bottom" >
+            <header class="w3-container w3-gray">
+                <span ng-click="cerrarModalBusquedaDeGrupos()" 
+                    class="w3-button w3-display-topright">&times;</span>
+                <h2>Generar grupo de destinatarios</h2>
+            </header>
+
+            <div class="w3-container w3-light-gray">
+                <form name="enviarMailForm">
+                    <br>
+                    <div class="w3-content w3-center">
+
+                        <select class="w3-select" name="proveedor" id="proveedor"  required>
+                            <option value="" disabled>Seleccione un proveedor</option>
+                            <option value="1" >Segun cantidad de ingresos al sistema</option>
+                            <option value="2" >Segun cantidad de Pedidos</option>
+                            <option value="3" >Segun cantidad de productos en el carrito</option>
+                            <option value="4" >Segun cantidad de favoritos</option>
+                            <!-- <option ng-repeat="proveedor in proveedores" value="{{proveedor.id}}">{{proveedor.nombre}}</option> -->
+                        </select>
+                        <div ng-show="formularioProducto.$submitted || formularioProducto.proveedor.$touched">
+                            <span class="w3-red" ng-show="formularioProducto.proveedor.$error.required">El campo es obligatorio.</span>
+                        </div>
+                        <!-- <label for="proveedor">Proveedor*</label> -->
+
+                    </div>
+                    <div>
+                        <input class="w3-radio" type="radio" name="gender" value="asc" >
+                        <label>Ascendente</label>
+                        
+                        <input class="w3-radio" type="radio" name="gender" value="desc" checked>
+                        <label>Descendente</label>
+                    </div>
+                    <br>
+                    <div class="">
+                        <label>Cant. de resultados a buscar:</label>
+                        <input 	type="number" class="w3-input" name="destino" ng-model="destino" placeholder="ingrese la cantidad deseada de registros a mostrar en el resultado." >
+                    </div>
+                    
+                    <div class="">
+                        <a href="" class="w3-btn w3-gray  w3-round w3-margin w3-right"   ng-click="mostrarModalBusquedaDeGrupos()">buscar grupo</a>
+                    </div>
+                    <hr>
+                    <div>
+                        <label for="">Resultados:</label>
+                        <textarea class="w3-input" name="mensaje" id="mensajeNotificaciones" cols="30" rows="10" placeholder="Mensaje" required></textarea>
+                    </div>
+                    
+                    <br>
+                    <input type="submit" ng-disabled="enviarMailForm.$invalid" class="w3-right w3-btn w3-white w3-border w3-border-green w3-round w3-margin-bottom" value="Enviar" ng-click="enviarMail()">
+                    <br>
+                    <br>
+                </form>
+            </div>
 		</div>
 	</div>
 

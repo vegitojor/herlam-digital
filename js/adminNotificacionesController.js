@@ -17,9 +17,21 @@ app.controller("adminCategoriaController", function ($scope, $http, $sce, $filte
         document.getElementById('mensajeModal').style.display='block';
     }
 
+    $scope.mostrarModalBusquedaDeGrupos = function(){
+        // $scope.mensaje = $sce.trustAsHtml(notificacion.mensaje)
+        // $scope.notificacionModal = notificacion
+        document.getElementById('busquedaDeGrupos').style.display='block';
+    }
+
     $scope.cerrarModal = function(pedido){
         $scope.mostrarDestinatarios = false
         document.getElementById('mensajeModal').style.display='none';
+    }
+    
+
+    $scope.cerrarModalBusquedaDeGrupos = function(){
+        // $scope.mostrarDestinatarios = false
+        document.getElementById('busquedaDeGrupos').style.display='none';
     }
 
     $scope.enviarMail = function(){
@@ -67,6 +79,9 @@ app.controller("adminCategoriaController", function ($scope, $http, $sce, $filte
     $scope.mostrarOcultarDestinatarios = function(){
         $scope.mostrarDestinatarios = !$scope.mostrarDestinatarios
     }
+
+
+    
 
 
       /**************** PAGINACION ***********************/

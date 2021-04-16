@@ -123,4 +123,3 @@ if(isset($_GET['p'])){
     <?php endforeach; ?>
 
 </table>
-

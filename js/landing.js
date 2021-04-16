@@ -2,12 +2,13 @@ $(document).ready(function(){
     $("#submit").click(function(){
         let mail = $("#mail").val();
         let pass = $("#pass").val();
+        let userAgent = window.navigator.userAgent
 
         if(mail != undefined && mail != '' && pass != undefined && pass != ''){
             $.ajax({
                 url: 'controladores/loginController.php',
                 type:'post',
-                data: JSON.stringify( {'email': mail, 'pass': pass}),
+                data: JSON.stringify( {'email': mail, 'pass': pass, 'userAgent': userAgent}),
                 contentType:'application/json' 
             })
             .success(function(response){
