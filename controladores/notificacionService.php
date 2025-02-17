@@ -4,7 +4,7 @@ require_once('../clases/NotificacionClass.php');
 require_once('./mailService.php');
 
     
-    function guardarNotificacion($destinatarios, $asunto, $mensaje, $fecha, $usuario, $cantidad){
+function guardarNotificacion($destinatarios, $asunto, $mensaje, $fecha, $usuario, $cantidad){
     //guardar cantidad de mail. calcular con el length de destinatarios
     // $cantidad = count($destinatarios);
     // $destinatarios = implode(";", $destinatarios);
