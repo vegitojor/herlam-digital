@@ -1,25 +1,15 @@
-var desde = 0;
-var desdeConRespuesta = 0;
-var limite = 15;
-var arrayPreguntaSinRespuesta = [];
 
 app.controller("adminPregunta", function ($scope, $http, $sce, $filter, $window) {
    
    $scope.listarPreguntasSinRespuesta = function(){
-   		$http.post('../controladores/listarPreguntasAdminController.php', {sinRespuesta: false, desde: desde, limite: limite})
+   		$http.post('../controladores/listarPreguntasAdminController.php', {sinRespuesta: false, desde: $scope.desde, limite: $scope.limite})
    		.success(function(response){
-            if(desde == 0){
-               arrayPreguntaSinRespuesta = response;
-               $scope.preguntasSinRespuestas = arrayPreguntaSinRespuesta;   
-            }else{
-               arrayPreguntaSinRespuesta = arrayPreguntaSinRespuesta.concat(response);
-               $scope.preguntasSinRespuestas = arrayPreguntaSinRespuesta;
-            }
+            $scope.preguntasSinRespuestas = response;
    		});
    }
 
    $scope.listarPreguntasConRespuesta = function(){
-   		$http.post('../controladores/listarPreguntasAdminController.php', {sinRespuesta: true, desde: desdeConRespuesta, limite: limite})
+   		$http.post('../controladores/listarPreguntasAdminController.php', {sinRespuesta: true, desde: $scope.desdeConRespuesta, limite: $scope.limite})
    		.success(function(response){
    			$scope.preguntasConRespuestas = response;
    		});
@@ -58,9 +48,83 @@ app.controller("adminPregunta", function ($scope, $http, $sce, $filter, $window)
       $scope.divRespuesta = false;
    }
 
-   $scope.traerMasPreguntasSinRespuesta = function(){
-      desde = desde + limite;
+   /**************** PAGINACION ***********************/
+   $scope.desde = 0;
+   $scope.desdeConRespuesta = 0;
+   $scope.limite = 10;
+
+   //SE BUSCA EL TOTAL DE PRODUCTOS PARA CALCULAR LA CANTIDAD DE PAGINAS
+   $scope.cantidadDePaginacion = function(){
+     $http.get('../controladores/contarCantidadPreguntasAdminController.php')
+     .success(function(response){
+        //Preguntas
+        $scope.cantidadPreguntas = response.cantidad;
+        resto = $scope.cantidadPreguntas % $scope.limite;
+        $scope.numeroDePaginasPreguntas = ($scope.cantidadPreguntas - resto) / $scope.limite;
+        if(resto > 0){
+           $scope.numeroDePaginasPreguntas++;
+        }
+        arrayPaginasPreguntas = [];
+        for(var i = 0; i<$scope.numeroDePaginasPreguntas; i++){
+         arrayPaginasPreguntas.push((i+1));
+        }
+        $scope.paginacionesPreguntas = arrayPaginasPreguntas;
+
+        //Respuestas
+        $scope.cantidadPreguntasConRespuesta = response.cantidadConRespuesta;
+        restoRespuestas = $scope.cantidadPreguntasConRespuesta % $scope.limite;
+        $scope.numeroDePaginasRespuestas = ($scope.cantidadPreguntasConRespuesta - restoRespuestas) / $scope.limite;
+        if(restoRespuestas > 0){
+           $scope.numeroDePaginasRespuestas++;
+        }
+        arrayPaginasRespuestas = [];
+        for(var i = 0; i<$scope.numeroDePaginasRespuestas; i++){
+         arrayPaginasRespuestas.push((i+1));
+        }
+        $scope.paginacionesRespuestas = arrayPaginasRespuestas;
+     });
+   } 
+
+   //BUSCA EL RESULTADO DE PRODUCTOS SEGUN LA PAGINA SELECCIONADA
+   //Pregunta
+   $scope.buscarSegunPagina = function( desdePaginacion){
+     $scope.desde = desdePaginacion*$scope.limite - $scope.limite;
+     $scope.listarPreguntasSinRespuesta();
    }
+
+   //Respuesta
+   $scope.buscarSegunPaginaRespuesta = function( desdePaginacion){
+      $scope.desdeConRespuesta = desdePaginacion*$scope.limite - $scope.limite;
+      $scope.listarPreguntasConRespuesta();
+    }
+
+   //BUSCA EL RESULTADO DE PRODUCTOS SEGUN LAS FLeCHAS PULSADAS (ADELANTE O ATRAS)
+   //Preguntas
+   $scope.cambiarPagina = function(direccion, categoria){
+     if(direccion == 0){
+        if($scope.desde > 0)
+           $scope.desde = $scope.desde - $scope.limite;
+     }else{
+        cantidadMaxima = $scope.numeroDePaginasPreguntas * $scope.limite - $scope.limite;
+        if($scope.desde < cantidadMaxima)
+           $scope.desde = $scope.desde + $scope.limite;
+     }
+     $scope.listarPreguntasSinRespuesta();
+   }
+
+   //Respuestas
+   $scope.cambiarPaginaRespuesta = function(direccion){
+      if(direccion == 0){
+         if($scope.desdeConRespuesta > 0)
+            $scope.desdeConRespuesta = $scope.desdeConRespuesta - $scope.limite;
+      }else{
+         cantidadMaximaRespuesta = $scope.numeroDePaginasRespuestas * $scope.limite - $scope.limite;
+         if($scope.desdeConRespuesta < cantidadMaximaRespuesta)
+            $scope.desdeConRespuesta = $scope.desdeConRespuesta + $scope.limite;
+      }
+      $scope.listarPreguntasConRespuesta();
+    }
+   /****************** FIN PAGINACION */
 });
 
 

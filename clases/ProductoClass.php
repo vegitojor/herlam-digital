@@ -994,6 +994,11 @@ Class Producto{
         return $output;
     }
 
+	/* 
+	**
+	Preguntas y respuestas
+	**
+	*/
     public static function guardarPregunta($conexion, $pregunta, $respondida, $idUsuario, $idProducto, $fecha){
 		$consulta = "INSERT INTO pregunta (pregunta, respondida, id_cliente, id_producto, fecha)
 						VALUES (?,?,?,?,?)";
@@ -1106,6 +1111,23 @@ Class Producto{
 		//==================== Postgres =====================
 		// pg_query_params($conexion, $consulta, array($idPregunta));
 	}
+
+	public static function contarCantidadPreguntasAdmin($conexion, $conRespuesta){
+		$consulta = "SELECT count(*) as cantidad
+					FROM pregunta p
+					WHERE p.respondida = ?";
+		$stmt = mysqli_prepare($conexion, $consulta);
+		mysqli_stmt_bind_param($stmt, 'i', $conRespuesta);
+		mysqli_stmt_execute($stmt);
+		$resultado = mysqli_stmt_get_result($stmt);
+		return mysqli_fetch_assoc($resultado); 
+	}
+
+	/* 
+	**
+	Fin de Preguntas y respuestas
+	**
+	*/
 
 	public static function verificarExistenciaDeProductoEnCarrito($conexion, $idProducto, $idUsuario){
 		$consulta = "SELECT COUNT(*) AS existe FROM carrito_compra

@@ -40,7 +40,7 @@ include_once('../incluciones/verificacionAdmin.php');
                         <p>Id de pregunta: {{idPregunta}}</p>
                         <p>
                             <label for="">Respuesta:</label>
-                            <input type="text" class="w3-input" name="respuesta" ng-model="respuesta" placeholder="Ingrese su respuesta" required="required" autofocus>
+                            <textarea type="text" rows="7" class="w3-input" name="respuesta" ng-model="respuesta" placeholder="Ingrese su respuesta" required="required" autofocus></textarea>
                         </p>
                         <input type="hidden" name="idPregunta" ng-model="idPregunta">
                         <button class="w3-btn w3-green w3-right" ng-click="enviarRespuesta()" ng-disabled="respuestaForm.$invalid">
@@ -79,9 +79,21 @@ include_once('../incluciones/verificacionAdmin.php');
                             </tr>
                         </tbody>
                     </table>
-                    <a href="" class="w3-btn w3-green w3-round w3-right w3-margin-right" ng-show="preguntasSinRespuestas.length == 15" ng-click="traerMasPreguntasSinRespuesta()">Ver m&aacute;s</a>
-                    <br><br>
+                    <!-- <a href="" class="w3-btn w3-green w3-round w3-right w3-margin-right" ng-show="preguntasSinRespuestas.length > 1" ng-click="traerMasPreguntasSinRespuesta()">Ver m&aacute;s</a>
+                    <br><br> -->
                 </div>
+                <!-- <footer>paginacion</footer> -->
+
+                 <!-- PAGINACION -->
+                <div class="w3-bar w3-border w3-round w3-center " ng-init="cantidadDePaginacion()">
+                    <a href="" class="w3-button" ng-click="cambiarPagina(0)">&#10094; Previous</a>
+                    
+                    <a href="" class="w3-button " ng-repeat="paginacion in paginacionesPreguntas" ng-class="{'w3-green': (desde==(paginacion * limite - limite))}" ng-click="buscarSegunPagina(paginacion)">{{paginacion}}</a>
+                    
+    
+                    <a href="" class="w3-button" ng-click="cambiarPagina(1)">Next &#10095;</a>
+                </div>
+                <!-- FIN PAGINACION -->
             </div>
         </div>
     
@@ -115,7 +127,15 @@ include_once('../incluciones/verificacionAdmin.php');
                         </tbody>
                     </table>
                 </div>
-                <footer>paginacion</footer>
+
+                <!-- PAGINACION -->
+                <div class="w3-bar w3-border w3-round w3-center " > 
+                    <a href="" class="w3-button" ng-click="cambiarPaginaRespuesta(0)">&#10094; Previous</a>
+                    <a href="" class="w3-button " ng-repeat="paginacion in paginacionesRespuestas" ng-class="{'w3-green': (desdeConRespuesta==(paginacion * limite - limite))}" ng-click="buscarSegunPaginaRespuesta(paginacion)">{{paginacion}}</a>
+                    <a href="" class="w3-button" ng-click="cambiarPaginaRespuesta(1)">Next &#10095;</a>
+                </div>
+                <!-- FIN PAGINACION -->
+
             </div>
         </div>
     </div>
