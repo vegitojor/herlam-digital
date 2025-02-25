@@ -41,12 +41,15 @@ $respondida = 0;
 $conn = new ConexionBD();
 $conexion = $conn->getConexion();
 
+$conexion->set_charset("utf8mb4");
+
 if($idProducto == null || $pregunta == null){
 	$conn->cerrarConexion();
 	$mensaje = ['respuesta' => 0,];
     echo json_encode($mensaje);
 }else{
 	//SE GUARDA LA PREGUNTA
+	var_dump($pregunta);
 	$respuesta = Producto::guardarPregunta($conexion, $pregunta, $respondida, $idUsuario, $idProducto, $fecha);
 
 	$mensaje = array();

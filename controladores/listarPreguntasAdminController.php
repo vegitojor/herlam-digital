@@ -20,6 +20,7 @@ $limite = (int)$limite;
 $conn = new ConexionBD();
 $conexion = $conn->getConexion();
 
+$conexion->set_charset("utf8mb4");
 
 //Se ejecuta la funcion de la clase y se optienen los resultados
 $output = Producto::listarPreguntasSinRespuestas($conexion, $sinRespuesta, $desde, $limite);
