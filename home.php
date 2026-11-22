@@ -29,7 +29,7 @@ include_once('./incluciones/versionRand.php');
     <!-- Angular JS -->
     <script type="text/javascript" src="librerias/angularjs/angular.min.js?<?= $versionJs ?>"></script>
     <script type="text/javascript" src="js/indexModulo.js?<?= $versionJs ?>"></script>
-    <script type="text/javascript" src="js/indexController.js?<?= $versionJs ?>"></script>
+    <script type="text/javascript" src="js/inicioController.js?<?= $versionJs ?>"></script>
 
     <!-- AngularVideo directive -->
     <script type="text/javascript" src="librerias/angular-video/anguvideo.js?<?= $versionJs ?>"></script>
