@@ -1,17 +1,25 @@
 <?php 
 
 Class ConexionBD {
-	// Config local
 	private $servidor = "localhost";
+	
+	// Config local
 	// private $usuario = "root";
-	// private $pass = "abrh++++";
+	// private $pass = "";
 	// private $bd = "herlam";
-	private $port = '5432';
+	// private $port = '3306';
 
 	//Config Prod
-	 private $usuario = "daniel33_digital";
-	 private $pass = "MZTrfokHERLAM";
-	 private $bd = "daniel33_herlamdigital";
+	private $usuario = "daniel33_digital";
+	private $pass = "MZTrfokHERLAM";
+	private $bd = "daniel33_herlamdigital";
+	private $port = '5432';
+
+	//Config dev_prod
+	// private $usuario = "daniel33_dev_digital";
+	// private $pass = "TwWyRAUb8nY2W58ecFXE";
+	// private $bd = "daniel33_dev_digital";
+	// private $port = '5432';
 
 	//Esto es un comentario de prueba===== git deploy problem
 

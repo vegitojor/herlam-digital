@@ -82,6 +82,7 @@
                                             <td>Estado</td>
                                             <td>Domicilio entrega</td>
                                             <td>Productos</td>
+                                            <td>Contacto</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -99,6 +100,13 @@
                                             </td>
                                             <td>
                                                 <a href="javascript:void(0);" ng-click="mostrarProductos(pedido)">Ver productos</a>
+                                            </td>
+                                            <td>
+                                                <button type="button"
+                                                        class="btn btn-success btn-sm"
+                                                        ng-click="contactarWhatsApp(pedido)">
+                                                    <i class="fa fa-whatsapp"></i> WhatsApp
+                                                </button>
                                             </td>
                                         </tr>
                                     </tbody>

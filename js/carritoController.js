@@ -273,7 +273,41 @@ app.controller("carritoController", function ($scope, $http, $sce, $filter, $win
 					})
 					.success(function(response){
 						if(response.respuesta == 1){
-							$window.location.href='./pedido.php';
+							var numeroWhatsApp = '5491126939286';
+
+							var mensajeWhatsApp =
+								'Hola, acabo de realizar un pedido en Herlam Digital.\n\n' +
+								'Número de pedido: #' + response.idPedido + '\n\n' +
+								'Quisiera coordinar los detalles de mi compra, entrega y pago.';
+
+							var urlWhatsApp = 'https://wa.me/' + numeroWhatsApp +
+								'?text=' + encodeURIComponent(mensajeWhatsApp);
+
+							bootbox.dialog({
+								title: '¡Pedido recibido correctamente!',
+								message:
+									'<p>Tu pedido <strong>#' + response.idPedido +
+									'</strong> fue registrado correctamente.</p>' +
+									'<p>Un vendedor se pondrá en contacto contigo para coordinar ' +
+									'los detalles de tu compra, entrega y pago.</p>',
+								buttons: {
+									whatsapp: {
+										label: '<i class="fa fa-whatsapp"></i> WhatsApp',
+										className: 'btn-success',
+										callback: function() {
+											window.open(urlWhatsApp, '_blank');
+											return false;
+										}
+									},
+									continuar: {
+										label: 'Continuar',
+										className: 'btn-primary',
+										callback: function() {
+											$window.location.href = './pedido.php';
+										}
+									}
+								}
+							});
 						}
 						else if(response.respuesta == 2){
 							bootbox.alert('No fue posible generar el pedido. Por favor vuelva a intentarlo en unos momentos');

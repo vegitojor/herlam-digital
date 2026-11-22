@@ -88,4 +88,38 @@ app.controller("pedidoController", function ($scope, $http, $sce, $filter, $wind
 		})
 	}
 
+
+	$scope.contactarWhatsApp = function(pedido) {
+		var numeroWhatsApp = '5491126939286';
+
+		var mensajeWhatsApp =
+			'Hola, quisiera realizar una consulta sobre mi pedido #' + pedido.id + '.\n\n' +
+			'¿Podrían ayudarme con información sobre el mismo?\n\n' +
+			'¡Muchas gracias!';
+
+
+		var urlWhatsApp = 'https://wa.me/' + numeroWhatsApp +
+			'?text=' + encodeURIComponent(mensajeWhatsApp);
+
+		bootbox.dialog({
+			title: 'Consulta sobre pedido #' + pedido.id,
+			message:
+				'<p>Podés contactar a nuestro equipo de ventas por WhatsApp para realizar consultas sobre este pedido, coordinar la entrega o solicitar información adicional.</p>',
+
+			buttons: {
+				whatsapp: {
+					label: '<i class="fa fa-whatsapp"></i> WhatsApp',
+					className: 'btn-success',
+					callback: function() {
+						window.open(urlWhatsApp, '_blank');
+						return false;
+					}
+				},
+				continuar: {
+					label: 'Continuar',
+					className: 'btn-primary'
+				}
+			}
+		});
+	}
 });
